@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>KeuanganKu - Aplikasi Keuangan Pribadi</title>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* Header */
+        .header {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .logo h1 {
+            color: #764ba2;
+            font-size: 24px;
+        }
+        
+        .logo span {
+            color: #667eea;
+            font-weight: 300;
+        }
+        
+        .date {
+            background: #f0f0f0;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 500;
+        }
+        
+        /* Navigation Tabs */
+        .nav-tabs {
+            display: flex;
+            background: white;
+            border-radius: 15px;
+            padding: 10px;
+            margin-bottom: 20px;
+            overflow-x: auto;
+            gap: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .nav-tab {
+            padding: 12px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+            white-space: nowrap;
+            background: #f8f9fa;
+            color: #666;
+        }
+        
+        .nav-tab i {
+            margin-right: 8px;
+        }
+        
+        .nav-tab:hover {
+            background: #e9ecef;
+        }
+        
+        .nav-tab.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        /* Main Content */
+        .content {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            min-height: 500px;
+        }
+        
+        /* Dashboard Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+        
+        .stat-card.green {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+        }
+        
+        .stat-card.red {
+            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+        }
+        
+        .stat-card.blue {
+            background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
+        }
+        
+        .stat-title {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+        
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .stat-sub {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+        
+        /* Forms */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        
+        .form-control:focus {
+            border-color: #667eea;
+            outline: none;
+        }
+        
+        .form-select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 14px;
+            background: white;
+            cursor: pointer;
+        }
+        
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+        }
+        
+        .btn-danger {
+            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+        }
+        
+        .btn-warning {
+            background: linear-gradient(135deg, #ffc107 0%, #e0a800 100%);
+        }
+        
+        /* Tables */
+        .table-responsive {
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th {
+            background: #f8f9fa;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .badge {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .badge-success {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .badge-danger {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .badge-warning {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        /* Progress Bar */
+        .progress {
+            height: 25px;
+            background: #f0f0f0;
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .item-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .item-card h3 {
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        /* Filter */
+        .filter-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+            
+            .nav-tabs {
+                flex-wrap: nowrap;
+                justify-content: flex-start;
+            }
+            
+            .stat-value {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">
+                <h1>Keuangan<span>Ku</span></h1>
+                <p>Kelola Keuangan Pribadi</p>
+            </div>
+            <div class="date" id="currentDate"></div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="nav-tabs" id="navTabs">
+            <div class="nav-tab active" onclick="showTab('dashboard')">
+                <i class="fas fa-home"></i> Dashboard
+            </div>
+            <div class="nav-tab" onclick="showTab('transactions')">
+                <i class="fas fa-exchange-alt"></i> Transaksi
+            </div>
+            <div class="nav-tab" onclick="showTab('categories')">
+                <i class="fas fa-tags"></i> Kategori
+            </div>
+            <div class="nav-tab" onclick="showTab('savings')">
+                <i class="fas fa-piggy-bank"></i> Tabungan
+            </div>
+            <div class="nav-tab" onclick="showTab('debts')">
+                <i class="fas fa-hand-holding-usd"></i> Hutang/Piutang
+            </div>
+            <div class="nav-tab" onclick="showTab('reports')">
+                <i class="fas fa-file-alt"></i> Laporan
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content" id="mainContent">
+            <!-- Dashboard -->
+            <div id="dashboard">
+                <h2 style="margin-bottom: 20px;">Dashboard</h2>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-title">Total Saldo</div>
+                        <div class="stat-value" id="totalBalance">Rp 0</div>
+                        <div class="stat-sub">Semua transaksi</div>
+                    </div>
+                    <div class="stat-card green">
+                        <div class="stat-title">Total Pemasukan</div>
+                        <div class="stat-value" id="totalIncome">Rp 0</div>
+                        <div class="stat-sub">Bulan ini</div>
+                    </div>
+                    <div class="stat-card red">
+                        <div class="stat-title">Total Pengeluaran</div>
+                        <div class="stat-value" id="totalExpense">Rp 0</div>
+                        <div class="stat-sub">Bulan ini</div>
+                    </div>
+                    <div class="stat-card blue">
+                        <div class="stat-title">Total Transaksi</div>
+                        <div class="stat-value" id="totalTransactions">0</div>
+                        <div class="stat-sub">Semua waktu</div>
+                    </div>
+                </div>
+
+                <h3 style="margin: 30px 0 15px;">Transaksi Terbaru</h3>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Tanggal</th>
+                                <th>Kategori</th>
+                                <th>Deskripsi</th>
+                                <th>Jumlah</th>
+                                <th>Tipe</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recentTransactions">
+                            <tr>
+                                <td colspan="5" style="text-align: center;">Belum ada transaksi</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Transactions -->
+            <div id="transactions" style="display: none;">
+                <h2 style="margin-bottom: 20px;">Manajemen Transaksi</h2>
+                
+                <div class="form-group">
+                    <button class="btn" onclick="showAddTransactionForm()">
+                        <i class="fas fa-plus"></i> Tambah Transaksi Baru
+                    </button>
+                </div>
+
+                <div id="transactionForm" style="display: none; background: #f8f9fa; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                    <h3 style="margin-bottom: 15px;">Tambah Transaksi</h3>
+                    <div class="form-group">
+                        <label class="form-label">Tipe</label>
+                        <select class="form-select" id="transactionType">
+                            <option value="Pemasukan">Pemasukan</option>
+                            <option value="Pengeluaran">Pengeluaran</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Kategori</label>
+                        <select class="form-select" id="transactionCategory">
+                            <option value="Gaji">Gaji</option>
+                            <option value="Bonus">Bonus</option>
+                            <option value="Investasi">Investasi</option>
+                            <option value="Makanan">Makanan</option>
+                            <option value="Transport">Transport</option>
+                            <option value="Belanja">Belanja</option>
+                            <option value="Tagihan">Tagihan</option>
+                            <option value="Hiburan">Hiburan</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Jumlah (Rp)</label>
+                        <input type="number" class="form-control" id="transactionAmount" placeholder="Masukkan jumlah">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Deskripsi</label>
+                        <input type="text" class="form-control" id="transactionDesc" placeholder="Deskripsi transaksi">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Tanggal</label>
+                        <input type="date" class="form-control" id="transactionDate">
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-success" onclick="saveTransaction()">Simpan</button>
+                        <button class="btn btn-warning" onclick="hideAddTransactionForm()" style="margin-left: 10px;">Batal</button>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Tanggal</th>
+                                <th>Kategori</th>
+                                <th>Deskripsi</th>
+                                <th>Jumlah</th>
+                                <th>Tipe</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="allTransactions"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Categories -->
+            <div id="categories" style="display: none;">
+                <h2 style="margin-bottom: 20px;">Kategori Transaksi</h2>
+                
+                <div class="form-group">
+                    <button class="btn" onclick="showAddCategoryForm()">
+                        <i class="fas fa-plus"></i> Tambah Kategori Baru
+                    </button>
+                </div>
+
+                <div id="categoryForm" style="display: none; background: #f8f9fa; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                    <div class="form-group">
+                        <label class="form-label">Nama Kategori</label>
+                        <input type="text" class="form-control" id="categoryName" placeholder="Contoh: Makanan">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Tipe</label>
+                        <select class="form-select" id="categoryType">
+                            <option value="Pemasukan">Pemasukan</option>
+                            <option value="Pengeluaran">Pengeluaran</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-success" onclick="saveCategory()">Simpan</button>
+                        <button class="btn btn-warning" onclick="hideAddCategoryForm()">Batal</button>
+                    </div>
+                </div>
+
+                <div class="row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div class="item-card">
+                        <h3><i class="fas fa-arrow-up" style="color: #28a745;"></i> Pemasukan</h3>
+                        <div id="incomeCategories"></div>
+                    </div>
+                    <div class="item-card">
+                        <h3><i class="fas fa-arrow-down" style="color: #dc3545;"></i> Pengeluaran</h3>
+                        <div id="expenseCategories"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Savings -->
+            <div id="savings" style="display: none;">
+                <h2 style="margin-bottom: 20px;">Tabungan</h2>
+                
+                <div class="form-group">
+                    <button class="btn" onclick="showAddSavingForm()">
+                        <i class="fas fa-plus"></i> Tambah Tabungan Baru
+                    </button>
+                </div>
+
+                <div id="savingForm" style="display: none; background: #f8f9fa; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                    <div class="form-group">
+                        <label class="form-label">Nama Tabungan</label>
+                        <input type="text" class="form-control" id="savingName" placeholder="Contoh: Liburan">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Target (Rp)</label>
+                        <input type="number" class="form-control" id="savingTarget">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Terkumpul (Rp)</label>
+                        <input type="number" class="form-control" id="savingCurrent" value="0">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Deadline</label>
+                        <input type="date" class="form-control" id="savingDeadline">
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-success" onclick="saveSaving()">Simpan</button>
+                        <button class="btn btn-warning" onclick="hideAddSavingForm()">Batal</button>
+                    </div>
+                </div>
+
+                <div class="cards-grid" id="savingsList"></div>
+            </div>
+
+            <!-- Debts -->
+            <div id="debts" style="display: none;">
+                <h2 style="margin-bottom: 20px;">Hutang & Piutang</h2>
+                
+                <div class="form-group">
+                    <button class="btn" onclick="showAddDebtForm()">
+                        <i class="fas fa-plus"></i> Tambah Data Baru
+                    </button>
+                </div>
+
+                <div id="debtForm" style="display: none; background: #f8f9fa; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                    <div class="form-group">
+                        <label class="form-label">Tipe</label>
+                        <select class="form-select" id="debtType">
+                            <option value="Hutang">Hutang (Saya berhutang)</option>
+                            <option value="Piutang">Piutang (Orang berhutang)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Nama Pihak</label>
+                        <input type="text" class="form-control" id="debtName" placeholder="Nama orang/lembaga">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Jumlah (Rp)</label>
+                        <input type="number" class="form-control" id="debtAmount">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Deskripsi</label>
+                        <input type="text" class="form-control" id="debtDesc" placeholder="Keterangan">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Tanggal Transaksi</label>
+                        <input type="date" class="form-control" id="debtDate">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Jatuh Tempo</label>
+                        <input type="date" class="form-control" id="debtDueDate">
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-success" onclick="saveDebt()">Simpan</button>
+                        <button class="btn btn-warning" onclick="hideAddDebtForm()">Batal</button>
+                    </div>
+                </div>
+
+                <div class="row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div class="item-card">
+                        <h3 style="color: #dc3545;"><i class="fas fa-arrow-left"></i> Hutang</h3>
+                        <div id="debtsList"></div>
+                    </div>
+                    <div class="item-card">
+                        <h3 style="color: #28a745;"><i class="fas fa-arrow-right"></i> Piutang</h3>
+                        <div id="receivablesList"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reports -->
+            <div id="reports" style="display: none;">
+                <h2 style="margin-bottom: 20px;">Laporan Keuangan</h2>
+                
+                <div class="filter-section">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;">
+                        <div>
+                            <label class="form-label">Bulan</label>
+                            <select class="form-select" id="reportMonth">
+                                <option value="1">Januari</option>
+                                <option value="2">Februari</option>
+                                <option value="3">Maret</option>
+                                <option value="4">April</option>
+                                <option value="5">Mei</option>
+                                <option value="6">Juni</option>
+                                <option value="7">Juli</option>
+                                <option value="8">Agustus</option>
+                                <option value="9">September</option>
+                                <option value="10">Oktober</option>
+                                <option value="11">November</option>
+                                <option value="12">Desember</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="form-label">Tahun</label>
+                            <select class="form-select" id="reportYear">
+                                <option value="2024">2024</option>
+                                <option value="2025">2025</option>
+                                <option value="2026">2026</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="form-label">&nbsp;</label>
+                            <button class="btn" onclick="generateReport()" style="width: 100%;">Tampilkan</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stats-grid" style="grid-template-columns: repeat(3, 1fr);">
+                    <div class="stat-card green">
+                        <div class="stat-title">Pemasukan</div>
+                        <div class="stat-value" id="reportIncome">Rp 0</div>
+                    </div>
+                    <div class="stat-card red">
+                        <div class="stat-title">Pengeluaran</div>
+                        <div class="stat-value" id="reportExpense">Rp 0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-title">Saldo</div>
+                        <div class="stat-value" id="reportBalance">Rp 0</div>
+                    </div>
+                </div>
+
+                <h3 style="margin: 20px 0;">Detail Transaksi</h3>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Tanggal</th>
+                                <th>Kategori</th>
+                                <th>Deskripsi</th>
+                                <th>Jumlah</th>
+                                <th>Tipe</th>
+                            </tr>
+                        </thead>
+                        <tbody id="reportTransactions"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data storage
+        let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+        let categories = JSON.parse(localStorage.getItem('categories')) || [
+            { name: 'Gaji', type: 'Pemasukan' },
+            { name: 'Bonus', type: 'Pemasukan' },
+            { name: 'Investasi', type: 'Pemasukan' },
+            { name: 'Makanan', type: 'Pengeluaran' },
+            { name: 'Transport', type: 'Pengeluaran' },
+            { name: 'Belanja', type: 'Pengeluaran' },
+            { name: 'Tagihan', type: 'Pengeluaran' },
+            { name: 'Hiburan', type: 'Pengeluaran' }
+        ];
+        let savings = JSON.parse(localStorage.getItem('savings')) || [];
+        let debts = JSON.parse(localStorage.getItem('debts')) || [];
+
+        // Format currency
+        function formatRupiah(angka) {
+            return 'Rp ' + angka.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+        }
+
+        // Format date
+        function formatDate(date) {
+            const d = new Date(date);
+            return d.getDate() + ' ' + 
+                ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'][d.getMonth()] + 
+                ' ' + d.getFullYear();
+        }
+
+        // Show current date
+        document.getElementById('currentDate').innerHTML = new Date().toLocaleDateString('id-ID', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+
+        // Tab navigation
+        function showTab(tabName) {
+            // Hide all tabs
+            document.getElementById('dashboard').style.display = 'none';
+            document.getElementById('transactions').style.display = 'none';
+            document.getElementById('categories').style.display = 'none';
+            document.getElementById('savings').style.display = 'none';
+            document.getElementById('debts').style.display = 'none';
+            document.getElementById('reports').style.display = 'none';
+            
+            // Show selected tab
+            document.getElementById(tabName).style.display = 'block';
+            
+            // Update active tab
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Refresh data
+            refreshAllData();
+        }
+
+        // Refresh all data
+        function refreshAllData() {
+            updateDashboard();
+            displayAllTransactions();
+            displayCategories();
+            displaySavings();
+            displayDebts();
+        }
+
+        // Update dashboard
+        function updateDashboard() {
+            const totalIncome = transactions
+                .filter(t => t.type === 'Pemasukan')
+                .reduce((sum, t) => sum + t.amount, 0);
+            
+            const totalExpense = transactions
+                .filter(t => t.type === 'Pengeluaran')
+                .reduce((sum, t) => sum + t.amount, 0);
+            
+            const balance = totalIncome - totalExpense;
+            
+            document.getElementById('totalBalance').innerHTML = formatRupiah(balance);
+            document.getElementById('totalIncome').innerHTML = formatRupiah(totalIncome);
+            document.getElementById('totalExpense').innerHTML = formatRupiah(totalExpense);
+            document.getElementById('totalTransactions').innerHTML = transactions.length;
+            
+            // Recent transactions
+            const recent = transactions.slice(-5).reverse();
+            let html = '';
+            recent.forEach(t => {
+                html += `<tr>
+                    <td>${formatDate(t.date)}</td>
+                    <td>${t.category}</td>
+                    <td>${t.description || '-'}</td>
+                    <td class="${t.type === 'Pemasukan' ? 'badge-success' : 'badge-danger'}" style="font-weight: 600;">${formatRupiah(t.amount)}</td>
+                    <td><span class="badge ${t.type === 'Pemasukan' ? 'badge-success' : 'badge-danger'}">${t.type}</span></td>
+                </tr>`;
+            });
+            document.getElementById('recentTransactions').innerHTML = recent.length ? html : '<tr><td colspan="5" style="text-align: center;">Belum ada transaksi</td></tr>';
+        }
+
+        // Display all transactions
+        function displayAllTransactions() {
+            let html = '';
+            transactions.slice().reverse().forEach((t, index) => {
+                html += `<tr>
+                    <td>${formatDate(t.date)}</td>
+                    <td>${t.category}</td>
+                    <td>${t.description || '-'}</td>
+                    <td class="${t.type === 'Pemasukan' ? 'badge-success' : 'badge-danger'}" style="font-weight: 600;">${formatRupiah(t.amount)}</td>
+                    <td><span class="badge ${t.type === 'Pemasukan' ? 'badge-success' : 'badge-danger'}">${t.type}</span></td>
+                    <td><button class="btn btn-danger btn-small" onclick="deleteTransaction(${index})" style="padding: 5px 10px;">Hapus</button></td>
+                </tr>`;
+            });
+            document.getElementById('allTransactions').innerHTML = html || '<tr><td colspan="6" style="text-align: center;">Belum ada transaksi</td></tr>';
+        }
+
+        // Delete transaction
+        function deleteTransaction(index) {
+            if (confirm('Yakin ingin menghapus transaksi ini?')) {
+                transactions.splice(index, 1);
+                localStorage.setItem('transactions', JSON.stringify(transactions));
+                refreshAllData();
+            }
+        }
+
+        // Save transaction
+        function saveTransaction() {
+            const transaction = {
+                type: document.getElementById('transactionType').value,
+                category: document.getElementById('transactionCategory').value,
+                amount: parseInt(document.getElementById('transactionAmount').value),
+                description: document.getElementById('transactionDesc').value,
+                date: document.getElementById('transactionDate').value || new Date().toISOString().split('T')[0]
+            };
+            
+            if (!transaction.amount) {
+                alert('Jumlah harus diisi!');
+                return;
+            }
+            
+            transactions.push(transaction);
+            localStorage.setItem('transactions', JSON.stringify(transactions));
+            
+            // Reset form
+            document.getElementById('transactionAmount').value = '';
+            document.getElementById('transactionDesc').value = '';
+            document.getElementById('transactionDate').value = '';
+            
+            hideAddTransactionForm();
+            refreshAllData();
+        }
+
+        // Show/hide forms
+        function showAddTransactionForm() {
+            document.getElementById('transactionForm').style.display = 'block';
+        }
+        
+        function hideAddTransactionForm() {
+            document.getElementById('transactionForm').style.display = 'none';
+        }
+        
+        function showAddCategoryForm() {
+            document.getElementById('categoryForm').style.display = 'block';
+        }
+        
+        function hideAddCategoryForm() {
+            document.getElementById('categoryForm').style.display = 'none';
+        }
+        
+        function showAddSavingForm() {
+            document.getElementById('savingForm').style.display = 'block';
+        }
+        
+        function hideAddSavingForm() {
+            document.getElementById('savingForm').style.display = 'none';
+        }
+        
+        function showAddDebtForm() {
+            document.getElementById('debtForm').style.display = 'block';
+        }
+        
+        function hideAddDebtForm() {
+            document.getElementById('debtForm').style.display = 'none';
+        }
+
+        // Display categories
+        function displayCategories() {
+            let incomeHtml = '';
+            let expenseHtml = '';
+            
+            categories.forEach(cat => {
+                if (cat.type === 'Pemasukan') {
+                    incomeHtml += `<div style="padding: 10px; border-bottom: 1px solid #eee;"><i class="fas fa-tag" style="color: #28a745; margin-right: 10px;"></i>${cat.name}</div>`;
+                } else {
+                    expenseHtml += `<div style="padding: 10px; border-bottom: 1px solid #eee;"><i class="fas fa-tag" style="color: #dc3545; margin-right: 10px;"></i>${cat.name}</div>`;
+                }
+            });
+            
+            document.getElementById('incomeCategories').innerHTML = incomeHtml || '<p>Belum ada kategori</p>';
+            document.getElementById('expenseCategories').innerHTML = expenseHtml || '<p>Belum ada kategori</p>';
+        }
+
+        // Save category
+        function saveCategory() {
+            const category = {
+                name: document.getElementById('categoryName').value,
+                type: document.getElementById('categoryType').value
+            };
+            
+            if (!category.name) {
+                alert('Nama kategori harus diisi!');
+                return;
+            }
+            
+            categories.push(category);
+            localStorage.setItem('categories', JSON.stringify(categories));
+            
+            document.getElementById('categoryName').value = '';
+            hideAddCategoryForm();
+            displayCategories();
+        }
+
+        // Display savings
+        function displaySavings() {
+            let html = '';
+            savings.forEach((s, index) => {
+                const percent = s.target ? Math.min(100, Math.round((s.current / s.target) * 100)) : 0;
+                html += `<div class="item-card">
+                    <h3>${s.name}</h3>
+                    <div class="progress">
+                        <div class="progress-bar" style="width: ${percent}%">${percent}%</div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-top: 10px;">
+                        <span>Terkumpul: ${formatRupiah(s.current)}</span>
+                        <span>Target: ${formatRupiah(s.target)}</span>
+                    </div>
+                    ${s.deadline ? `<small>Deadline: ${formatDate(s.deadline)}</small>` : ''}
+                    <div style="margin-top: 15px;">
+                        <input type="number" id="addSaving${index}" placeholder="Tambah" style="width: 70%; padding: 5px; border: 1px solid #ddd; border-radius: 5px;">
+                        <button class="btn btn-success btn-small" onclick="addToSaving(${index})" style="padding: 5px 10px;">Tambah</button>
+                    </div>
+                </div>`;
+            });
+            document.getElementById('savingsList').innerHTML = html || '<p style="text-align: center;">Belum ada tabungan</p>';
+        }
+
+        // Add to saving
+        function addToSaving(index) {
+            const amount = parseInt(document.getElementById(`addSaving${index}`).value);
+            if (amount) {
+                savings[index].current += amount;
+                localStorage.setItem('savings', JSON.stringify(savings));
+                displaySavings();
+            }
+        }
+
+        // Save saving
+        function saveSaving() {
+            const saving = {
+                name: document.getElementById('savingName').value,
+                target: parseInt(document.getElementById('savingTarget').value),
+                current: parseInt(document.getElementById('savingCurrent').value) || 0,
+                deadline: document.getElementById('savingDeadline').value
+            };
+            
+            if (!saving.name || !saving.target) {
+                alert('Nama dan target harus diisi!');
+                return;
+            }
+            
+            savings.push(saving);
+            localStorage.setItem('savings', JSON.stringify(savings));
+            
+            document.getElementById('savingName').value = '';
+            document.getElementById('savingTarget').value = '';
+            document.getElementById('savingCurrent').value = '0';
+            document.getElementById('savingDeadline').value = '';
+            
+            hideAddSavingForm();
+            displaySavings();
+        }
+
+        // Display debts
+        function displayDebts() {
+            let debtHtml = '';
+            let receivableHtml = '';
+            let totalDebt = 0;
+            let totalReceivable = 0;
+            
+            debts.forEach((d, index) => {
+                if (d.type === 'Hutang') {
+                    totalDebt += d.amount;
+                    debtHtml += `<div style="border-bottom: 1px solid #eee; padding: 15px;">
+                        <div style="display: flex; justify-content: space-between;">
+                            <strong>${d.name}</strong>
+                            <span style="color: #dc3545; font-weight: 600;">${formatRupiah(d.amount)}</span>
+                        </div>
+                        <small>${d.desc || '-'}</small><br>
+                        ${d.dueDate ? `<small>Jatuh tempo: ${formatDate(d.dueDate)}</small>` : ''}
+                        <div style="margin-top: 10px;">
+                            <button class="btn btn-success btn-small" onclick="markDebtPaid(${index})" style="padding: 3px 10px;">Lunas</button>
+                        </div>
+                    </div>`;
+                } else {
+                    totalReceivable += d.amount;
+                    receivableHtml += `<div style="border-bottom: 1px solid #eee; padding: 15px;">
+                        <div style="display: flex; justify-content: space-between;">
+                            <strong>${d.name}</strong>
+                            <span style="color: #28a745; font-weight: 600;">${formatRupiah(d.amount)}</span>
+                        </div>
+                        <small>${d.desc || '-'}</small><br>
+                        ${d.dueDate ? `<small>Jatuh tempo: ${formatDate(d.dueDate)}</small>` : ''}
+                        <div style="margin-top: 10px;">
+                            <button class="btn btn-success btn-small" onclick="markDebtPaid(${index})" style="padding: 3px 10px;">Diterima</button>
+                        </div>
+                    </div>`;
+                }
+            });
+            
+            debtHtml += `<hr><strong>Total Hutang: ${formatRupiah(totalDebt)}</strong>`;
+            receivableHtml += `<hr><strong>Total Piutang: ${formatRupiah(totalReceivable)}</strong>`;
+            
+            document.getElementById('debtsList').innerHTML = debtHtml || '<p>Belum ada hutang</p>';
+            document.getElementById('receivablesList').innerHTML = receivableHtml || '<p>Belum ada piutang</p>';
+        }
+
+        // Mark debt as paid
+        function markDebtPaid(index) {
+            if (confirm('Tandai sudah lunas?')) {
+                debts.splice(index, 1);
+                localStorage.setItem('debts', JSON.stringify(debts));
+                displayDebts();
+            }
+        }
+
+        // Save debt
+        function saveDebt() {
+            const debt = {
+                type: document.getElementById('debtType').value,
+                name: document.getElementById('debtName').value,
+                amount: parseInt(document.getElementById('debtAmount').value),
+                desc: document.getElementById('debtDesc').value,
+                date: document.getElementById('debtDate').value,
+                dueDate: document.getElementById('debtDueDate').value
+            };
+            
+            if (!debt.name || !debt.amount) {
+                alert('Nama dan jumlah harus diisi!');
+                return;
+            }
+            
+            debts.push(debt);
+            localStorage.setItem('debts', JSON.stringify(debts));
+            
+            document.getElementById('debtName').value = '';
+            document.getElementById('debtAmount').value = '';
+            document.getElementById('debtDesc').value = '';
+            document.getElementById('debtDate').value = '';
+            document.getElementById('debtDueDate').value = '';
+            
+            hideAddDebtForm();
+            displayDebts();
+        }
+
+        // Generate report
+        function generateReport() {
+            const month = parseInt(document.getElementById('reportMonth').value);
+            const year = parseInt(document.getElementById('reportYear').value);
+            
+            const filtered = transactions.filter(t => {
+                const d = new Date(t.date);
+                return d.getMonth() + 1 === month && d.getFullYear() === year;
+            });
+            
+            const income = filtered.filter(t => t.type === 'Pemasukan').reduce((sum, t) => sum + t.amount, 0);
+            const expense = filtered.filter(t => t.type === 'Pengeluaran').reduce((sum, t) => sum + t.amount, 0);
+            
+            document.getElementById('reportIncome').innerHTML = formatRupiah(income);
+            document.getElementById('reportExpense').innerHTML = formatRupiah(expense);
+            document.getElementById('reportBalance').innerHTML = formatRupiah(income - expense);
+            
+            let html = '';
+            filtered.forEach(t => {
+                html += `<tr>
+                    <td>${formatDate(t.date)}</td>
+                    <td>${t.category}</td>
+                    <td>${t.description || '-'}</td>
+                    <td class="${t.type === 'Pemasukan' ? 'badge-success' : 'badge-danger'}">${formatRupiah(t.amount)}</td>
+                    <td><span class="badge ${t.type === 'Pemasukan' ? 'badge-success' : 'badge-danger'}">${t.type}</span></td>
+                </tr>`;
+            });
+            document.getElementById('reportTransactions').innerHTML = html || '<tr><td colspan="5" style="text-align: center;">Tidak ada transaksi</td></tr>';
+        }
+
+        // Initialize
+        refreshAllData();
+        generateReport();
+
+        // Set default date
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('transactionDate').value = today;
+        document.getElementById('debtDate').value = today;
+    </script>
+</body>
+</html>
