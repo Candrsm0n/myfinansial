@@ -2,39 +2,1591 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aplikasi Keuangan Pribadi</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            background: #f4f6f9;
-            overflow-x: hidden;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
-        /* SIDEBAR - DESKTOP */
+        body {
+            background: #f4f6f9;
+        }
+        
+        /* LOGIN PAGE */
+        .login-page {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .login-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            width: 400px;
+            max-width: 90%;
+            overflow: hidden;
+        }
+        
+        .login-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .login-header i {
+            font-size: 60px;
+            margin-bottom: 10px;
+        }
+        
+        .login-body {
+            padding: 30px;
+        }
+        
+        /* SIDEBAR */
         .sidebar {
             min-height: 100vh;
             background: linear-gradient(180deg, #2c3e50, #3498db);
             position: fixed;
             width: 260px;
             color: white;
-            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
             z-index: 1000;
-            transition: all 0.3s ease;
-            overflow-y: auto;
         }
         
         .sidebar-header {
-            padding: 25px 20px;
+            padding: 30px 20px;
             text-align: center;
             border-bottom: 1px solid rgba(255,255,255,0.1);
         }
         
         .sidebar-header i {
+            font-size: 50px;
+            margin-bottom: 10px;
+        }
+        
+        .sidebar-header h5 {
+            font-size: 20px;
+            font-weight: 600;
+        }
+        
+        .sidebar-menu {
+            padding: 20px 0;
+        }
+        
+        .sidebar-menu button {
+            display: block;
+            width: 100%;
+            padding: 15px 25px;
+            background: none;
+            border: none;
+            color: rgba(255,255,255,0.8);
+            text-align: left;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-left: 4px solid transparent;
+        }
+        
+        .sidebar-menu button:hover {
+            background: rgba(255,255,255,0.15);
+            color: white;
+            border-left-color: white;
+            padding-left: 35px;
+        }
+        
+        .sidebar-menu button.active {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border-left-color: white;
+        }
+        
+        .sidebar-menu i {
+            width: 25px;
+            margin-right: 10px;
+        }
+        
+        /* CONTENT */
+        .content {
+            margin-left: 260px;
+            padding: 30px;
+        }
+        
+        .header {
+            background: white;
+            border-radius: 15px;
+            padding: 20px 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header h3 {
+            color: #333;
+            margin: 0;
+        }
+        
+        .date {
+            background: #f8f9fa;
+            padding: 8px 15px;
+            border-radius: 10px;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        /* CARDS */
+        .card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 25px;
+            border: none;
+        }
+        
+        .card-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px 15px 0 0 !important;
+            padding: 15px 20px;
+        }
+        
+        .card-body {
+            padding: 20px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+        
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+        
+        .btn-sm {
+            padding: 5px 10px;
+            font-size: 12px;
+        }
+        
+        /* STAT CARDS */
+        .stat-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+        
+        .stat-icon.primary { background: rgba(52,152,219,0.1); color: #3498db; }
+        .stat-icon.success { background: rgba(46,204,113,0.1); color: #2ecc71; }
+        .stat-icon.danger { background: rgba(231,76,60,0.1); color: #e74c3c; }
+        .stat-icon.info { background: rgba(52,152,219,0.1); color: #3498db; }
+        
+        .stat-info h6 {
+            font-size: 13px;
+            color: #7f8c8d;
+            margin-bottom: 5px;
+        }
+        
+        .stat-info h4 {
+            font-size: 22px;
+            font-weight: 700;
+            color: #333;
+            margin: 0;
+        }
+        
+        /* TABLES */
+        .table-responsive {
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th {
+            background: #f8f9fa;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            color: #333;
+            border-bottom: 2px solid #dee2e6;
+        }
+        
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .badge {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .badge-success {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .badge-danger {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        /* PROGRESS BAR */
+        .progress {
+            height: 25px;
+            background: #f0f0f0;
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #28a745, #20c997);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        /* FORMS */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .form-control, .form-select {
+            width: 100%;
+            padding: 10px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+        
+        .form-control:focus, .form-select:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+        
+        .input-group {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .input-group .form-control {
+            flex: 1;
+        }
+        
+        /* ROW SYSTEM */
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 -10px;
+        }
+        
+        .col-md-6 {
+            width: 50%;
+            padding: 0 10px;
+        }
+        
+        .col-md-4 {
+            width: 33.33%;
+            padding: 0 10px;
+        }
+        
+        .col-md-8 {
+            width: 66.67%;
+            padding: 0 10px;
+        }
+        
+        .col-md-3 {
+            width: 25%;
+            padding: 0 10px;
+        }
+        
+        .col-12 {
+            width: 100%;
+            padding: 0 10px;
+        }
+        
+        /* ALERT */
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .alert-danger {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        hr {
+            margin: 20px 0;
+            border: 0;
+            border-top: 1px solid rgba(0,0,0,0.1);
+        }
+        
+        .border-bottom {
+            border-bottom: 1px solid #dee2e6;
+        }
+        
+        .py-2 {
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+        
+        .text-success { color: #28a745; }
+        .text-danger { color: #dc3545; }
+        .text-center { text-align: center; }
+        .text-end { text-align: right; }
+        .fw-bold { font-weight: 700; }
+        .mb-0 { margin-bottom: 0; }
+        .mb-3 { margin-bottom: 15px; }
+        .mb-4 { margin-bottom: 20px; }
+        .me-2 { margin-right: 10px; }
+        .me-3 { margin-right: 15px; }
+        .mt-2 { margin-top: 10px; }
+        .mt-3 { margin-top: 15px; }
+        .w-100 { width: 100%; }
+        .d-flex { display: flex; }
+        .align-items-center { align-items: center; }
+        .justify-content-between { justify-content: space-between; }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                position: relative;
+                width: 100%;
+                min-height: auto;
+            }
+            .content {
+                margin-left: 0;
+            }
+            .stat-row {
+                grid-template-columns: 1fr;
+            }
+            .col-md-3, .col-md-4, .col-md-6, .col-md-8 {
+                width: 100%;
+                margin-bottom: 15px;
+            }
+            .header {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+        
+        /* CHART CONTAINER */
+        .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <!-- LOGIN PAGE -->
+    <div class="login-page" id="loginPage">
+        <div class="login-card">
+            <div class="login-header">
+                <i class="fas fa-wallet"></i>
+                <h4>APLIKASI KEUANGAN</h4>
+                <p>Kelola Keuangan Pribadi</p>
+            </div>
+            <div class="login-body">
+                <div id="loginError" class="alert alert-danger" style="display: none;">
+                    <i class="fas fa-exclamation-circle"></i> Username atau password salah!
+                </div>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label class="form-label">Username</label>
+                        <input type="text" id="username" class="form-control" value="admin">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <input type="password" id="password" class="form-control" value="admin123">
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">MASUK</button>
+                </form>
+                <hr>
+                <div class="text-center text-muted">
+                    <small>Username: admin | Password: admin123</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN APP -->
+    <div id="appPage" style="display: none;">
+        <!-- SIDEBAR -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-wallet"></i>
+                <h5>KeuanganKu</h5>
+                <p id="userDisplay">Administrator</p>
+            </div>
+            <div class="sidebar-menu">
+                <button onclick="showPage('dashboard')" id="menuDashboard" class="active">
+                    <i class="fas fa-home"></i> Dashboard
+                </button>
+                <button onclick="showPage('transaksi')" id="menuTransaksi">
+                    <i class="fas fa-exchange-alt"></i> Transaksi
+                </button>
+                <button onclick="showPage('kategori')" id="menuKategori">
+                    <i class="fas fa-tags"></i> Kategori
+                </button>
+                <button onclick="showPage('tabungan')" id="menuTabungan">
+                    <i class="fas fa-piggy-bank"></i> Tabungan
+                </button>
+                <button onclick="showPage('hutang')" id="menuHutang">
+                    <i class="fas fa-hand-holding-usd"></i> Hutang/Piutang
+                </button>
+                <button onclick="showPage('laporan')" id="menuLaporan">
+                    <i class="fas fa-file-alt"></i> Laporan
+                </button>
+                <button onclick="showPage('tambah')" id="menuTambah">
+                    <i class="fas fa-plus-circle"></i> Tambah Data
+                </button>
+                <hr>
+                <button onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </div>
+
+        <!-- CONTENT -->
+        <div class="content">
+            <!-- HEADER -->
+            <div class="header">
+                <h3 id="pageTitle">Dashboard</h3>
+                <div class="date" id="currentDate"></div>
+            </div>
+
+            <!-- MESSAGE AREA -->
+            <div id="messageArea" class="alert" style="display: none;"></div>
+
+            <!-- DASHBOARD PAGE -->
+            <div id="dashboardPage">
+                <div class="d-flex justify-content-between mb-4">
+                    <h4>Dashboard</h4>
+                    <button onclick="showPage('tambah')" class="btn btn-primary">
+                        <i class="fas fa-plus me-2"></i>Tambah Transaksi
+                    </button>
+                </div>
+
+                <div class="stat-row">
+                    <div class="stat-card">
+                        <div class="stat-icon primary">
+                            <i class="fas fa-wallet"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h6>Saldo Total</h6>
+                            <h4 id="totalBalance">Rp 0</h4>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon success">
+                            <i class="fas fa-arrow-up"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h6>Pemasukan Bulan Ini</h6>
+                            <h4 id="monthlyIncome">Rp 0</h4>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon danger">
+                            <i class="fas fa-arrow-down"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h6>Pengeluaran Bulan Ini</h6>
+                            <h4 id="monthlyExpense">Rp 0</h4>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon info">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h6>Total Transaksi</h6>
+                            <h4 id="totalTransactions">0</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0"><i class="fas fa-chart-line me-2"></i>Grafik 7 Hari Terakhir</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-container">
+                                    <canvas id="chartDashboard"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0"><i class="fas fa-info-circle me-2"></i>Ringkasan</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <p class="mb-1">Total Kategori</p>
+                                    <h5 id="totalCategories">0 Kategori</h5>
+                                </div>
+                                <div class="mb-3">
+                                    <p class="mb-1">Total Tabungan</p>
+                                    <h5 id="totalSavings">0 Tabungan</h5>
+                                </div>
+                                <div class="mb-3">
+                                    <p class="mb-1">Hutang Aktif</p>
+                                    <h5 id="activeDebts">0 Data</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0"><i class="fas fa-history me-2"></i>Transaksi Terbaru</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Tanggal</th>
+                                        <th>Kategori</th>
+                                        <th>Deskripsi</th>
+                                        <th>Jumlah</th>
+                                        <th>Tipe</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="recentTransactions"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TRANSAKSI PAGE -->
+            <div id="transaksiPage" style="display: none;">
+                <div class="d-flex justify-content-between mb-4">
+                    <h4>Semua Transaksi</h4>
+                    <div>
+                        <button onclick="showPage('tambah')" class="btn btn-primary me-2">
+                            <i class="fas fa-plus me-2"></i>Tambah
+                        </button>
+                        <button onclick="exportData()" class="btn btn-success">
+                            <i class="fas fa-download me-2"></i>Export
+                        </button>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Tanggal</th>
+                                        <th>Kategori</th>
+                                        <th>Deskripsi</th>
+                                        <th>Jumlah</th>
+                                        <th>Tipe</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="allTransactions"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- KATEGORI PAGE -->
+            <div id="kategoriPage" style="display: none;">
+                <div class="d-flex justify-content-between mb-4">
+                    <h4>Daftar Kategori</h4>
+                    <button onclick="showPage('tambah')" class="btn btn-primary">
+                        <i class="fas fa-plus me-2"></i>Tambah Kategori
+                    </button>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header bg-success text-white">
+                                <h5 class="mb-0"><i class="fas fa-arrow-up me-2"></i>Pemasukan</h5>
+                            </div>
+                            <div class="card-body" id="incomeCategories"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header bg-danger text-white">
+                                <h5 class="mb-0"><i class="fas fa-arrow-down me-2"></i>Pengeluaran</h5>
+                            </div>
+                            <div class="card-body" id="expenseCategories"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TABUNGAN PAGE -->
+            <div id="tabunganPage" style="display: none;">
+                <div class="d-flex justify-content-between mb-4">
+                    <h4>Tabungan Saya</h4>
+                    <button onclick="showPage('tambah')" class="btn btn-primary">
+                        <i class="fas fa-plus me-2"></i>Tambah Tabungan
+                    </button>
+                </div>
+
+                <div class="row" id="savingsList"></div>
+            </div>
+
+            <!-- HUTANG PAGE -->
+            <div id="hutangPage" style="display: none;">
+                <div class="d-flex justify-content-between mb-4">
+                    <h4>Hutang & Piutang</h4>
+                    <button onclick="showPage('tambah')" class="btn btn-primary">
+                        <i class="fas fa-plus me-2"></i>Tambah Data
+                    </button>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header bg-danger text-white">
+                                <h5 class="mb-0">Hutang</h5>
+                            </div>
+                            <div class="card-body" id="debtsList"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header bg-success text-white">
+                                <h5 class="mb-0">Piutang</h5>
+                            </div>
+                            <div class="card-body" id="receivablesList"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LAPORAN PAGE -->
+            <div id="laporanPage" style="display: none;">
+                <h4 class="mb-4">Laporan Keuangan</h4>
+
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label class="form-label">Bulan</label>
+                                <select id="reportMonth" class="form-select">
+                                    <option value="1">Januari</option>
+                                    <option value="2">Februari</option>
+                                    <option value="3" selected>Maret</option>
+                                    <option value="4">April</option>
+                                    <option value="5">Mei</option>
+                                    <option value="6">Juni</option>
+                                    <option value="7">Juli</option>
+                                    <option value="8">Agustus</option>
+                                    <option value="9">September</option>
+                                    <option value="10">Oktober</option>
+                                    <option value="11">November</option>
+                                    <option value="12">Desember</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Tahun</label>
+                                <select id="reportYear" class="form-select">
+                                    <option value="2024">2024</option>
+                                    <option value="2025">2025</option>
+                                    <option value="2026">2026</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4 d-flex align-items-end">
+                                <button onclick="generateReport()" class="btn btn-primary w-100">Tampilkan</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-row">
+                    <div class="stat-card">
+                        <div class="stat-icon success">
+                            <i class="fas fa-arrow-up"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h6>Total Pemasukan</h6>
+                            <h4 id="reportIncome">Rp 0</h4>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon danger">
+                            <i class="fas fa-arrow-down"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h6>Total Pengeluaran</h6>
+                            <h4 id="reportExpense">Rp 0</h4>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon primary">
+                            <i class="fas fa-wallet"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h6>Saldo</h6>
+                            <h4 id="reportBalance">Rp 0</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">Detail Transaksi</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Tanggal</th>
+                                        <th>Kategori</th>
+                                        <th>Deskripsi</th>
+                                        <th>Jumlah</th>
+                                        <th>Tipe</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="reportTransactions"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAMBAH DATA PAGE -->
+            <div id="tambahPage" style="display: none;">
+                <h4 class="mb-4">Tambah Data</h4>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <!-- Form Transaksi -->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5 class="mb-0"><i class="fas fa-exchange-alt me-2"></i>Tambah Transaksi</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label class="form-label">Tipe</label>
+                                    <select id="transactionTipe" class="form-select">
+                                        <option value="Pemasukan">Pemasukan</option>
+                                        <option value="Pengeluaran">Pengeluaran</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Kategori</label>
+                                    <input type="text" id="transactionKategori" class="form-control" value="Makanan">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Jumlah (Rp)</label>
+                                    <input type="number" id="transactionJumlah" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Deskripsi</label>
+                                    <input type="text" id="transactionDeskripsi" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Tanggal</label>
+                                    <input type="date" id="transactionTanggal" class="form-control">
+                                </div>
+                                <button onclick="saveTransaction()" class="btn btn-primary w-100">Simpan Transaksi</button>
+                            </div>
+                        </div>
+
+                        <!-- Form Kategori -->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5 class="mb-0"><i class="fas fa-tags me-2"></i>Tambah Kategori</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label class="form-label">Nama Kategori</label>
+                                    <input type="text" id="categoryName" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Tipe</label>
+                                    <select id="categoryType" class="form-select">
+                                        <option value="Pemasukan">Pemasukan</option>
+                                        <option value="Pengeluaran">Pengeluaran</option>
+                                    </select>
+                                </div>
+                                <button onclick="saveCategory()" class="btn btn-primary w-100">Simpan Kategori</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <!-- Form Tabungan -->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5 class="mb-0"><i class="fas fa-piggy-bank me-2"></i>Tambah Tabungan</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label class="form-label">Nama Tabungan</label>
+                                    <input type="text" id="savingName" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Target (Rp)</label>
+                                    <input type="number" id="savingTarget" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Saldo Awal (Rp)</label>
+                                    <input type="number" id="savingCurrent" class="form-control" value="0">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Deadline</label>
+                                    <input type="date" id="savingDeadline" class="form-control">
+                                </div>
+                                <button onclick="saveSaving()" class="btn btn-primary w-100">Simpan Tabungan</button>
+                            </div>
+                        </div>
+
+                        <!-- Form Hutang -->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5 class="mb-0"><i class="fas fa-hand-holding-usd me-2"></i>Tambah Hutang/Piutang</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label class="form-label">Tipe</label>
+                                    <select id="debtTipe" class="form-select">
+                                        <option value="Hutang">Hutang</option>
+                                        <option value="Piutang">Piutang</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Nama Pihak</label>
+                                    <input type="text" id="debtNama" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Jumlah (Rp)</label>
+                                    <input type="number" id="debtJumlah" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Deskripsi</label>
+                                    <input type="text" id="debtDeskripsi" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Tanggal Transaksi</label>
+                                    <input type="date" id="debtTanggal" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Jatuh Tempo</label>
+                                    <input type="date" id="debtJatuhTempo" class="form-control">
+                                </div>
+                                <button onclick="saveDebt()" class="btn btn-primary w-100">Simpan Data</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ============================================
+        // DATA STORAGE
+        // ============================================
+        let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+        let categories = JSON.parse(localStorage.getItem('categories')) || [
+            { id: 1, nama: 'Gaji', tipe: 'Pemasukan' },
+            { id: 2, nama: 'Bonus', tipe: 'Pemasukan' },
+            { id: 3, nama: 'Makanan', tipe: 'Pengeluaran' },
+            { id: 4, nama: 'Transport', tipe: 'Pengeluaran' },
+            { id: 5, nama: 'Belanja', tipe: 'Pengeluaran' }
+        ];
+        let savings = JSON.parse(localStorage.getItem('savings')) || [];
+        let debts = JSON.parse(localStorage.getItem('debts')) || [];
+
+        // Chart instance
+        let chart;
+
+        // ============================================
+        // FUNGSI HELPER
+        // ============================================
+        function rupiah(angka) {
+            return 'Rp ' + angka.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+        }
+
+        function formatTanggal(tanggal) {
+            if (!tanggal) return '-';
+            let d = new Date(tanggal);
+            let bulan = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+            return d.getDate() + ' ' + bulan[d.getMonth()] + ' ' + d.getFullYear();
+        }
+
+        // ============================================
+        // LOGIN SYSTEM
+        // ============================================
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            let username = document.getElementById('username').value;
+            let password = document.getElementById('password').value;
+            
+            if (username === 'admin' && password === 'admin123') {
+                document.getElementById('loginPage').style.display = 'none';
+                document.getElementById('appPage').style.display = 'block';
+                document.getElementById('userDisplay').innerHTML = 'Administrator';
+                
+                // Set tanggal
+                let now = new Date();
+                let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                document.getElementById('currentDate').innerHTML = now.toLocaleDateString('id-ID', options);
+                
+                if (transactions.length === 0) addSampleData();
+                refreshAllData();
+                showPage('dashboard');
+            } else {
+                document.getElementById('loginError').style.display = 'block';
+            }
+        });
+
+        function addSampleData() {
+            let today = new Date();
+            let yesterday = new Date(today);
+            yesterday.setDate(yesterday.getDate() - 1);
+            let twoDays = new Date(today);
+            twoDays.setDate(twoDays.getDate() - 2);
+            let threeDays = new Date(today);
+            threeDays.setDate(threeDays.getDate() - 3);
+            let fourDays = new Date(today);
+            fourDays.setDate(fourDays.getDate() - 4);
+            let fiveDays = new Date(today);
+            fiveDays.setDate(fiveDays.getDate() - 5);
+            let sixDays = new Date(today);
+            sixDays.setDate(sixDays.getDate() - 6);
+            
+            transactions = [
+                { id: 1, tanggal: today.toISOString().split('T')[0], tipe: 'Pemasukan', kategori: 'Gaji', jumlah: 5000000, deskripsi: 'Gaji bulan Maret' },
+                { id: 2, tanggal: yesterday.toISOString().split('T')[0], tipe: 'Pengeluaran', kategori: 'Makanan', jumlah: 150000, deskripsi: 'Makan di restoran' },
+                { id: 3, tanggal: twoDays.toISOString().split('T')[0], tipe: 'Pengeluaran', kategori: 'Transport', jumlah: 50000, deskripsi: 'Bensin' },
+                { id: 4, tanggal: threeDays.toISOString().split('T')[0], tipe: 'Pengeluaran', kategori: 'Belanja', jumlah: 750000, deskripsi: 'Belanja bulanan' },
+                { id: 5, tanggal: fourDays.toISOString().split('T')[0], tipe: 'Pemasukan', kategori: 'Bonus', jumlah: 1000000, deskripsi: 'Bonus tahunan' },
+                { id: 6, tanggal: fiveDays.toISOString().split('T')[0], tipe: 'Pengeluaran', kategori: 'Makanan', jumlah: 200000, deskripsi: 'Makan malam' },
+                { id: 7, tanggal: sixDays.toISOString().split('T')[0], tipe: 'Pengeluaran', kategori: 'Transport', jumlah: 100000, deskripsi: 'Parkir' }
+            ];
+            localStorage.setItem('transactions', JSON.stringify(transactions));
+        }
+
+        // ============================================
+        // LOGOUT
+        // ============================================
+        function logout() {
+            document.getElementById('loginPage').style.display = 'flex';
+            document.getElementById('appPage').style.display = 'none';
+        }
+
+        // ============================================
+        // PAGE NAVIGATION
+        // ============================================
+        function showPage(page) {
+            let pages = ['dashboard', 'transaksi', 'kategori', 'tabungan', 'hutang', 'laporan', 'tambah'];
+            pages.forEach(p => {
+                document.getElementById(p + 'Page').style.display = 'none';
+            });
+            
+            document.getElementById(page + 'Page').style.display = 'block';
+            document.getElementById('pageTitle').innerHTML = page.charAt(0).toUpperCase() + page.slice(1);
+            
+            let menus = ['dashboard', 'transaksi', 'kategori', 'tabungan', 'hutang', 'laporan', 'tambah'];
+            menus.forEach(m => {
+                document.getElementById('menu' + m.charAt(0).toUpperCase() + m.slice(1)).classList.remove('active');
+            });
+            document.getElementById('menu' + page.charAt(0).toUpperCase() + page.slice(1)).classList.add('active');
+            
+            if (page === 'dashboard') {
+                setTimeout(() => updateChart(), 100);
+            }
+        }
+
+        function showMessage(text, type) {
+            let msg = document.getElementById('messageArea');
+            msg.className = 'alert alert-' + type;
+            msg.innerHTML = text;
+            msg.style.display = 'block';
+            setTimeout(() => msg.style.display = 'none', 3000);
+        }
+
+        // ============================================
+        // REFRESH ALL DATA
+        // ============================================
+        function refreshAllData() {
+            updateDashboard();
+            displayAllTransactions();
+            displayCategories();
+            displaySavings();
+            displayDebts();
+            setTimeout(() => updateChart(), 100);
+        }
+
+        // ============================================
+        // DASHBOARD
+        // ============================================
+        function updateDashboard() {
+            let totalMasuk = 0, totalKeluar = 0;
+            transactions.forEach(t => {
+                if (t.tipe === 'Pemasukan') totalMasuk += t.jumlah;
+                else totalKeluar += t.jumlah;
+            });
+            let totalSaldo = totalMasuk - totalKeluar;
+            
+            let now = new Date();
+            let bulanIni = now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0');
+            let masukBulan = 0, keluarBulan = 0;
+            transactions.forEach(t => {
+                if (t.tanggal.startsWith(bulanIni)) {
+                    if (t.tipe === 'Pemasukan') masukBulan += t.jumlah;
+                    else keluarBulan += t.jumlah;
+                }
+            });
+            
+            document.getElementById('totalBalance').innerHTML = rupiah(totalSaldo);
+            document.getElementById('monthlyIncome').innerHTML = rupiah(masukBulan);
+            document.getElementById('monthlyExpense').innerHTML = rupiah(keluarBulan);
+            document.getElementById('totalTransactions').innerHTML = transactions.length;
+            document.getElementById('totalCategories').innerHTML = categories.length + ' Kategori';
+            document.getElementById('totalSavings').innerHTML = savings.length + ' Tabungan';
+            
+            let aktif = debts.filter(d => d.status !== 'Lunas').length;
+            document.getElementById('activeDebts').innerHTML = aktif + ' Data';
+            
+            let recent = transactions.slice(-5).reverse();
+            let html = '';
+            recent.forEach(t => {
+                html += `<tr>
+                    <td>${formatTanggal(t.tanggal)}</td>
+                    <td>${t.kategori}</td>
+                    <td>${t.deskripsi || '-'}</td>
+                    <td class="${t.tipe === 'Pemasukan' ? 'text-success' : 'text-danger'} fw-bold">${rupiah(t.jumlah)}</td>
+                    <td><span class="badge ${t.tipe === 'Pemasukan' ? 'badge-success' : 'badge-danger'}">${t.tipe}</span></td>
+                </tr>`;
+            });
+            document.getElementById('recentTransactions').innerHTML = html;
+        }
+
+        // ============================================
+        // CHART - PASTI MUNCUL
+        // ============================================
+        function updateChart() {
+            let ctx = document.getElementById('chartDashboard')?.getContext('2d');
+            if (!ctx) {
+                console.log('Canvas tidak ditemukan');
+                return;
+            }
+            
+            // Hapus chart lama jika ada
+            if (chart) {
+                chart.destroy();
+            }
+            
+            // Buat data untuk 7 hari terakhir
+            let labels = [];
+            let pemasukanData = [];
+            let pengeluaranData = [];
+            
+            for (let i = 6; i >= 0; i--) {
+                let date = new Date();
+                date.setDate(date.getDate() - i);
+                let dateStr = date.toISOString().split('T')[0];
+                let label = date.getDate() + '/' + (date.getMonth() + 1);
+                labels.push(label);
+                
+                let dayTrans = transactions.filter(t => t.tanggal === dateStr);
+                let pemasukan = dayTrans.filter(t => t.tipe === 'Pemasukan').reduce((sum, t) => sum + t.jumlah, 0);
+                let pengeluaran = dayTrans.filter(t => t.tipe === 'Pengeluaran').reduce((sum, t) => sum + t.jumlah, 0);
+                
+                pemasukanData.push(pemasukan);
+                pengeluaranData.push(pengeluaran);
+            }
+            
+            // Buat chart baru
+            chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Pemasukan',
+                            data: pemasukanData,
+                            borderColor: '#28a745',
+                            backgroundColor: 'rgba(40, 167, 69, 0.1)',
+                            borderWidth: 2,
+                            pointBackgroundColor: '#28a745',
+                            pointBorderColor: '#fff',
+                            pointBorderWidth: 2,
+                            pointRadius: 4,
+                            tension: 0.3,
+                            fill: true
+                        },
+                        {
+                            label: 'Pengeluaran',
+                            data: pengeluaranData,
+                            borderColor: '#dc3545',
+                            backgroundColor: 'rgba(220, 53, 69, 0.1)',
+                            borderWidth: 2,
+                            pointBackgroundColor: '#dc3545',
+                            pointBorderColor: '#fff',
+                            pointBorderWidth: 2,
+                            pointRadius: 4,
+                            tension: 0.3,
+                            fill: true
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top',
+                            labels: {
+                                boxWidth: 12,
+                                padding: 15
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    let value = context.raw || 0;
+                                    return label + ': ' + rupiah(value);
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return 'Rp ' + value.toLocaleString('id-ID');
+                                }
+                            },
+                            grid: {
+                                color: 'rgba(0,0,0,0.05)'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+            
+            console.log('Chart berhasil dibuat');
+        }
+
+        // ============================================
+        // TRANSAKSI
+        // ============================================
+        function displayAllTransactions() {
+            let html = '';
+            transactions.slice().reverse().forEach((t, i) => {
+                html += `<tr>
+                    <td>${formatTanggal(t.tanggal)}</td>
+                    <td>${t.kategori}</td>
+                    <td>${t.deskripsi || '-'}</td>
+                    <td class="${t.tipe === 'Pemasukan' ? 'text-success' : 'text-danger'} fw-bold">${rupiah(t.jumlah)}</td>
+                    <td><span class="badge ${t.tipe === 'Pemasukan' ? 'badge-success' : 'badge-danger'}">${t.tipe}</span></td>
+                    <td><button onclick="deleteTransaction(${i})" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Hapus</button></td>
+                </tr>`;
+            });
+            document.getElementById('allTransactions').innerHTML = html;
+        }
+
+        function deleteTransaction(index) {
+            if (confirm('Yakin ingin menghapus transaksi ini?')) {
+                transactions.splice(index, 1);
+                localStorage.setItem('transactions', JSON.stringify(transactions));
+                refreshAllData();
+                showMessage('Transaksi berhasil dihapus!', 'success');
+            }
+        }
+
+        function saveTransaction() {
+            let tipe = document.getElementById('transactionTipe').value;
+            let kategori = document.getElementById('transactionKategori').value;
+            let jumlah = parseInt(document.getElementById('transactionJumlah').value);
+            let deskripsi = document.getElementById('transactionDeskripsi').value;
+            let tanggal = document.getElementById('transactionTanggal').value || new Date().toISOString().split('T')[0];
+            
+            if (!jumlah) {
+                showMessage('Jumlah harus diisi!', 'danger');
+                return;
+            }
+            
+            let newId = transactions.length ? Math.max(...transactions.map(t => t.id)) + 1 : 1;
+            
+            transactions.push({
+                id: newId,
+                tanggal: tanggal,
+                tipe: tipe,
+                kategori: kategori,
+                jumlah: jumlah,
+                deskripsi: deskripsi
+            });
+            
+            localStorage.setItem('transactions', JSON.stringify(transactions));
+            refreshAllData();
+            showMessage('Transaksi berhasil ditambahkan!', 'success');
+            
+            document.getElementById('transactionJumlah').value = '';
+            document.getElementById('transactionDeskripsi').value = '';
+        }
+
+        // ============================================
+        // KATEGORI
+        // ============================================
+        function displayCategories() {
+            let incomeHtml = '', expenseHtml = '';
+            categories.forEach(c => {
+                if (c.tipe === 'Pemasukan') {
+                    incomeHtml += `<div class="border-bottom py-2"><i class="fas fa-tag text-success me-2"></i>${c.nama}</div>`;
+                } else {
+                    expenseHtml += `<div class="border-bottom py-2"><i class="fas fa-tag text-danger me-2"></i>${c.nama}</div>`;
+                }
+            });
+            document.getElementById('incomeCategories').innerHTML = incomeHtml || '<p class="text-muted">Belum ada kategori</p>';
+            document.getElementById('expenseCategories').innerHTML = expenseHtml || '<p class="text-muted">Belum ada kategori</p>';
+        }
+
+        function saveCategory() {
+            let nama = document.getElementById('categoryName').value;
+            let tipe = document.getElementById('categoryType').value;
+            
+            if (!nama) {
+                showMessage('Nama kategori harus diisi!', 'danger');
+                return;
+            }
+            
+            let newId = categories.length ? Math.max(...categories.map(c => c.id)) + 1 : 1;
+            
+            categories.push({
+                id: newId,
+                nama: nama,
+                tipe: tipe
+            });
+            
+            localStorage.setItem('categories', JSON.stringify(categories));
+            displayCategories();
+            showMessage('Kategori berhasil ditambahkan!', 'success');
+            document.getElementById('categoryName').value = '';
+        }
+
+        // ============================================
+        // TABUNGAN
+        // ============================================
+        function displaySavings() {
+            let html = '';
+            if (!savings.length) {
+                html = '<div class="col-12"><div class="card p-5 text-center"><i class="fas fa-piggy-bank fa-4x text-muted mb-3"></i><h5>Belum ada tabungan</h5></div></div>';
+            } else {
+                savings.forEach((s, i) => {
+                    let persen = s.target > 0 ? Math.min(100, Math.round((s.current / s.target) * 100)) : 0;
+                    html += `<div class="col-md-6 mb-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5>${s.nama}</h5>
+                                <div class="progress">
+                                    <div class="progress-bar" style="width: ${persen}%;">${persen}%</div>
+                                </div>
+                                <div class="d-flex justify-content-between mt-2">
+                                    <span>Terkumpul: <strong>${rupiah(s.current)}</strong></span>
+                                    <span>Target: <strong>${rupiah(s.target)}</strong></span>
+                                </div>
+                                ${s.deadline ? `<p class="text-muted small mt-2">Deadline: ${formatTanggal(s.deadline)}</p>` : ''}
+                                <hr>
+                                <div class="input-group">
+                                    <input type="number" id="addSaving${i}" class="form-control" placeholder="Jumlah">
+                                    <button onclick="updateSaving(${i})" class="btn btn-success">Tambah</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
+                });
+            }
+            document.getElementById('savingsList').innerHTML = html;
+        }
+
+        function updateSaving(index) {
+            let amount = parseInt(document.getElementById(`addSaving${index}`).value);
+            if (amount) {
+                savings[index].current += amount;
+                localStorage.setItem('savings', JSON.stringify(savings));
+                displaySavings();
+                showMessage('Tabungan berhasil ditambahkan!', 'success');
+                document.getElementById(`addSaving${index}`).value = '';
+            }
+        }
+
+        function saveSaving() {
+            let nama = document.getElementById('savingName').value;
+            let target = parseInt(document.getElementById('savingTarget').value);
+            let current = parseInt(document.getElementById('savingCurrent').value) || 0;
+            let deadline = document.getElementById('savingDeadline').value;
+            
+            if (!nama || !target) {
+                showMessage('Nama dan target harus diisi!', 'danger');
+                return;
+            }
+            
+            let newId = savings.length ? Math.max(...savings.map(s => s.id)) + 1 : 1;
+            
+            savings.push({
+                id: newId,
+                nama: nama,
+                target: target,
+                current: current,
+                deadline: deadline
+            });
+            
+            localStorage.setItem('savings', JSON.stringify(savings));
+            displaySavings();
+            showMessage('Tabungan berhasil ditambahkan!', 'success');
+            
+            document.getElementById('savingName').value = '';
+            document.getElementById('savingTarget').value = '';
+            document.getElementById('savingCurrent').value = '0';
+            document.getElementById('savingDeadline').value = '';
+        }
+
+        // ============================================
+        // HUTANG/PIUTANG
+        // ============================================
+        function displayDebts() {
+            let hutangHtml = '', piutangHtml = '';
+            let totalHutang = 0, totalPiutang = 0;
+            
+            debts.forEach((d, i) => {
+                if (d.status !== 'Lunas') {
+                    if (d.tipe === 'Hutang') {
+                        totalHutang += d.jumlah;
+                        hutangHtml += `<div class="border-bottom mb-2 pb-2">
+                            <div class="d-flex justify-content-between">
+                                <div><strong>${d.nama}</strong><br><small>${d.deskripsi || '-'}</small></div>
+                                <div class="text-end">
+                                    <span class="text-danger fw-bold">${rupiah(d.jumlah)}</span><br>
+                                    <button onclick="lunasHutang(${i})" class="btn btn-success btn-sm mt-1">Lunas</button>
+                                </div>
+                            </div>
+                        </div>`;
+                    } else {
+                        totalPiutang += d.jumlah;
+                        piutangHtml += `<div class="border-bottom mb-2 pb-2">
+                            <div class="d-flex justify-content-between">
+                                <div><strong>${d.nama}</strong><br><small>${d.deskripsi || '-'}</small></div>
+                                <div class="text-end">
+                                    <span class="text-success fw-bold">${rupiah(d.jumlah)}</span><br>
+                                    <button onclick="lunasHutang(${i})" class="btn btn-success btn-sm mt-1">Diterima</button>
+                                </div>
+                            </div>
+                        </div>`;
+                    }
+                }
+            });
+            
+            hutangHtml += `<hr><h6>Total Hutang: <span class="text-danger">${rupiah(totalHutang)}</span></h6>`;
+            piutangHtml += `<hr><h6>Total Piutang: <span class="text-success">${rupiah(totalPiutang)}</span></h6>`;
+            
+            document.getElementById('debtsList').innerHTML = hutangHtml || '<p class="text-muted">Tidak ada hutang</p>';
+            document.getElementById('receivablesList').innerHTML = piutangHtml || '<p class="text-muted">Tidak ada piutang</p>';
+        }
+
+        function lunasHutang(index) {
+            if (confirm('Tandai sudah lunas?')) {
+                debts[index].status = 'Lunas';
+                localStorage.setItem('debts', JSON.stringify(debts));
+                displayDebts();
+                showMessage('Status berhasil diupdate!', 'success');
+            }
+        }
+
+        function saveDebt() {
+            let tipe = document.getElementById('debtTipe').value;
+            let nama = document.getElementById('debtNama').value;
+            let jumlah = parseInt(document.getElementById('debtJumlah').value);
+            let deskripsi = document.getElementById('debtDeskripsi').value;
+            let tanggal = document.getElementById('debtTanggal').value;
+            let jatuhTempo = document.getElementById('debtJatuhTempo').value;
+            
+            if (!nama || !jumlah) {
+                showMessage('Nama dan jumlah harus diisi!', 'danger');
+                return;
+            }
+            
+            let newId = debts.length ? Math.max(...debts.map(d => d.id)) + 1 : 1;
+            
+            debts.push({
+                id: newId,
+                tipe: tipe,
+                nama: nama,
+                jumlah: jumlah,
+                deskripsi: deskripsi,
+                tanggal: tanggal || new Date().toISOString().split('T')[0],
+                jatuhTempo: jatuhTempo,
+                status: 'Belum Lunas'
+            });
+            
+            localStorage.setItem('debts', JSON.stringify(debts));
+            displayDebts();
+            showMessage('Data berhasil ditambahkan!', 'success');
+            
+            document.getElementById('debtNama').value = '';
+            document.getElementById('debtJumlah').value = '';
+            document.getElementById('debtDeskripsi').value = '';
+            document.getElementById('debtJatuhTempo').value = '';
+        }
+
+        // ============================================
+        // LAPORAN
+        // ============================================
+        function generateReport() {
+            let bulan = parseInt(document.getElementById('reportMonth').value);
+            let tahun = parseInt(document.getElementById('reportYear').value);
+            let bulanStr = tahun + '-' + String(bulan).padStart(2, '0');
+            
+            let filtered = transactions.filter(t => t.tanggal.startsWith(bulanStr));
+            
+            let totalMasuk = filtered.filter(t => t.tipe === 'Pemasukan').reduce((sum, t) => sum + t.jumlah, 0);
+            let totalKeluar = filtered.filter(t => t.tipe === 'Pengeluaran').reduce((sum, t) => sum + t.jumlah, 0);
+            
+            document.getElementById('reportIncome').innerHTML = rupiah(totalMasuk);
+            document.getElementById('reportExpense').innerHTML = rupiah(totalKeluar);
+            document.getElementById('reportBalance').innerHTML = rupiah(totalMasuk - totalKeluar);
+            
+            let html = '';
+            filtered.forEach(t => {
+                html += `<tr>
+                    <td>${formatTanggal(t.tanggal)}</td>
+                    <td>${t.kategori}</td>
+                    <td>${t.deskripsi || '-'}</td>
+                    <td class="${t.tipe === 'Pemasukan' ? 'text-success' : 'text-danger'}">${rupiah(t.jumlah)}</td>
+                    <td><span class="badge ${t.tipe === 'Pemasukan' ? 'badge-success' : 'badge-danger'}">${t.tipe}</span></td>
+                </tr>`;
+            });
+            document.getElementById('reportTransactions').innerHTML = html || '<tr><td colspan="5" class="text-center">Tidak ada transaksi</td></tr>';
+        }
+
+        // ============================================
+        // EXPORT
+        // ============================================
+        function exportData() {
+            let data = JSON.stringify(transactions, null, 2);
+            let blob = new Blob([data], { type: 'application/json' });
+            let url = URL.createObjectURL(blob);
+            let a = document.createElement('a');
+            a.href = url;
+            a.download = 'transaksi.json';
+            a.click();
+            URL.revokeObjectURL(url);
+            showMessage('Data berhasil diekspor!', 'success');
+        }
+
+        // ============================================
+        // SET DEFAULTS
+        // ============================================
+        let today = new Date().toISOString().split('T')[0];
+        document.getElementById('transactionTanggal').value = today;
+        document.getElementById('debtTanggal').value = today;
+
+        // Panggil updateChart saat halaman selesai dimuat
+        window.addEventListener('load', function() {
+            console.log('Halaman dimuat');
+            if (document.getElementById('appPage').style.display === 'block') {
+                setTimeout(() => updateChart(), 500);
+            }
+        });
+    </script>
+</body>
+</html>        .sidebar-header i {
             font-size: 48px;
             margin-bottom: 10px;
         }
