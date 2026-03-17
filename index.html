@@ -34,7 +34,6 @@
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
             width: 400px;
             max-width: 90%;
-            overflow: hidden;
         }
         
         .login-header {
@@ -194,6 +193,11 @@
             color: white;
         }
         
+        .btn-warning {
+            background: #ffc107;
+            color: #333;
+        }
+        
         .btn-sm {
             padding: 5px 10px;
             font-size: 12px;
@@ -347,8 +351,8 @@
             margin: 0 -10px;
         }
         
-        .col-md-6 {
-            width: 50%;
+        .col-md-3 {
+            width: 25%;
             padding: 0 10px;
         }
         
@@ -357,13 +361,13 @@
             padding: 0 10px;
         }
         
-        .col-md-8 {
-            width: 66.67%;
+        .col-md-6 {
+            width: 50%;
             padding: 0 10px;
         }
         
-        .col-md-3 {
-            width: 25%;
+        .col-md-8 {
+            width: 66.67%;
             padding: 0 10px;
         }
         
@@ -414,6 +418,7 @@
         .mb-0 { margin-bottom: 0; }
         .mb-3 { margin-bottom: 15px; }
         .mb-4 { margin-bottom: 20px; }
+        .me-1 { margin-right: 5px; }
         .me-2 { margin-right: 10px; }
         .me-3 { margin-right: 15px; }
         .mt-2 { margin-top: 10px; }
@@ -422,6 +427,91 @@
         .d-flex { display: flex; }
         .align-items-center { align-items: center; }
         .justify-content-between { justify-content: space-between; }
+        .flex-wrap { flex-wrap: wrap; }
+        .gap-2 { gap: 10px; }
+        
+        /* CATEGORY ITEMS */
+        .category-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .category-item:last-child {
+            border-bottom: none;
+        }
+        
+        .category-badge {
+            width: 20px;
+            height: 20px;
+            border-radius: 6px;
+            margin-right: 10px;
+            display: inline-block;
+        }
+        
+        .category-actions {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .category-actions button {
+            padding: 3px 8px;
+            font-size: 11px;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 15px;
+            width: 500px;
+            max-width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px 15px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-body {
+            padding: 20px;
+        }
+        
+        .modal-footer {
+            padding: 20px;
+            border-top: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+        
+        .close-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+        }
         
         @media (max-width: 768px) {
             .sidebar {
@@ -676,11 +766,11 @@
                 </div>
             </div>
 
-            <!-- KATEGORI PAGE -->
+            <!-- KATEGORI PAGE - DITINGKATKAN -->
             <div id="kategoriPage" style="display: none;">
                 <div class="d-flex justify-content-between mb-4">
-                    <h4>Daftar Kategori</h4>
-                    <button onclick="showPage('tambah')" class="btn btn-primary">
+                    <h4>Manajemen Kategori</h4>
+                    <button onclick="openCategoryModal()" class="btn btn-primary">
                         <i class="fas fa-plus me-2"></i>Tambah Kategori
                     </button>
                 </div>
@@ -689,17 +779,29 @@
                     <div class="col-md-6">
                         <div class="card">
                             <div class="card-header bg-success text-white">
-                                <h5 class="mb-0"><i class="fas fa-arrow-up me-2"></i>Pemasukan</h5>
+                                <h5 class="mb-0"><i class="fas fa-arrow-up me-2"></i> Kategori Pemasukan</h5>
                             </div>
-                            <div class="card-body" id="incomeCategories"></div>
+                            <div class="card-body">
+                                <div id="incomeCategoriesList" class="category-list"></div>
+                                <div id="emptyIncomeMessage" class="text-center text-muted py-3" style="display: none;">
+                                    <i class="fas fa-folder-open fa-2x mb-2"></i>
+                                    <p>Belum ada kategori pemasukan</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="card">
                             <div class="card-header bg-danger text-white">
-                                <h5 class="mb-0"><i class="fas fa-arrow-down me-2"></i>Pengeluaran</h5>
+                                <h5 class="mb-0"><i class="fas fa-arrow-down me-2"></i> Kategori Pengeluaran</h5>
                             </div>
-                            <div class="card-body" id="expenseCategories"></div>
+                            <div class="card-body">
+                                <div id="expenseCategoriesList" class="category-list"></div>
+                                <div id="emptyExpenseMessage" class="text-center text-muted py-3" style="display: none;">
+                                    <i class="fas fa-folder-open fa-2x mb-2"></i>
+                                    <p>Belum ada kategori pengeluaran</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -709,7 +811,7 @@
             <div id="tabunganPage" style="display: none;">
                 <div class="d-flex justify-content-between mb-4">
                     <h4>Tabungan Saya</h4>
-                    <button onclick="showPage('tambah')" class="btn btn-primary">
+                    <button onclick="openSavingModal()" class="btn btn-primary">
                         <i class="fas fa-plus me-2"></i>Tambah Tabungan
                     </button>
                 </div>
@@ -721,7 +823,7 @@
             <div id="hutangPage" style="display: none;">
                 <div class="d-flex justify-content-between mb-4">
                     <h4>Hutang & Piutang</h4>
-                    <button onclick="showPage('tambah')" class="btn btn-primary">
+                    <button onclick="openDebtModal()" class="btn btn-primary">
                         <i class="fas fa-plus me-2"></i>Tambah Data
                     </button>
                 </div>
@@ -838,7 +940,7 @@
                 </div>
             </div>
 
-            <!-- TAMBAH DATA PAGE -->
+            <!-- TAMBAH DATA PAGE - DITINGKATKAN -->
             <div id="tambahPage" style="display: none;">
                 <h4 class="mb-4">Tambah Data</h4>
 
@@ -852,14 +954,14 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label class="form-label">Tipe</label>
-                                    <select id="transactionTipe" class="form-select">
+                                    <select id="transactionTipe" class="form-select" onchange="updateTransactionKategori()">
                                         <option value="Pemasukan">Pemasukan</option>
                                         <option value="Pengeluaran">Pengeluaran</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">Kategori</label>
-                                    <input type="text" id="transactionKategori" class="form-control" value="Makanan">
+                                    <select id="transactionKategori" class="form-select"></select>
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">Jumlah (Rp)</label>
@@ -877,29 +979,6 @@
                             </div>
                         </div>
 
-                        <!-- Form Kategori -->
-                        <div class="card mb-4">
-                            <div class="card-header">
-                                <h5 class="mb-0"><i class="fas fa-tags me-2"></i>Tambah Kategori</h5>
-                            </div>
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <label class="form-label">Nama Kategori</label>
-                                    <input type="text" id="categoryName" class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Tipe</label>
-                                    <select id="categoryType" class="form-select">
-                                        <option value="Pemasukan">Pemasukan</option>
-                                        <option value="Pengeluaran">Pengeluaran</option>
-                                    </select>
-                                </div>
-                                <button onclick="saveCategory()" class="btn btn-primary w-100">Simpan Kategori</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
                         <!-- Form Tabungan -->
                         <div class="card mb-4">
                             <div class="card-header">
@@ -923,6 +1002,44 @@
                                     <input type="date" id="savingDeadline" class="form-control">
                                 </div>
                                 <button onclick="saveSaving()" class="btn btn-primary w-100">Simpan Tabungan</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <!-- Form Kategori - DITINGKATKAN -->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5 class="mb-0"><i class="fas fa-tags me-2"></i>Tambah Kategori</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label class="form-label">Nama Kategori</label>
+                                    <input type="text" id="categoryName" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Tipe</label>
+                                    <select id="categoryType" class="form-select">
+                                        <option value="Pemasukan">Pemasukan</option>
+                                        <option value="Pengeluaran">Pengeluaran</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Warna</label>
+                                    <input type="color" id="categoryColor" class="form-control" value="#3498db">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Icon</label>
+                                    <select id="categoryIcon" class="form-select">
+                                        <option value="fas fa-money-bill-wave">💰 Uang</option>
+                                        <option value="fas fa-utensils">🍽️ Makanan</option>
+                                        <option value="fas fa-bus">🚗 Transport</option>
+                                        <option value="fas fa-shopping-cart">🛒 Belanja</option>
+                                        <option value="fas fa-film">🎬 Hiburan</option>
+                                        <option value="fas fa-file-invoice">📄 Tagihan</option>
+                                    </select>
+                                </div>
+                                <button onclick="saveCategory()" class="btn btn-primary w-100">Simpan Kategori</button>
                             </div>
                         </div>
 
@@ -968,17 +1085,62 @@
         </div>
     </div>
 
+    <!-- MODAL EDIT KATEGORI -->
+    <div class="modal" id="editCategoryModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Edit Kategori</h5>
+                <button class="close-btn" onclick="closeEditCategoryModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="editCategoryId">
+                <div class="form-group">
+                    <label class="form-label">Nama Kategori</label>
+                    <input type="text" id="editCategoryName" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Tipe</label>
+                    <select id="editCategoryType" class="form-select">
+                        <option value="Pemasukan">Pemasukan</option>
+                        <option value="Pengeluaran">Pengeluaran</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Warna</label>
+                    <input type="color" id="editCategoryColor" class="form-control" value="#3498db">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Icon</label>
+                    <select id="editCategoryIcon" class="form-select">
+                        <option value="fas fa-money-bill-wave">💰 Uang</option>
+                        <option value="fas fa-utensils">🍽️ Makanan</option>
+                        <option value="fas fa-bus">🚗 Transport</option>
+                        <option value="fas fa-shopping-cart">🛒 Belanja</option>
+                        <option value="fas fa-film">🎬 Hiburan</option>
+                        <option value="fas fa-file-invoice">📄 Tagihan</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button onclick="closeEditCategoryModal()" class="btn btn-secondary">Batal</button>
+                <button onclick="updateCategory()" class="btn btn-primary">Simpan Perubahan</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         // ============================================
         // DATA STORAGE
         // ============================================
         let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
         let categories = JSON.parse(localStorage.getItem('categories')) || [
-            { id: 1, nama: 'Gaji', tipe: 'Pemasukan' },
-            { id: 2, nama: 'Bonus', tipe: 'Pemasukan' },
-            { id: 3, nama: 'Makanan', tipe: 'Pengeluaran' },
-            { id: 4, nama: 'Transport', tipe: 'Pengeluaran' },
-            { id: 5, nama: 'Belanja', tipe: 'Pengeluaran' }
+            { id: 1, nama: 'Gaji', tipe: 'Pemasukan', warna: '#28a745', icon: 'fas fa-money-bill-wave' },
+            { id: 2, nama: 'Bonus', tipe: 'Pemasukan', warna: '#17a2b8', icon: 'fas fa-gift' },
+            { id: 3, nama: 'Makanan', tipe: 'Pengeluaran', warna: '#dc3545', icon: 'fas fa-utensils' },
+            { id: 4, nama: 'Transport', tipe: 'Pengeluaran', warna: '#fd7e14', icon: 'fas fa-bus' },
+            { id: 5, nama: 'Belanja', tipe: 'Pengeluaran', warna: '#6f42c1', icon: 'fas fa-shopping-cart' },
+            { id: 6, nama: 'Tagihan', tipe: 'Pengeluaran', warna: '#20c997', icon: 'fas fa-file-invoice' },
+            { id: 7, nama: 'Hiburan', tipe: 'Pengeluaran', warna: '#e83e8c', icon: 'fas fa-film' }
         ];
         let savings = JSON.parse(localStorage.getItem('savings')) || [];
         let debts = JSON.parse(localStorage.getItem('debts')) || [];
@@ -1028,29 +1190,35 @@
 
         function addSampleData() {
             let today = new Date();
-            let yesterday = new Date(today);
-            yesterday.setDate(yesterday.getDate() - 1);
-            let twoDays = new Date(today);
-            twoDays.setDate(twoDays.getDate() - 2);
-            let threeDays = new Date(today);
-            threeDays.setDate(threeDays.getDate() - 3);
-            let fourDays = new Date(today);
-            fourDays.setDate(fourDays.getDate() - 4);
-            let fiveDays = new Date(today);
-            fiveDays.setDate(fiveDays.getDate() - 5);
-            let sixDays = new Date(today);
-            sixDays.setDate(sixDays.getDate() - 6);
+            let dates = [];
+            for (let i = 0; i < 7; i++) {
+                let d = new Date(today);
+                d.setDate(d.getDate() - i);
+                dates.push(d.toISOString().split('T')[0]);
+            }
             
             transactions = [
-                { id: 1, tanggal: today.toISOString().split('T')[0], tipe: 'Pemasukan', kategori: 'Gaji', jumlah: 5000000, deskripsi: 'Gaji bulan Maret' },
-                { id: 2, tanggal: yesterday.toISOString().split('T')[0], tipe: 'Pengeluaran', kategori: 'Makanan', jumlah: 150000, deskripsi: 'Makan di restoran' },
-                { id: 3, tanggal: twoDays.toISOString().split('T')[0], tipe: 'Pengeluaran', kategori: 'Transport', jumlah: 50000, deskripsi: 'Bensin' },
-                { id: 4, tanggal: threeDays.toISOString().split('T')[0], tipe: 'Pengeluaran', kategori: 'Belanja', jumlah: 750000, deskripsi: 'Belanja bulanan' },
-                { id: 5, tanggal: fourDays.toISOString().split('T')[0], tipe: 'Pemasukan', kategori: 'Bonus', jumlah: 1000000, deskripsi: 'Bonus tahunan' },
-                { id: 6, tanggal: fiveDays.toISOString().split('T')[0], tipe: 'Pengeluaran', kategori: 'Makanan', jumlah: 200000, deskripsi: 'Makan malam' },
-                { id: 7, tanggal: sixDays.toISOString().split('T')[0], tipe: 'Pengeluaran', kategori: 'Transport', jumlah: 100000, deskripsi: 'Parkir' }
+                { id: 1, tanggal: dates[0], tipe: 'Pemasukan', kategori: 'Gaji', jumlah: 5000000, deskripsi: 'Gaji bulan Maret' },
+                { id: 2, tanggal: dates[1], tipe: 'Pengeluaran', kategori: 'Makanan', jumlah: 150000, deskripsi: 'Makan di restoran' },
+                { id: 3, tanggal: dates[2], tipe: 'Pengeluaran', kategori: 'Transport', jumlah: 50000, deskripsi: 'Bensin' },
+                { id: 4, tanggal: dates[3], tipe: 'Pengeluaran', kategori: 'Belanja', jumlah: 750000, deskripsi: 'Belanja bulanan' },
+                { id: 5, tanggal: dates[4], tipe: 'Pemasukan', kategori: 'Bonus', jumlah: 1000000, deskripsi: 'Bonus tahunan' },
+                { id: 6, tanggal: dates[5], tipe: 'Pengeluaran', kategori: 'Makanan', jumlah: 200000, deskripsi: 'Makan malam' },
+                { id: 7, tanggal: dates[6], tipe: 'Pengeluaran', kategori: 'Transport', jumlah: 100000, deskripsi: 'Parkir' }
             ];
             localStorage.setItem('transactions', JSON.stringify(transactions));
+            
+            savings = [
+                { id: 1, nama: 'Liburan ke Bali', target: 5000000, current: 1500000, deadline: '2024-12-31' },
+                { id: 2, nama: 'Dana Darurat', target: 10000000, current: 3000000, deadline: '' }
+            ];
+            localStorage.setItem('savings', JSON.stringify(savings));
+            
+            debts = [
+                { id: 1, tipe: 'Hutang', nama: 'Bank XYZ', jumlah: 5000000, deskripsi: 'Pinjaman KTA', tanggal: '2024-02-15', jatuhTempo: '2024-03-15', status: 'Belum Lunas' },
+                { id: 2, tipe: 'Piutang', nama: 'Budi', jumlah: 1000000, deskripsi: 'Pinjaman modal usaha', tanggal: '2024-02-20', jatuhTempo: '2024-03-20', status: 'Belum Lunas' }
+            ];
+            localStorage.setItem('debts', JSON.stringify(debts));
         }
 
         // ============================================
@@ -1081,6 +1249,10 @@
             
             if (page === 'dashboard') {
                 setTimeout(() => updateChart(), 100);
+            } else if (page === 'kategori') {
+                displayCategories();
+            } else if (page === 'tambah') {
+                updateTransactionKategori();
             }
         }
 
@@ -1090,6 +1262,180 @@
             msg.innerHTML = text;
             msg.style.display = 'block';
             setTimeout(() => msg.style.display = 'none', 3000);
+        }
+
+        // ============================================
+        // KATEGORI - FUNGSI LENGKAP
+        // ============================================
+        function displayCategories() {
+            let incomeHtml = '';
+            let expenseHtml = '';
+            let incomeCount = 0;
+            let expenseCount = 0;
+            
+            categories.forEach(cat => {
+                if (cat.tipe === 'Pemasukan') {
+                    incomeCount++;
+                    incomeHtml += `
+                        <div class="category-item">
+                            <div>
+                                <span class="category-badge" style="background-color: ${cat.warna || '#3498db'};"></span>
+                                <i class="${cat.icon || 'fas fa-tag'} me-1"></i>
+                                <strong>${cat.nama}</strong>
+                            </div>
+                            <div class="category-actions">
+                                <button onclick="editCategory(${cat.id})" class="btn btn-warning btn-sm">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button onclick="deleteCategory(${cat.id})" class="btn btn-danger btn-sm">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    expenseCount++;
+                    expenseHtml += `
+                        <div class="category-item">
+                            <div>
+                                <span class="category-badge" style="background-color: ${cat.warna || '#3498db'};"></span>
+                                <i class="${cat.icon || 'fas fa-tag'} me-1"></i>
+                                <strong>${cat.nama}</strong>
+                            </div>
+                            <div class="category-actions">
+                                <button onclick="editCategory(${cat.id})" class="btn btn-warning btn-sm">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button onclick="deleteCategory(${cat.id})" class="btn btn-danger btn-sm">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+            
+            document.getElementById('incomeCategoriesList').innerHTML = incomeHtml;
+            document.getElementById('expenseCategoriesList').innerHTML = expenseHtml;
+            
+            document.getElementById('emptyIncomeMessage').style.display = incomeCount === 0 ? 'block' : 'none';
+            document.getElementById('emptyExpenseMessage').style.display = expenseCount === 0 ? 'block' : 'none';
+            
+            document.getElementById('totalCategories').innerHTML = categories.length + ' Kategori';
+        }
+
+        function saveCategory() {
+            let nama = document.getElementById('categoryName').value;
+            let tipe = document.getElementById('categoryType').value;
+            let warna = document.getElementById('categoryColor').value;
+            let icon = document.getElementById('categoryIcon').value;
+            
+            if (!nama) {
+                showMessage('Nama kategori harus diisi!', 'danger');
+                return;
+            }
+            
+            let newId = categories.length ? Math.max(...categories.map(c => c.id)) + 1 : 1;
+            
+            categories.push({
+                id: newId,
+                nama: nama,
+                tipe: tipe,
+                warna: warna,
+                icon: icon
+            });
+            
+            localStorage.setItem('categories', JSON.stringify(categories));
+            displayCategories();
+            updateTransactionKategori();
+            showMessage('Kategori berhasil ditambahkan!', 'success');
+            
+            document.getElementById('categoryName').value = '';
+        }
+
+        function editCategory(id) {
+            let category = categories.find(c => c.id === id);
+            if (category) {
+                document.getElementById('editCategoryId').value = category.id;
+                document.getElementById('editCategoryName').value = category.nama;
+                document.getElementById('editCategoryType').value = category.tipe;
+                document.getElementById('editCategoryColor').value = category.warna || '#3498db';
+                document.getElementById('editCategoryIcon').value = category.icon || 'fas fa-tag';
+                
+                document.getElementById('editCategoryModal').style.display = 'flex';
+            }
+        }
+
+        function closeEditCategoryModal() {
+            document.getElementById('editCategoryModal').style.display = 'none';
+        }
+
+        function updateCategory() {
+            let id = parseInt(document.getElementById('editCategoryId').value);
+            let nama = document.getElementById('editCategoryName').value;
+            let tipe = document.getElementById('editCategoryType').value;
+            let warna = document.getElementById('editCategoryColor').value;
+            let icon = document.getElementById('editCategoryIcon').value;
+            
+            if (!nama) {
+                showMessage('Nama kategori harus diisi!', 'danger');
+                return;
+            }
+            
+            let index = categories.findIndex(c => c.id === id);
+            if (index !== -1) {
+                categories[index] = {
+                    id: id,
+                    nama: nama,
+                    tipe: tipe,
+                    warna: warna,
+                    icon: icon
+                };
+                
+                localStorage.setItem('categories', JSON.stringify(categories));
+                displayCategories();
+                updateTransactionKategori();
+                closeEditCategoryModal();
+                showMessage('Kategori berhasil diperbarui!', 'success');
+            }
+        }
+
+        function deleteCategory(id) {
+            if (confirm('Yakin ingin menghapus kategori ini?')) {
+                categories = categories.filter(c => c.id !== id);
+                localStorage.setItem('categories', JSON.stringify(categories));
+                displayCategories();
+                updateTransactionKategori();
+                showMessage('Kategori berhasil dihapus!', 'success');
+            }
+        }
+
+        function updateTransactionKategori() {
+            let tipe = document.getElementById('transactionTipe').value;
+            let filtered = categories.filter(c => c.tipe === tipe);
+            let select = document.getElementById('transactionKategori');
+            
+            let html = '';
+            filtered.forEach(c => {
+                html += `<option value="${c.nama}">${c.nama}</option>`;
+            });
+            select.innerHTML = html;
+        }
+
+        function openCategoryModal() {
+            // Reset form
+            document.getElementById('categoryName').value = '';
+            document.getElementById('categoryType').value = 'Pemasukan';
+            document.getElementById('categoryColor').value = '#3498db';
+            document.getElementById('categoryIcon').value = 'fas fa-money-bill-wave';
+            
+            // Show page tambah
+            showPage('tambah');
+            
+            // Scroll ke form kategori
+            setTimeout(() => {
+                document.querySelector('#tambahPage .card:nth-child(2)').scrollIntoView({ behavior: 'smooth' });
+            }, 100);
         }
 
         // ============================================
@@ -1138,9 +1484,13 @@
             let recent = transactions.slice(-5).reverse();
             let html = '';
             recent.forEach(t => {
+                let kategori = categories.find(c => c.nama === t.kategori) || { warna: '#6c757d', icon: 'fas fa-tag' };
                 html += `<tr>
                     <td>${formatTanggal(t.tanggal)}</td>
-                    <td>${t.kategori}</td>
+                    <td>
+                        <span style="display: inline-block; width: 12px; height: 12px; border-radius: 4px; background-color: ${kategori.warna}; margin-right: 5px;"></span>
+                        <i class="${kategori.icon} me-1"></i>${t.kategori}
+                    </td>
                     <td>${t.deskripsi || '-'}</td>
                     <td class="${t.tipe === 'Pemasukan' ? 'text-success' : 'text-danger'} fw-bold">${rupiah(t.jumlah)}</td>
                     <td><span class="badge ${t.tipe === 'Pemasukan' ? 'badge-success' : 'badge-danger'}">${t.tipe}</span></td>
@@ -1150,7 +1500,7 @@
         }
 
         // ============================================
-        // CHART - PASTI MUNCUL
+        // CHART
         // ============================================
         function updateChart() {
             let ctx = document.getElementById('chartDashboard')?.getContext('2d');
@@ -1159,12 +1509,10 @@
                 return;
             }
             
-            // Hapus chart lama jika ada
             if (chart) {
                 chart.destroy();
             }
             
-            // Buat data untuk 7 hari terakhir
             let labels = [];
             let pemasukanData = [];
             let pengeluaranData = [];
@@ -1184,7 +1532,6 @@
                 pengeluaranData.push(pengeluaran);
             }
             
-            // Buat chart baru
             chart = new Chart(ctx, {
                 type: 'line',
                 data: {
@@ -1260,8 +1607,6 @@
                     }
                 }
             });
-            
-            console.log('Chart berhasil dibuat');
         }
 
         // ============================================
@@ -1270,9 +1615,13 @@
         function displayAllTransactions() {
             let html = '';
             transactions.slice().reverse().forEach((t, i) => {
+                let kategori = categories.find(c => c.nama === t.kategori) || { warna: '#6c757d', icon: 'fas fa-tag' };
                 html += `<tr>
                     <td>${formatTanggal(t.tanggal)}</td>
-                    <td>${t.kategori}</td>
+                    <td>
+                        <span style="display: inline-block; width: 12px; height: 12px; border-radius: 4px; background-color: ${kategori.warna}; margin-right: 5px;"></span>
+                        <i class="${kategori.icon} me-1"></i>${t.kategori}
+                    </td>
                     <td>${t.deskripsi || '-'}</td>
                     <td class="${t.tipe === 'Pemasukan' ? 'text-success' : 'text-danger'} fw-bold">${rupiah(t.jumlah)}</td>
                     <td><span class="badge ${t.tipe === 'Pemasukan' ? 'badge-success' : 'badge-danger'}">${t.tipe}</span></td>
@@ -1303,6 +1652,11 @@
                 return;
             }
             
+            if (!kategori) {
+                showMessage('Kategori harus dipilih!', 'danger');
+                return;
+            }
+            
             let newId = transactions.length ? Math.max(...transactions.map(t => t.id)) + 1 : 1;
             
             transactions.push({
@@ -1320,45 +1674,6 @@
             
             document.getElementById('transactionJumlah').value = '';
             document.getElementById('transactionDeskripsi').value = '';
-        }
-
-        // ============================================
-        // KATEGORI
-        // ============================================
-        function displayCategories() {
-            let incomeHtml = '', expenseHtml = '';
-            categories.forEach(c => {
-                if (c.tipe === 'Pemasukan') {
-                    incomeHtml += `<div class="border-bottom py-2"><i class="fas fa-tag text-success me-2"></i>${c.nama}</div>`;
-                } else {
-                    expenseHtml += `<div class="border-bottom py-2"><i class="fas fa-tag text-danger me-2"></i>${c.nama}</div>`;
-                }
-            });
-            document.getElementById('incomeCategories').innerHTML = incomeHtml || '<p class="text-muted">Belum ada kategori</p>';
-            document.getElementById('expenseCategories').innerHTML = expenseHtml || '<p class="text-muted">Belum ada kategori</p>';
-        }
-
-        function saveCategory() {
-            let nama = document.getElementById('categoryName').value;
-            let tipe = document.getElementById('categoryType').value;
-            
-            if (!nama) {
-                showMessage('Nama kategori harus diisi!', 'danger');
-                return;
-            }
-            
-            let newId = categories.length ? Math.max(...categories.map(c => c.id)) + 1 : 1;
-            
-            categories.push({
-                id: newId,
-                nama: nama,
-                tipe: tipe
-            });
-            
-            localStorage.setItem('categories', JSON.stringify(categories));
-            displayCategories();
-            showMessage('Kategori berhasil ditambahkan!', 'success');
-            document.getElementById('categoryName').value = '';
         }
 
         // ============================================
@@ -1394,6 +1709,13 @@
                 });
             }
             document.getElementById('savingsList').innerHTML = html;
+        }
+
+        function openSavingModal() {
+            showPage('tambah');
+            setTimeout(() => {
+                document.querySelector('#tambahPage .card:nth-child(3)').scrollIntoView({ behavior: 'smooth' });
+            }, 100);
         }
 
         function updateSaving(index) {
@@ -1480,6 +1802,13 @@
             document.getElementById('receivablesList').innerHTML = piutangHtml || '<p class="text-muted">Tidak ada piutang</p>';
         }
 
+        function openDebtModal() {
+            showPage('tambah');
+            setTimeout(() => {
+                document.querySelector('#tambahPage .card:nth-child(4)').scrollIntoView({ behavior: 'smooth' });
+            }, 100);
+        }
+
         function lunasHutang(index) {
             if (confirm('Tandai sudah lunas?')) {
                 debts[index].status = 'Lunas';
@@ -1544,9 +1873,13 @@
             
             let html = '';
             filtered.forEach(t => {
+                let kategori = categories.find(c => c.nama === t.kategori) || { warna: '#6c757d', icon: 'fas fa-tag' };
                 html += `<tr>
                     <td>${formatTanggal(t.tanggal)}</td>
-                    <td>${t.kategori}</td>
+                    <td>
+                        <span style="display: inline-block; width: 12px; height: 12px; border-radius: 4px; background-color: ${kategori.warna}; margin-right: 5px;"></span>
+                        <i class="${kategori.icon} me-1"></i>${t.kategori}
+                    </td>
                     <td>${t.deskripsi || '-'}</td>
                     <td class="${t.tipe === 'Pemasukan' ? 'text-success' : 'text-danger'}">${rupiah(t.jumlah)}</td>
                     <td><span class="badge ${t.tipe === 'Pemasukan' ? 'badge-success' : 'badge-danger'}">${t.tipe}</span></td>
@@ -1577,7 +1910,6 @@
         document.getElementById('transactionTanggal').value = today;
         document.getElementById('debtTanggal').value = today;
 
-        // Panggil updateChart saat halaman selesai dimuat
         window.addEventListener('load', function() {
             console.log('Halaman dimuat');
             if (document.getElementById('appPage').style.display === 'block') {
