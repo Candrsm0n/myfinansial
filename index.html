@@ -811,7 +811,7 @@
                 </div>
             </div>
 
-            <!-- TABUNGAN PAGE - DIPERBAIKI -->
+            <!-- TABUNGAN PAGE -->
             <div id="tabunganPage" style="display: none;">
                 <div class="d-flex justify-content-between mb-4">
                     <h4>Tabungan Saya</h4>
@@ -969,11 +969,11 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">Jumlah (Rp)</label>
-                                    <input type="number" id="transactionJumlah" class="form-control">
+                                    <input type="number" id="transactionJumlah" class="form-control" placeholder="Masukkan jumlah">
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">Deskripsi</label>
-                                    <input type="text" id="transactionDeskripsi" class="form-control">
+                                    <input type="text" id="transactionDeskripsi" class="form-control" placeholder="Deskripsi transaksi">
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">Tanggal</label>
@@ -991,7 +991,7 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label class="form-label">Nama Kategori</label>
-                                    <input type="text" id="categoryName" class="form-control">
+                                    <input type="text" id="categoryName" class="form-control" placeholder="Contoh: Makanan">
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">Tipe</label>
@@ -1021,7 +1021,7 @@
                     </div>
 
                     <div class="col-md-6">
-                        <!-- Form Tabungan - DIPERBAIKI -->
+                        <!-- Form Tabungan -->
                         <div class="card mb-4">
                             <div class="card-header">
                                 <h5 class="mb-0"><i class="fas fa-piggy-bank me-2"></i>Tambah Tabungan</h5>
@@ -1077,7 +1077,7 @@
                                     <input type="date" id="debtTanggal" class="form-control">
                                 </div>
                                 <div class="form-group">
-                                    <label class="form-label">Jatuh Tempo</label>
+                                    <label class="form-label">Jatuh Tempo (Opsional)</label>
                                     <input type="date" id="debtJatuhTempo" class="form-control">
                                 </div>
                                 <button onclick="saveDebt()" class="btn btn-primary w-100">Simpan Data</button>
@@ -1159,7 +1159,7 @@
 
     <script>
         // ============================================
-        // DATA STORAGE - DIPERBAIKI
+        // DATA STORAGE
         // ============================================
         let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
         let categories = JSON.parse(localStorage.getItem('categories')) || [
@@ -1209,6 +1209,7 @@
                 let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
                 document.getElementById('currentDate').innerHTML = now.toLocaleDateString('id-ID', options);
                 
+                // Update data
                 refreshAllData();
                 showPage('dashboard');
             } else {
@@ -1250,6 +1251,10 @@
                 displaySavings();
             } else if (page === 'tambah') {
                 updateTransactionKategori();
+            } else if (page === 'transaksi') {
+                displayAllTransactions();
+            } else if (page === 'hutang') {
+                displayDebts();
             }
         }
 
@@ -1288,7 +1293,7 @@
             let bulanIni = now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0');
             let masukBulan = 0, keluarBulan = 0;
             transactions.forEach(t => {
-                if (t.tanggal.startsWith(bulanIni)) {
+                if (t.tanggal && t.tanggal.startsWith(bulanIni)) {
                     if (t.tipe === 'Pemasukan') masukBulan += t.jumlah;
                     else keluarBulan += t.jumlah;
                 }
@@ -1304,25 +1309,26 @@
             let aktif = debts.filter(d => d.status !== 'Lunas').length;
             document.getElementById('activeDebts').innerHTML = aktif + ' Data';
             
-            let totalSavingsAmount = savings.reduce((sum, s) => sum + s.current, 0);
+            let totalSavingsAmount = savings.reduce((sum, s) => sum + (s.current || 0), 0);
             document.getElementById('totalSavingsAmount').innerHTML = rupiah(totalSavingsAmount);
             
+            // Recent transactions
             let recent = transactions.slice(-5).reverse();
             let html = '';
             recent.forEach(t => {
                 let kategori = categories.find(c => c.nama === t.kategori) || { warna: '#6c757d', icon: 'fas fa-tag' };
                 html += `<tr>
-                    <td>${formatTanggal(t.tanggal)}</td>
+                    <td>${t.tanggal ? formatTanggal(t.tanggal) : '-'}</td>
                     <td>
                         <span style="display: inline-block; width: 12px; height: 12px; border-radius: 4px; background-color: ${kategori.warna}; margin-right: 5px;"></span>
-                        <i class="${kategori.icon} me-1"></i>${t.kategori}
+                        <i class="${kategori.icon} me-1"></i>${t.kategori || '-'}
                     </td>
                     <td>${t.deskripsi || '-'}</td>
-                    <td class="${t.tipe === 'Pemasukan' ? 'text-success' : 'text-danger'} fw-bold">${rupiah(t.jumlah)}</td>
-                    <td><span class="badge ${t.tipe === 'Pemasukan' ? 'badge-success' : 'badge-danger'}">${t.tipe}</span></td>
+                    <td class="${t.tipe === 'Pemasukan' ? 'text-success' : 'text-danger'} fw-bold">${t.jumlah ? rupiah(t.jumlah) : 'Rp 0'}</td>
+                    <td><span class="badge ${t.tipe === 'Pemasukan' ? 'badge-success' : 'badge-danger'}">${t.tipe || '-'}</span></td>
                 </tr>`;
             });
-            document.getElementById('recentTransactions').innerHTML = html;
+            document.getElementById('recentTransactions').innerHTML = html || '<tr><td colspan="5" class="text-center">Belum ada transaksi</td></tr>';
         }
 
         // ============================================
@@ -1351,8 +1357,8 @@
                 labels.push(label);
                 
                 let dayTrans = transactions.filter(t => t.tanggal === dateStr);
-                let pemasukan = dayTrans.filter(t => t.tipe === 'Pemasukan').reduce((sum, t) => sum + t.jumlah, 0);
-                let pengeluaran = dayTrans.filter(t => t.tipe === 'Pengeluaran').reduce((sum, t) => sum + t.jumlah, 0);
+                let pemasukan = dayTrans.filter(t => t.tipe === 'Pemasukan').reduce((sum, t) => sum + (t.jumlah || 0), 0);
+                let pengeluaran = dayTrans.filter(t => t.tipe === 'Pengeluaran').reduce((sum, t) => sum + (t.jumlah || 0), 0);
                 
                 pemasukanData.push(pemasukan);
                 pengeluaranData.push(pengeluaran);
@@ -1436,25 +1442,25 @@
         }
 
         // ============================================
-        // TRANSAKSI
+        // TRANSAKSI - DIPERBAIKI
         // ============================================
         function displayAllTransactions() {
             let html = '';
             transactions.slice().reverse().forEach((t, i) => {
                 let kategori = categories.find(c => c.nama === t.kategori) || { warna: '#6c757d', icon: 'fas fa-tag' };
                 html += `<tr>
-                    <td>${formatTanggal(t.tanggal)}</td>
+                    <td>${t.tanggal ? formatTanggal(t.tanggal) : '-'}</td>
                     <td>
                         <span style="display: inline-block; width: 12px; height: 12px; border-radius: 4px; background-color: ${kategori.warna}; margin-right: 5px;"></span>
-                        <i class="${kategori.icon} me-1"></i>${t.kategori}
+                        <i class="${kategori.icon} me-1"></i>${t.kategori || '-'}
                     </td>
                     <td>${t.deskripsi || '-'}</td>
-                    <td class="${t.tipe === 'Pemasukan' ? 'text-success' : 'text-danger'} fw-bold">${rupiah(t.jumlah)}</td>
-                    <td><span class="badge ${t.tipe === 'Pemasukan' ? 'badge-success' : 'badge-danger'}">${t.tipe}</span></td>
+                    <td class="${t.tipe === 'Pemasukan' ? 'text-success' : 'text-danger'} fw-bold">${t.jumlah ? rupiah(t.jumlah) : 'Rp 0'}</td>
+                    <td><span class="badge ${t.tipe === 'Pemasukan' ? 'badge-success' : 'badge-danger'}">${t.tipe || '-'}</span></td>
                     <td><button onclick="deleteTransaction(${i})" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Hapus</button></td>
                 </tr>`;
             });
-            document.getElementById('allTransactions').innerHTML = html;
+            document.getElementById('allTransactions').innerHTML = html || '<tr><td colspan="6" class="text-center">Belum ada transaksi</td></tr>';
         }
 
         function deleteTransaction(index) {
@@ -1467,14 +1473,16 @@
         }
 
         function saveTransaction() {
+            // Ambil nilai dari form
             let tipe = document.getElementById('transactionTipe').value;
             let kategori = document.getElementById('transactionKategori').value;
-            let jumlah = parseInt(document.getElementById('transactionJumlah').value);
+            let jumlah = document.getElementById('transactionJumlah').value;
             let deskripsi = document.getElementById('transactionDeskripsi').value;
-            let tanggal = document.getElementById('transactionTanggal').value || new Date().toISOString().split('T')[0];
+            let tanggal = document.getElementById('transactionTanggal').value;
             
-            if (!jumlah) {
-                showMessage('Jumlah harus diisi!', 'danger');
+            // Validasi input
+            if (!jumlah || jumlah <= 0) {
+                showMessage('Jumlah harus diisi dengan angka positif!', 'danger');
                 return;
             }
             
@@ -1483,23 +1491,38 @@
                 return;
             }
             
-            let newId = transactions.length ? Math.max(...transactions.map(t => t.id)) + 1 : 1;
+            if (!tanggal) {
+                tanggal = new Date().toISOString().split('T')[0];
+            }
             
+            // Buat ID baru
+            let newId = transactions.length > 0 ? Math.max(...transactions.map(t => t.id || 0)) + 1 : 1;
+            
+            // Simpan transaksi
             transactions.push({
                 id: newId,
                 tanggal: tanggal,
                 tipe: tipe,
                 kategori: kategori,
-                jumlah: jumlah,
+                jumlah: parseInt(jumlah),
                 deskripsi: deskripsi
             });
             
+            // Simpan ke localStorage
             localStorage.setItem('transactions', JSON.stringify(transactions));
+            
+            // Refresh data
             refreshAllData();
+            
+            // Tampilkan pesan sukses
             showMessage('Transaksi berhasil ditambahkan!', 'success');
             
+            // Reset form
             document.getElementById('transactionJumlah').value = '';
             document.getElementById('transactionDeskripsi').value = '';
+            
+            // Update dropdown kategori
+            updateTransactionKategori();
         }
 
         // ============================================
@@ -1560,6 +1583,20 @@
             document.getElementById('emptyExpenseMessage').style.display = expenseCount === 0 ? 'block' : 'none';
             
             document.getElementById('totalCategories').innerHTML = categories.length + ' Kategori';
+        }
+
+        function updateTransactionKategori() {
+            let tipe = document.getElementById('transactionTipe').value;
+            let filtered = categories.filter(c => c.tipe === tipe);
+            let select = document.getElementById('transactionKategori');
+            
+            if (select) {
+                let html = '';
+                filtered.forEach(c => {
+                    html += `<option value="${c.nama}">${c.nama}</option>`;
+                });
+                select.innerHTML = html;
+            }
         }
 
         function saveCategory() {
@@ -1648,18 +1685,6 @@
             }
         }
 
-        function updateTransactionKategori() {
-            let tipe = document.getElementById('transactionTipe').value;
-            let filtered = categories.filter(c => c.tipe === tipe);
-            let select = document.getElementById('transactionKategori');
-            
-            let html = '';
-            filtered.forEach(c => {
-                html += `<option value="${c.nama}">${c.nama}</option>`;
-            });
-            select.innerHTML = html;
-        }
-
         function openCategoryModal() {
             document.getElementById('categoryName').value = '';
             document.getElementById('categoryType').value = 'Pemasukan';
@@ -1668,12 +1693,13 @@
             
             showPage('tambah');
             setTimeout(() => {
-                document.querySelector('#tambahPage .card:nth-child(2)').scrollIntoView({ behavior: 'smooth' });
+                let element = document.querySelector('#tambahPage .card:nth-child(2)');
+                if (element) element.scrollIntoView({ behavior: 'smooth' });
             }, 100);
         }
 
         // ============================================
-        // TABUNGAN - DIPERBAIKI
+        // TABUNGAN
         // ============================================
         function displaySavings() {
             let html = '';
@@ -1700,8 +1726,8 @@
                                     <div class="progress-bar" style="width: ${persen}%;">${persen}%</div>
                                 </div>
                                 <div class="d-flex justify-content-between mb-2">
-                                    <span>Terkumpul: <strong>${rupiah(s.current)}</strong></span>
-                                    <span>Target: <strong>${rupiah(s.target)}</strong></span>
+                                    <span>Terkumpul: <strong>${rupiah(s.current || 0)}</strong></span>
+                                    <span>Target: <strong>${rupiah(s.target || 0)}</strong></span>
                                 </div>
                                 ${s.deadline ? `<p class="text-muted small mb-0"><i class="far fa-calendar-alt me-1"></i> Deadline: ${formatTanggal(s.deadline)}</p>` : ''}
                             </div>
@@ -1711,15 +1737,15 @@
             }
             document.getElementById('savingsList').innerHTML = html;
             
-            // Update total tabungan di dashboard
-            let totalSavingsAmount = savings.reduce((sum, s) => sum + s.current, 0);
+            let totalSavingsAmount = savings.reduce((sum, s) => sum + (s.current || 0), 0);
             document.getElementById('totalSavingsAmount').innerHTML = rupiah(totalSavingsAmount);
         }
 
         function openSavingModal() {
             showPage('tambah');
             setTimeout(() => {
-                document.querySelector('#tambahPage .card:nth-child(3)').scrollIntoView({ behavior: 'smooth' });
+                let element = document.querySelector('#tambahPage .card:nth-child(3)');
+                if (element) element.scrollIntoView({ behavior: 'smooth' });
             }, 100);
         }
 
@@ -1734,7 +1760,7 @@
                 return;
             }
             
-            let newId = savings.length ? Math.max(...savings.map(s => s.id)) + 1 : 1;
+            let newId = savings.length ? Math.max(...savings.map(s => s.id || 0)) + 1 : 1;
             
             savings.push({
                 id: newId,
@@ -1776,7 +1802,7 @@
             
             let index = savings.findIndex(s => s.id === id);
             if (index !== -1) {
-                savings[index].current += amount;
+                savings[index].current = (savings[index].current || 0) + amount;
                 localStorage.setItem('savings', JSON.stringify(savings));
                 displaySavings();
                 closeAddSavingModal();
@@ -1803,23 +1829,23 @@
             debts.forEach((d, i) => {
                 if (d.status !== 'Lunas') {
                     if (d.tipe === 'Hutang') {
-                        totalHutang += d.jumlah;
+                        totalHutang += d.jumlah || 0;
                         hutangHtml += `<div class="border-bottom mb-2 pb-2">
                             <div class="d-flex justify-content-between">
                                 <div><strong>${d.nama}</strong><br><small>${d.deskripsi || '-'}</small></div>
                                 <div class="text-end">
-                                    <span class="text-danger fw-bold">${rupiah(d.jumlah)}</span><br>
+                                    <span class="text-danger fw-bold">${rupiah(d.jumlah || 0)}</span><br>
                                     <button onclick="lunasHutang(${i})" class="btn btn-success btn-sm mt-1">Lunas</button>
                                 </div>
                             </div>
                         </div>`;
                     } else {
-                        totalPiutang += d.jumlah;
+                        totalPiutang += d.jumlah || 0;
                         piutangHtml += `<div class="border-bottom mb-2 pb-2">
                             <div class="d-flex justify-content-between">
                                 <div><strong>${d.nama}</strong><br><small>${d.deskripsi || '-'}</small></div>
                                 <div class="text-end">
-                                    <span class="text-success fw-bold">${rupiah(d.jumlah)}</span><br>
+                                    <span class="text-success fw-bold">${rupiah(d.jumlah || 0)}</span><br>
                                     <button onclick="lunasHutang(${i})" class="btn btn-success btn-sm mt-1">Diterima</button>
                                 </div>
                             </div>
@@ -1838,7 +1864,8 @@
         function openDebtModal() {
             showPage('tambah');
             setTimeout(() => {
-                document.querySelector('#tambahPage .card:nth-child(4)').scrollIntoView({ behavior: 'smooth' });
+                let element = document.querySelector('#tambahPage .card:nth-child(4)');
+                if (element) element.scrollIntoView({ behavior: 'smooth' });
             }, 100);
         }
 
@@ -1864,7 +1891,7 @@
                 return;
             }
             
-            let newId = debts.length ? Math.max(...debts.map(d => d.id)) + 1 : 1;
+            let newId = debts.length ? Math.max(...debts.map(d => d.id || 0)) + 1 : 1;
             
             debts.push({
                 id: newId,
@@ -1895,10 +1922,10 @@
             let tahun = parseInt(document.getElementById('reportYear').value);
             let bulanStr = tahun + '-' + String(bulan).padStart(2, '0');
             
-            let filtered = transactions.filter(t => t.tanggal.startsWith(bulanStr));
+            let filtered = transactions.filter(t => t.tanggal && t.tanggal.startsWith(bulanStr));
             
-            let totalMasuk = filtered.filter(t => t.tipe === 'Pemasukan').reduce((sum, t) => sum + t.jumlah, 0);
-            let totalKeluar = filtered.filter(t => t.tipe === 'Pengeluaran').reduce((sum, t) => sum + t.jumlah, 0);
+            let totalMasuk = filtered.filter(t => t.tipe === 'Pemasukan').reduce((sum, t) => sum + (t.jumlah || 0), 0);
+            let totalKeluar = filtered.filter(t => t.tipe === 'Pengeluaran').reduce((sum, t) => sum + (t.jumlah || 0), 0);
             
             document.getElementById('reportIncome').innerHTML = rupiah(totalMasuk);
             document.getElementById('reportExpense').innerHTML = rupiah(totalKeluar);
@@ -1908,14 +1935,14 @@
             filtered.forEach(t => {
                 let kategori = categories.find(c => c.nama === t.kategori) || { warna: '#6c757d', icon: 'fas fa-tag' };
                 html += `<tr>
-                    <td>${formatTanggal(t.tanggal)}</td>
+                    <td>${t.tanggal ? formatTanggal(t.tanggal) : '-'}</td>
                     <td>
                         <span style="display: inline-block; width: 12px; height: 12px; border-radius: 4px; background-color: ${kategori.warna}; margin-right: 5px;"></span>
-                        <i class="${kategori.icon} me-1"></i>${t.kategori}
+                        <i class="${kategori.icon} me-1"></i>${t.kategori || '-'}
                     </td>
                     <td>${t.deskripsi || '-'}</td>
-                    <td class="${t.tipe === 'Pemasukan' ? 'text-success' : 'text-danger'}">${rupiah(t.jumlah)}</td>
-                    <td><span class="badge ${t.tipe === 'Pemasukan' ? 'badge-success' : 'badge-danger'}">${t.tipe}</span></td>
+                    <td class="${t.tipe === 'Pemasukan' ? 'text-success' : 'text-danger'}">${t.jumlah ? rupiah(t.jumlah) : 'Rp 0'}</td>
+                    <td><span class="badge ${t.tipe === 'Pemasukan' ? 'badge-success' : 'badge-danger'}">${t.tipe || '-'}</span></td>
                 </tr>`;
             });
             document.getElementById('reportTransactions').innerHTML = html || '<tr><td colspan="5" class="text-center">Tidak ada transaksi</td></tr>';
