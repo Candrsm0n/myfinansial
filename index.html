@@ -21,7 +21,6 @@
         .remember-check { display: flex; align-items: center; gap: 8px; margin-bottom: 20px; }
         .remember-check input { width: 18px; height: 18px; cursor: pointer; }
         
-        /* SIDEBAR - FIX BUG TULISAN MASIH TERLIHAT */
         .sidebar { 
             min-height: 100vh; 
             background: linear-gradient(180deg, #2c3e50, #3498db); 
@@ -35,9 +34,7 @@
             overflow-y: auto;
             transform: translateX(0);
         }
-        .sidebar.closed {
-            transform: translateX(-100%);
-        }
+        .sidebar.closed { transform: translateX(-100%); }
         .sidebar-header { padding: 30px 20px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1); }
         .sidebar-header i { font-size: 50px; margin-bottom: 10px; }
         .sidebar-header h5 { font-size: 20px; font-weight: 600; }
@@ -47,7 +44,6 @@
         .sidebar-menu button.active { background: rgba(255,255,255,0.2); color: white; border-left-color: white; }
         .sidebar-menu i { width: 25px; margin-right: 10px; }
         
-        /* OVERLAY UNTUK TUTUP SIDEBAR */
         .sidebar-overlay {
             position: fixed;
             top: 0;
@@ -59,9 +55,7 @@
             display: none;
             cursor: pointer;
         }
-        .sidebar-overlay.active {
-            display: block;
-        }
+        .sidebar-overlay.active { display: block; }
         
         .content { 
             margin-left: 260px; 
@@ -69,9 +63,7 @@
             transition: margin-left 0.3s ease-in-out;
             min-height: 100vh;
         }
-        .content.full {
-            margin-left: 0;
-        }
+        .content.full { margin-left: 0; }
         
         .header { background: white; border-radius: 15px; padding: 20px 25px; margin-bottom: 25px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
         .header h3 { margin: 0; }
@@ -185,6 +177,10 @@
             transition: 0.3s;
         }
         .menu-toggle:hover { transform: scale(1.05); }
+        
+        /* Skeleton loading untuk laporan */
+        .skeleton-text { background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%); background-size: 200% 100%; animation: loading 1.5s infinite; height: 20px; border-radius: 4px; margin: 8px 0; }
+        @keyframes loading { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
         
         @media (min-width: 769px) {
             .menu-toggle { display: none; }
@@ -349,7 +345,7 @@
                 <div class="col-md-6"><div class="card"><div class="card-header bg-success text-white"><h5 class="mb-0">Piutang</h5></div><div class="card-body" id="receivablesList"></div></div></div></div>
             </div>
 
-            <!-- LAPORAN -->
+            <!-- LAPORAN - DIPERBAIKI LOADING CEPAT -->
             <div id="laporanPage" style="display: none;">
                 <h4 class="mb-4">Laporan Keuangan</h4>
                 <div class="card mb-4">
@@ -357,18 +353,18 @@
                         <div class="row">
                             <div class="col-md-3"><label class="form-label">Bulan</label><select id="reportMonth" class="form-select"><option value="1">Januari</option><option value="2">Februari</option><option value="3" selected>Maret</option><option value="4">April</option><option value="5">Mei</option><option value="6">Juni</option><option value="7">Juli</option><option value="8">Agustus</option><option value="9">September</option><option value="10">Oktober</option><option value="11">November</option><option value="12">Desember</option></select></div>
                             <div class="col-md-3"><label class="form-label">Tahun</label><select id="reportYear" class="form-select"><option value="2025">2025</option><option value="2026" selected>2026</option><option value="2027">2027</option><option value="2028">2028</option></select></div>
-                            <div class="col-md-3"><button onclick="generateReport()" class="btn btn-primary w-100 mt-4">Tampilkan</button></div>
-                            <div class="col-md-3"><button onclick="exportMonthlyReport()" class="btn btn-success w-100 mt-4">Export Laporan</button></div>
+                            <div class="col-md-3"><button onclick="generateReport()" class="btn btn-primary w-100 mt-4"><i class="fas fa-chart-line me-1"></i>Tampilkan</button></div>
+                            <div class="col-md-3"><button onclick="exportMonthlyReport()" class="btn btn-success w-100 mt-4"><i class="fas fa-file-excel me-1"></i>Export</button></div>
                         </div>
                     </div>
                 </div>
                 <div class="row mb-4">
-                    <div class="col-md-4"><div class="report-summary-card"><h6 class="text-muted">Total Pemasukan</h6><h3 class="amount-income" id="reportIncome">Rp 0</h3></div></div>
-                    <div class="col-md-4"><div class="report-summary-card"><h6 class="text-muted">Total Pengeluaran</h6><h3 class="amount-expense" id="reportExpense">Rp 0</h3></div></div>
-                    <div class="col-md-4"><div class="report-summary-card"><h6 class="text-muted">Saldo Bulanan</h6><h3 class="amount-balance" id="reportBalance">Rp 0</h3></div></div>
+                    <div class="col-md-4"><div class="report-summary-card"><i class="fas fa-arrow-up fa-2x text-success mb-2"></i><h6 class="text-muted">Total Pemasukan</h6><h3 class="amount-income" id="reportIncome">Rp 0</h3></div></div>
+                    <div class="col-md-4"><div class="report-summary-card"><i class="fas fa-arrow-down fa-2x text-danger mb-2"></i><h6 class="text-muted">Total Pengeluaran</h6><h3 class="amount-expense" id="reportExpense">Rp 0</h3></div></div>
+                    <div class="col-md-4"><div class="report-summary-card"><i class="fas fa-wallet fa-2x text-primary mb-2"></i><h6 class="text-muted">Saldo Bulanan</h6><h3 class="amount-balance" id="reportBalance">Rp 0</h3></div></div>
                 </div>
-                <div class="card mb-4"><div class="card-header"><h5 class="mb-0">Grafik Perbandingan</h5></div><div class="card-body"><div class="chart-container"><canvas id="monthlyComparisonChart"></canvas></div></div></div>
-                <div class="card"><div class="card-header"><h5 class="mb-0">Detail Transaksi</h5></div><div class="card-body"><div class="table-responsive"><table class="table"><thead><tr><th>Tanggal</th><th>Kategori</th><th>Deskripsi</th><th class="text-end">Jumlah</th><th class="text-center">Tipe</th></tr></thead><tbody id="reportTransactions"></tbody></tr></div></div></div>
+                <div class="card mb-4"><div class="card-header"><h5 class="mb-0"><i class="fas fa-chart-bar me-2"></i>Grafik Perbandingan</h5></div><div class="card-body"><div class="chart-container"><canvas id="monthlyComparisonChart"></canvas></div></div></div>
+                <div class="card"><div class="card-header"><h5 class="mb-0"><i class="fas fa-list me-2"></i>Detail Transaksi</h5></div><div class="card-body"><div class="table-responsive"><table class="table"><thead><tr><th>Tanggal</th><th>Kategori</th><th>Deskripsi</th><th class="text-end">Jumlah</th><th class="text-center">Tipe</th></tr></thead><tbody id="reportTransactions"></tbody></table></div></div></div>
             </div>
 
             <!-- TAMBAH DATA -->
@@ -430,7 +426,7 @@
     <!-- MODALS -->
     <div class="modal" id="editProfileModal"><div class="modal-content"><div class="modal-header"><h5>Ubah Profil</h5><button class="close-btn" onclick="closeEditProfileModal()">&times;</button></div><div class="modal-body"><div id="profileError" class="alert alert-danger" style="display: none;"></div><div id="profileSuccess" class="alert alert-success" style="display: none;"></div><div class="form-group"><label>Username Baru</label><input type="text" id="newUsername" class="form-control"></div><div class="form-group"><label>Password Lama</label><input type="password" id="oldPassword" class="form-control"></div><div class="form-group"><label>Password Baru</label><input type="password" id="newPassword" class="form-control"></div><div class="form-group"><label>Konfirmasi Password Baru</label><input type="password" id="confirmNewPassword" class="form-control"></div></div><div class="modal-footer"><button onclick="closeEditProfileModal()" class="btn btn-secondary">Batal</button><button onclick="updateProfile()" class="btn btn-primary">Simpan</button></div></div></div>
     
-    <div class="modal" id="exportModal"><div class="modal-content"><div class="modal-header"><h5>Export Data</h5><button class="close-btn" onclick="closeExportModal()">&times;</button></div><div class="modal-body"><p>Pilih format export:</p><div class="d-flex gap-2 mb-3"><button onclick="exportData('json')" class="btn btn-primary">JSON</button><button onclick="exportData('csv')" class="btn btn-success">CSV</button></div><hr><h6>Preview Data</h6><div class="export-preview"><table class="csv-preview-table"><thead><tr><th>Tanggal</th><th>Tipe</th><th>Kategori</th><th>Deskripsi</th><th>Jumlah</th></tr></thead><tbody id="csvPreviewBody"><tr><td colspan="5" style="text-align:center">Loading...</tr><tr></tbody></table></div></div><div class="modal-footer"><button onclick="closeExportModal()" class="btn btn-secondary">Tutup</button></div></div></div>
+    <div class="modal" id="exportModal"><div class="modal-content"><div class="modal-header"><h5>Export Data</h5><button class="close-btn" onclick="closeExportModal()">&times;</button></div><div class="modal-body"><p>Pilih format export:</p><div class="d-flex gap-2 mb-3"><button onclick="exportData('json')" class="btn btn-primary">JSON</button><button onclick="exportData('csv')" class="btn btn-success">CSV</button></div><hr><h6>Preview Data</h6><div class="export-preview"><table class="csv-preview-table"><thead><tr><th>Tanggal</th><th>Tipe</th><th>Kategori</th><th>Deskripsi</th><th>Jumlah</th></tr></thead><tbody id="csvPreviewBody"><tr><td colspan="5" style="text-align:center">Loading...</td></tr></tbody></table></div></div><div class="modal-footer"><button onclick="closeExportModal()" class="btn btn-secondary">Tutup</button></div></div></div>
     
     <div class="modal" id="editCategoryModal"><div class="modal-content"><div class="modal-header"><h5>Edit Kategori</h5><button class="close-btn" onclick="closeEditCategoryModal()">&times;</button></div><div class="modal-body"><input type="hidden" id="editCategoryId"><div class="form-group"><label>Nama</label><input type="text" id="editCategoryName" class="form-control"></div><div class="form-group"><label>Tipe</label><select id="editCategoryType" class="form-select"><option value="Pemasukan">Pemasukan</option><option value="Pengeluaran">Pengeluaran</option></select></div><div class="form-group"><label>Warna</label><input type="color" id="editCategoryColor" class="form-control"></div><div class="form-group"><label>Icon</label><select id="editCategoryIcon" class="form-select"><option value="fas fa-money-bill-wave">💰 Uang</option><option value="fas fa-utensils">🍽️ Makanan</option><option value="fas fa-bus">🚗 Transport</option><option value="fas fa-shopping-cart">🛒 Belanja</option><option value="fas fa-film">🎬 Hiburan</option><option value="fas fa-file-invoice">📄 Tagihan</option></select></div></div><div class="modal-footer"><button onclick="closeEditCategoryModal()" class="btn btn-secondary">Batal</button><button onclick="updateCategory()" class="btn btn-primary">Update</button></div></div></div>
     
@@ -468,7 +464,6 @@
         function formatTanggal(tanggal) { if(!tanggal) return '-'; let d=new Date(tanggal); return d.getDate()+' '+['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'][d.getMonth()]+' '+d.getFullYear(); }
         function formatTanggalCSV(tanggal) { if(!tanggal) return '-'; let d=new Date(tanggal); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
         
-        // SIDEBAR TOGGLE - FIX BUG
         function toggleSidebar() {
             let sidebar = document.getElementById('sidebar');
             let overlay = document.getElementById('sidebarOverlay');
@@ -622,7 +617,7 @@
                     <td><button onclick="deleteTransaction(${i})" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Hapus</button></td>
                 </tr>`; 
             }); 
-            document.getElementById('allTransactions').innerHTML = html || '<tr><td colspan="6" class="text-center">Belum ada transaksi</td></td>'; 
+            document.getElementById('allTransactions').innerHTML = html || '<tr><td colspan="6" class="text-center">Belum ada transaksi</td></tr>'; 
         }
         
         function deleteTransaction(index) { if(confirm('Hapus transaksi ini?')){ transactions.splice(index,1); refreshAllData(); showMessage('Transaksi dihapus','success'); } }
@@ -696,33 +691,66 @@
         function lunasHutang(index){ debts[index].status='Lunas'; refreshAllData(); showMessage('Status diperbarui','success'); }
         function saveDebt(){ let tipe=document.getElementById('debtTipe').value, nama=document.getElementById('debtNama').value.trim(), jumlah=parseInt(document.getElementById('debtJumlah').value), deskripsi=document.getElementById('debtDeskripsi').value, tanggal=document.getElementById('debtTanggal').value||new Date().toISOString().split('T')[0], jatuhTempo=document.getElementById('debtJatuhTempo').value; if(!nama||!jumlah) return showMessage('Nama dan jumlah harus diisi','danger'); debts.push({id:Date.now(), tipe, nama, jumlah, deskripsi, tanggal, jatuhTempo, status:'Belum Lunas'}); refreshAllData(); showMessage('Data ditambahkan','success'); document.getElementById('debtNama').value=''; document.getElementById('debtJumlah').value=''; document.getElementById('debtDeskripsi').value=''; document.getElementById('debtJatuhTempo').value=''; }
         
-        // ========== LAPORAN ==========
+        // ========== LAPORAN - DIPERCEPAT LOADINGNYA ==========
         function generateReport(){ 
-            let bulan=document.getElementById('reportMonth').value.padStart(2,'0'), tahun=document.getElementById('reportYear').value, bulanStr=`${tahun}-${bulan}`; 
-            let filtered=transactions.filter(t=>t.tanggal?.startsWith(bulanStr)); 
-            let totalMasuk=filtered.filter(t=>t.tipe==='Pemasukan').reduce((s,t)=>s+(t.jumlah||0),0); 
-            let totalKeluar=filtered.filter(t=>t.tipe==='Pengeluaran').reduce((s,t)=>s+(t.jumlah||0),0); 
-            document.getElementById('reportIncome').innerHTML=rupiah(totalMasuk); 
-            document.getElementById('reportExpense').innerHTML=rupiah(totalKeluar); 
-            document.getElementById('reportBalance').innerHTML=rupiah(totalMasuk-totalKeluar); 
-            document.getElementById('reportTransactions').innerHTML=filtered.map(t=>{ 
-                return `<tr>
-                    <td>${formatTanggal(t.tanggal)}</td>
-                    <td>${t.kategori}</td>
-                    <td>${t.deskripsi||'-'}</td>
-                    <td class="text-end fw-bold ${t.tipe==='Pemasukan'?'text-success':'text-danger'}">${rupiah(t.jumlah)}</td>
-                    <td class="text-center"><span class="badge ${t.tipe==='Pemasukan'?'badge-success':'badge-danger'}">${t.tipe}</span></td>
-                </tr>`; 
-            }).join('')||'<td><td colspan="5" class="text-center">Tidak ada transaksi</td></tr>'; 
-            updateMonthlyComparisonChart(); 
+            let bulan = document.getElementById('reportMonth').value.padStart(2,'0');
+            let tahun = document.getElementById('reportYear').value;
+            let bulanStr = `${tahun}-${bulan}`;
+            
+            // Filter data langsung tanpa loading delay
+            let filtered = transactions.filter(t => t.tanggal && t.tanggal.startsWith(bulanStr));
+            
+            let totalMasuk = 0;
+            let totalKeluar = 0;
+            
+            filtered.forEach(t => {
+                if(t.tipe === 'Pemasukan') totalMasuk += t.jumlah || 0;
+                else totalKeluar += t.jumlah || 0;
+            });
+            
+            document.getElementById('reportIncome').innerHTML = rupiah(totalMasuk);
+            document.getElementById('reportExpense').innerHTML = rupiah(totalKeluar);
+            document.getElementById('reportBalance').innerHTML = rupiah(totalMasuk - totalKeluar);
+            
+            // Tampilkan data transaksi langsung
+            if(filtered.length === 0) {
+                document.getElementById('reportTransactions').innerHTML = '<tr><td colspan="5" class="text-center py-4"><i class="fas fa-inbox fa-2x text-muted mb-2 d-block"></i>Tidak ada transaksi pada bulan ini</td></tr>';
+            } else {
+                let html = '';
+                filtered.forEach(t => {
+                    let cat = categories.find(c => c.nama === t.kategori) || { warna: '#6c757d', icon: 'fas fa-tag' };
+                    html += `<tr>
+                        <td><i class="fas fa-calendar-alt me-1 text-muted"></i> ${formatTanggal(t.tanggal)}</td>
+                        <td><span style="display:inline-block;width:12px;height:12px;border-radius:4px;background:${cat.warna};margin-right:8px;"></span><i class="${cat.icon} me-1"></i> ${t.kategori}</td>
+                        <td><i class="fas fa-sticky-note me-1 text-muted"></i> ${t.deskripsi || '-'}</td>
+                        <td class="text-end fw-bold ${t.tipe === 'Pemasukan' ? 'text-success' : 'text-danger'}">${rupiah(t.jumlah)}</td>
+                        <td class="text-center"><span class="badge ${t.tipe === 'Pemasukan' ? 'badge-success' : 'badge-danger'}"><i class="${t.tipe === 'Pemasukan' ? 'fas fa-arrow-up' : 'fas fa-arrow-down'} me-1"></i>${t.tipe}</span></td>
+                    </tr>`;
+                });
+                document.getElementById('reportTransactions').innerHTML = html;
+            }
+            
+            // Update grafik
+            updateMonthlyComparisonChart();
         }
         
         function exportMonthlyReport(){ 
-            let bulan=document.getElementById('reportMonth').value.padStart(2,'0'), tahun=document.getElementById('reportYear').value; 
-            let data = transactions.filter(t=>t.tanggal?.startsWith(`${tahun}-${bulan}`)); 
-            let csv = "Tanggal,Tipe,Kategori,Deskripsi,Jumlah\n"+data.map(t=>`"${formatTanggalCSV(t.tanggal)}","${t.tipe}","${t.kategori}","${(t.deskripsi||'').replace(/"/g,'""')}","${t.jumlah}"`).join("\n"); 
-            let blob=new Blob(["\uFEFF" + csv],{type:'text/csv;charset=utf-8;'}); 
-            let a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=`laporan_${tahun}_${bulan}.csv`; a.click(); URL.revokeObjectURL(a.href); showMessage('Laporan diekspor','success'); 
+            let bulan = document.getElementById('reportMonth').value.padStart(2,'0');
+            let tahun = document.getElementById('reportYear').value;
+            let data = transactions.filter(t => t.tanggal && t.tanggal.startsWith(`${tahun}-${bulan}`));
+            
+            let csv = "Tanggal,Tipe,Kategori,Deskripsi,Jumlah\n";
+            data.forEach(t => {
+                csv += `"${formatTanggalCSV(t.tanggal)}","${t.tipe}","${t.kategori}","${(t.deskripsi || '').replace(/"/g, '""')}","${t.jumlah}"\n`;
+            });
+            
+            let blob = new Blob(["\uFEFF" + csv], { type: 'text/csv;charset=utf-8;' });
+            let a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = `laporan_${tahun}_${bulan}.csv`;
+            a.click();
+            URL.revokeObjectURL(a.href);
+            showMessage('Laporan berhasil diekspor!', 'success');
         }
         
         // ========== EXPORT ==========
@@ -733,14 +761,19 @@
             let tbody = document.getElementById('csvPreviewBody');
             if (!tbody) return;
             let previewData = [...transactions].reverse().slice(0, 10);
-            if (previewData.length === 0) { tbody.innerHTML = '<tr><td colspan="5" style="text-align:center">Belum ada transaksi</td></tr>'; return; }
-            tbody.innerHTML = previewData.map(t => `<tr>
-                <td>${formatTanggalCSV(t.tanggal)}</td>
-                <td><span class="badge ${t.tipe === 'Pemasukan' ? 'badge-success' : 'badge-danger'}">${t.tipe}</span></td>
-                <td>${t.kategori||'-'}</td>
-                <td>${(t.deskripsi||'-').substring(0,30)}</td>
-                <td style="color:${t.tipe === 'Pemasukan' ? '#50fa7b' : '#ff5555'}">${rupiah(t.jumlah)}</td>
-            </tr>`).join('');
+            if (previewData.length === 0) { 
+                tbody.innerHTML = '<tr><td colspan="5" style="text-align:center">Belum ada transaksi</td></tr>';
+                return; 
+            }
+            tbody.innerHTML = previewData.map(t => `
+                <tr>
+                    <td>${formatTanggalCSV(t.tanggal)}</td>
+                    <td><span class="badge ${t.tipe === 'Pemasukan' ? 'badge-success' : 'badge-danger'}">${t.tipe}</span></td>
+                    <td>${t.kategori || '-'}</td>
+                    <td>${(t.deskripsi || '-').substring(0, 30)}</td>
+                    <td style="color:${t.tipe === 'Pemasukan' ? '#50fa7b' : '#ff5555'}">${rupiah(t.jumlah)}</td>
+                </tr>
+            `).join('');
         }
         
         function exportData(format) {
