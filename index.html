@@ -11,6 +11,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background: #f0f2f8; overflow-x: hidden; }
         
+        /* LOGIN PAGE */
         .login-page { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center; }
         .login-card { background: white; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); width: 450px; max-width: 90%; }
         .login-header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; text-align: center; border-radius: 20px 20px 0 0; }
@@ -21,30 +22,48 @@
         .remember-check { display: flex; align-items: center; gap: 8px; margin-bottom: 20px; }
         .remember-check input { width: 18px; height: 18px; cursor: pointer; }
         
+        /* SIDEBAR - PERBAIKAN UNTUK HP */
         .sidebar { 
             min-height: 100vh; 
             background: linear-gradient(180deg, #1a2a3a, #0f2027); 
             position: fixed; 
             top: 0;
             left: 0;
-            width: 260px; 
+            width: 280px; 
             color: white; 
             z-index: 1000; 
             transition: transform 0.3s ease-in-out;
             overflow-y: auto;
-            transform: translateX(0);
-            backdrop-filter: blur(10px);
+            transform: translateX(-100%);
         }
-        .sidebar.closed { transform: translateX(-100%); }
+        .sidebar.open { transform: translateX(0); }
         .sidebar-header { padding: 30px 20px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .sidebar-header i { font-size: 50px; margin-bottom: 10px; text-shadow: 0 0 10px rgba(0,0,0,0.3); }
+        .sidebar-header i { font-size: 50px; margin-bottom: 10px; }
         .sidebar-header h5 { font-size: 20px; font-weight: 600; }
         .sidebar-menu { padding: 20px 0; }
-        .sidebar-menu button { display: block; width: 100%; padding: 15px 25px; background: none; border: none; color: rgba(255,255,255,0.8); text-align: left; font-size: 15px; cursor: pointer; transition: 0.3s; border-left: 4px solid transparent; }
-        .sidebar-menu button:hover { background: rgba(255,255,255,0.15); color: white; border-left-color: #667eea; padding-left: 35px; }
+        .sidebar-menu button { 
+            display: block; 
+            width: 100%; 
+            padding: 15px 25px; 
+            background: none; 
+            border: none; 
+            color: rgba(255,255,255,0.8); 
+            text-align: left; 
+            font-size: 15px; 
+            cursor: pointer; 
+            transition: 0.3s; 
+            border-left: 4px solid transparent;
+        }
+        .sidebar-menu button:hover, .sidebar-menu button:active { 
+            background: rgba(255,255,255,0.15); 
+            color: white; 
+            border-left-color: #667eea; 
+            padding-left: 35px; 
+        }
         .sidebar-menu button.active { background: rgba(255,255,255,0.2); color: white; border-left-color: #667eea; }
         .sidebar-menu i { width: 25px; margin-right: 10px; }
         
+        /* OVERLAY */
         .sidebar-overlay {
             position: fixed;
             top: 0;
@@ -58,160 +77,138 @@
         }
         .sidebar-overlay.active { display: block; }
         
+        /* CONTENT */
         .content { 
-            margin-left: 260px; 
-            padding: 30px; 
+            margin-left: 0; 
+            padding: 20px; 
             transition: margin-left 0.3s ease-in-out;
             min-height: 100vh;
         }
-        .content.full { margin-left: 0; }
         
-        .header { background: rgba(255,255,255,0.95); border-radius: 20px; padding: 20px 30px; margin-bottom: 30px; box-shadow: 0 8px 20px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; backdrop-filter: blur(10px); }
+        .header { background: rgba(255,255,255,0.95); border-radius: 20px; padding: 20px; margin-bottom: 20px; box-shadow: 0 8px 20px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
         .header h3 { margin: 0; background: linear-gradient(135deg, #667eea, #764ba2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 700; }
         .date { background: linear-gradient(135deg, #f8f9fa, #e9ecef); padding: 8px 18px; border-radius: 30px; font-size: 14px; color: #555; font-weight: 500; }
         
-        .card { background: white; border-radius: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.05); margin-bottom: 25px; border: none; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; }
-        .card:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
-        .card-header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 18px 25px; }
-        .card-body { padding: 25px; }
+        /* CARDS */
+        .card { background: white; border-radius: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.05); margin-bottom: 20px; border: none; overflow: hidden; }
+        .card-header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px 20px; }
+        .card-body { padding: 20px; }
         
-        .btn { padding: 10px 24px; border: none; border-radius: 12px; cursor: pointer; font-weight: 600; transition: all 0.3s; }
+        /* BUTTONS */
+        .btn { 
+            padding: 10px 20px; 
+            border: none; 
+            border-radius: 12px; 
+            cursor: pointer; 
+            font-weight: 600; 
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
         .btn-primary { background: linear-gradient(135deg, #667eea, #764ba2); color: white; }
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(102,126,234,0.4); }
+        .btn-primary:active { transform: scale(0.97); }
         .btn-success { background: linear-gradient(135deg, #28a745, #20c997); color: white; }
         .btn-danger { background: linear-gradient(135deg, #dc3545, #e74c3c); color: white; }
         .btn-warning { background: linear-gradient(135deg, #ffc107, #fd7e14); color: #333; }
         .btn-secondary { background: #6c757d; color: white; }
         .btn-sm { padding: 6px 14px; font-size: 12px; border-radius: 8px; }
         
-        /* STAT CARDS - KEREN DENGAN GLASSMORPHISM */
-        .stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; margin-bottom: 30px; }
+        /* STAT CARDS */
+        .stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-bottom: 20px; }
         .stat-card { 
-            background: linear-gradient(135deg, rgba(255,255,255,0.98), rgba(255,255,255,0.95));
-            border-radius: 24px; 
-            padding: 22px; 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            background: white;
+            border-radius: 20px; 
+            padding: 18px; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
             display: flex; 
             align-items: center; 
-            gap: 18px; 
+            gap: 15px; 
             transition: all 0.3s ease;
-            border: 1px solid rgba(255,255,255,0.5);
-            backdrop-filter: blur(10px);
-            position: relative;
-            overflow: hidden;
         }
-        .stat-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #667eea, #764ba2);
-        }
-        .stat-card:hover { transform: translateY(-5px) scale(1.02); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        .stat-card:active { transform: scale(0.98); }
         .stat-icon { 
-            width: 65px; 
-            height: 65px; 
-            border-radius: 20px; 
+            width: 55px; 
+            height: 55px; 
+            border-radius: 18px; 
             display: flex; 
             align-items: center; 
             justify-content: center; 
-            font-size: 28px; 
-            transition: all 0.3s;
+            font-size: 24px; 
         }
-        .stat-card:hover .stat-icon { transform: scale(1.05) rotate(5deg); }
-        .stat-icon.primary { background: linear-gradient(135deg, #667eea20, #764ba230); color: #667eea; box-shadow: 0 5px 15px rgba(102,126,234,0.2); }
-        .stat-icon.success { background: linear-gradient(135deg, #28a74520, #20c99730); color: #28a745; box-shadow: 0 5px 15px rgba(40,167,69,0.2); }
-        .stat-icon.danger { background: linear-gradient(135deg, #dc354520, #e74c3c30); color: #dc3545; box-shadow: 0 5px 15px rgba(220,53,69,0.2); }
-        .stat-icon.info { background: linear-gradient(135deg, #17a2b820, #3498db30); color: #17a2b8; box-shadow: 0 5px 15px rgba(23,162,184,0.2); }
-        .stat-info h6 { font-size: 13px; color: #888; margin-bottom: 8px; letter-spacing: 0.5px; text-transform: uppercase; }
-        .stat-info h4 { font-size: 26px; font-weight: 800; margin: 0; background: linear-gradient(135deg, #2c3e50, #3498db); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .stat-icon.primary { background: rgba(102,126,234,0.15); color: #667eea; }
+        .stat-icon.success { background: rgba(40,167,69,0.15); color: #28a745; }
+        .stat-icon.danger { background: rgba(220,53,69,0.15); color: #dc3545; }
+        .stat-icon.info { background: rgba(23,162,184,0.15); color: #17a2b8; }
+        .stat-info h6 { font-size: 11px; color: #888; margin-bottom: 5px; letter-spacing: 0.5px; text-transform: uppercase; }
+        .stat-info h4 { font-size: 20px; font-weight: 800; margin: 0; color: #2c3e50; }
         
-        /* RINGKASAN SECTION - KEREN */
+        /* RINGKASAN CARD */
         .ringkasan-card {
             background: linear-gradient(135deg, #667eea, #764ba2);
-            border-radius: 24px;
-            padding: 25px;
+            border-radius: 20px;
+            padding: 20px;
             color: white;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 15px 35px rgba(102,126,234,0.3);
-        }
-        .ringkasan-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 200px;
-            height: 200px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 50%;
-        }
-        .ringkasan-card::after {
-            content: '';
-            position: absolute;
-            bottom: -30%;
-            left: -10%;
-            width: 150px;
-            height: 150px;
-            background: rgba(255,255,255,0.08);
-            border-radius: 50%;
+            height: 100%;
         }
         .ringkasan-item {
             background: rgba(255,255,255,0.15);
-            border-radius: 16px;
-            padding: 18px;
-            margin-bottom: 15px;
-            backdrop-filter: blur(5px);
+            border-radius: 14px;
+            padding: 15px;
+            margin-bottom: 12px;
             transition: all 0.3s;
-            border: 1px solid rgba(255,255,255,0.2);
         }
-        .ringkasan-item:hover {
-            background: rgba(255,255,255,0.25);
-            transform: translateX(5px);
-        }
-        .ringkasan-item h5 {
-            font-size: 32px;
-            font-weight: 800;
-            margin: 5px 0 0 0;
-            text-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        .ringkasan-item p {
-            margin: 0;
-            opacity: 0.9;
-            font-size: 14px;
-            letter-spacing: 1px;
-        }
+        .ringkasan-item:active { background: rgba(255,255,255,0.25); }
+        .ringkasan-item h5 { font-size: 24px; font-weight: 800; margin: 5px 0 0 0; }
+        .ringkasan-item p { margin: 0; opacity: 0.9; font-size: 12px; }
         
-        .table-responsive { overflow-x: auto; }
-        table { width: 100%; border-collapse: collapse; }
-        th { background: linear-gradient(135deg, #f8f9fa, #e9ecef); padding: 14px; text-align: left; font-weight: 700; border-bottom: 2px solid #667eea; }
-        td { padding: 12px; border-bottom: 1px solid #e0e0e0; transition: background 0.2s; }
-        tr:hover td { background: #f8f9ff; }
-        .badge { padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; display: inline-block; }
-        .badge-success { background: linear-gradient(135deg, #28a745, #20c997); color: white; box-shadow: 0 2px 8px rgba(40,167,69,0.3); }
-        .badge-danger { background: linear-gradient(135deg, #dc3545, #e74c3c); color: white; box-shadow: 0 2px 8px rgba(220,53,69,0.3); }
+        /* TABLES */
+        .table-responsive { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+        table { width: 100%; border-collapse: collapse; min-width: 500px; }
+        th { background: #f8f9fa; padding: 12px; text-align: left; font-weight: 700; border-bottom: 2px solid #667eea; }
+        td { padding: 12px; border-bottom: 1px solid #e0e0e0; }
+        .badge { padding: 5px 12px; border-radius: 20px; font-size: 11px; font-weight: 600; display: inline-block; }
+        .badge-success { background: #28a745; color: white; }
+        .badge-danger { background: #dc3545; color: white; }
         
-        .progress { height: 25px; background: #f0f0f0; border-radius: 12px; overflow: hidden; margin: 10px 0; }
-        .progress-bar { height: 100%; background: linear-gradient(90deg, #28a745, #20c997); color: white; display: flex; align-items: center; justify-content: center; font-size: 12px; }
-        
-        .form-group { margin-bottom: 20px; }
-        .form-label { display: block; margin-bottom: 5px; font-weight: 600; }
-        .form-control, .form-select { width: 100%; padding: 12px 15px; border: 2px solid #e0e0e0; border-radius: 12px; font-size: 14px; transition: all 0.3s; }
+        /* FORMS */
+        .form-group { margin-bottom: 15px; }
+        .form-label { display: block; margin-bottom: 5px; font-weight: 600; font-size: 14px; }
+        .form-control, .form-select { 
+            width: 100%; 
+            padding: 12px 15px; 
+            border: 2px solid #e0e0e0; 
+            border-radius: 12px; 
+            font-size: 14px; 
+            transition: all 0.3s;
+            -webkit-appearance: none;
+            appearance: none;
+        }
         .form-control:focus, .form-select:focus { border-color: #667eea; outline: none; box-shadow: 0 0 0 3px rgba(102,126,234,0.2); }
         
-        .tabs { display: flex; gap: 5px; margin-bottom: 25px; border-bottom: 2px solid #e0e0e0; flex-wrap: wrap; }
-        .tab-btn { background: none; border: none; padding: 12px 25px; font-size: 16px; font-weight: 600; color: #7f8c8d; cursor: pointer; border-bottom: 3px solid transparent; transition: all 0.3s; }
-        .tab-btn:hover { color: #667eea; }
+        /* TABS */
+        .tabs { display: flex; gap: 5px; margin-bottom: 20px; border-bottom: 2px solid #e0e0e0; flex-wrap: wrap; }
+        .tab-btn { 
+            background: none; 
+            border: none; 
+            padding: 10px 20px; 
+            font-size: 14px; 
+            font-weight: 600; 
+            color: #7f8c8d; 
+            cursor: pointer; 
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+        .tab-btn:hover, .tab-btn:active { color: #667eea; }
         .tab-btn.active { color: #667eea; border-bottom-color: #667eea; }
         .tab-pane { display: none; }
         .tab-pane.active { display: block; }
         
+        /* GRID */
         .row { display: flex; flex-wrap: wrap; margin: 0 -10px; }
-        .col-md-6 { width: 50%; padding: 0 10px; }
-        .col-md-4 { width: 33.33%; padding: 0 10px; }
-        .col-12 { width: 100%; padding: 0 10px; }
+        .col-md-6 { width: 100%; padding: 0 10px; margin-bottom: 15px; }
+        .col-md-4 { width: 100%; padding: 0 10px; margin-bottom: 15px; }
+        .col-md-8 { width: 100%; padding: 0 10px; margin-bottom: 15px; }
         .d-flex { display: flex; }
         .justify-content-between { justify-content: space-between; }
         .flex-wrap { flex-wrap: wrap; }
@@ -228,30 +225,58 @@
         .mt-2 { margin-top: 10px; }
         .mt-3 { margin-top: 15px; }
         .w-100 { width: 100%; }
-        .chart-container { position: relative; height: 320px; width: 100%; }
+        .chart-container { position: relative; height: 250px; width: 100%; }
         
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; align-items: center; justify-content: center; }
-        .modal-content { background: white; border-radius: 20px; width: 500px; max-width: 90%; max-height: 80vh; overflow-y: auto; }
-        .modal-header { background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 20px; border-radius: 20px 20px 0 0; display: flex; justify-content: space-between; align-items: center; }
-        .modal-body { padding: 25px; }
-        .modal-footer { padding: 20px; border-top: 1px solid #e0e0e0; display: flex; justify-content: flex-end; gap: 10px; }
-        .close-btn { background: none; border: none; color: white; font-size: 28px; cursor: pointer; }
+        /* MODAL */
+        .modal { 
+            display: none; 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background: rgba(0,0,0,0.5); 
+            z-index: 2000; 
+            align-items: center; 
+            justify-content: center;
+        }
+        .modal-content { 
+            background: white; 
+            border-radius: 20px; 
+            width: 90%; 
+            max-width: 500px; 
+            max-height: 80vh; 
+            overflow-y: auto; 
+            margin: auto;
+        }
+        .modal-header { 
+            background: linear-gradient(135deg, #667eea, #764ba2); 
+            color: white; 
+            padding: 15px 20px; 
+            border-radius: 20px 20px 0 0; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+        }
+        .modal-body { padding: 20px; }
+        .modal-footer { padding: 15px 20px; border-top: 1px solid #e0e0e0; display: flex; justify-content: flex-end; gap: 10px; }
+        .close-btn { background: none; border: none; color: white; font-size: 24px; cursor: pointer; }
         
+        /* CATEGORY */
         .category-item { display: flex; justify-content: space-between; align-items: center; padding: 12px; border-bottom: 1px solid #e0e0e0; }
         .category-badge { width: 20px; height: 20px; border-radius: 6px; margin-right: 10px; display: inline-block; }
         
-        .report-summary-card { background: linear-gradient(135deg, #f8f9fa, #e9ecef); border-radius: 16px; padding: 20px; margin-bottom: 20px; text-align: center; transition: all 0.3s; }
-        .report-summary-card:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
-        .amount-income { font-size: 28px; font-weight: 800; color: #28a745; }
-        .amount-expense { font-size: 28px; font-weight: 800; color: #dc3545; }
-        .amount-balance { font-size: 28px; font-weight: 800; color: #667eea; }
+        /* REPORT */
+        .report-summary-card { background: linear-gradient(135deg, #f8f9fa, #e9ecef); border-radius: 16px; padding: 15px; text-align: center; margin-bottom: 15px; }
+        .amount-income { font-size: 24px; font-weight: 800; color: #28a745; }
+        .amount-expense { font-size: 24px; font-weight: 800; color: #dc3545; }
+        .amount-balance { font-size: 24px; font-weight: 800; color: #667eea; }
         
-        .info-box { background: #e8f4fd; border-left: 4px solid #2196F3; padding: 12px 15px; border-radius: 8px; margin-bottom: 20px; font-size: 13px; }
-        .export-preview { background: #1e1e2f; border-radius: 12px; padding: 15px; margin-top: 15px; overflow-x: auto; }
-        .csv-preview-table { width: 100%; font-size: 12px; border-collapse: collapse; }
-        .csv-preview-table th { background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 8px; text-align: center; }
-        .csv-preview-table td { padding: 6px 8px; border-bottom: 1px solid #334; color: #ddd; text-align: center; }
+        /* PROGRESS */
+        .progress { height: 20px; background: #f0f0f0; border-radius: 10px; overflow: hidden; margin: 10px 0; }
+        .progress-bar { height: 100%; background: linear-gradient(90deg, #28a745, #20c997); color: white; display: flex; align-items: center; justify-content: center; font-size: 11px; }
         
+        /* MENU TOGGLE */
         .menu-toggle { 
             position: fixed; 
             bottom: 20px; 
@@ -267,33 +292,51 @@
             cursor: pointer; 
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
             transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        .menu-toggle:hover { transform: scale(1.05); }
+        .menu-toggle:active { transform: scale(0.95); }
         
-        @media (min-width: 769px) {
+        /* EXPORT PREVIEW */
+        .export-preview { background: #1e1e2f; border-radius: 12px; padding: 15px; margin-top: 15px; overflow-x: auto; }
+        .csv-preview-table { width: 100%; font-size: 11px; border-collapse: collapse; }
+        .csv-preview-table th { background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 8px; text-align: center; }
+        .csv-preview-table td { padding: 6px 8px; border-bottom: 1px solid #334; color: #ddd; text-align: center; }
+        
+        /* INFO BOX */
+        .info-box { background: #e8f4fd; border-left: 4px solid #2196F3; padding: 12px 15px; border-radius: 8px; margin-bottom: 20px; font-size: 13px; }
+        
+        /* DESKTOP STYLES */
+        @media (min-width: 768px) {
+            .content { margin-left: 280px; padding: 30px; }
+            .col-md-6 { width: 50%; margin-bottom: 0; }
+            .col-md-4 { width: 33.33%; margin-bottom: 0; }
+            .col-md-8 { width: 66.67%; margin-bottom: 0; }
+            .stat-card { padding: 22px; }
+            .stat-icon { width: 65px; height: 65px; font-size: 28px; }
+            .stat-info h4 { font-size: 26px; }
             .menu-toggle { display: none; }
-            .sidebar-overlay { display: none !important; }
+            .sidebar { transform: translateX(0) !important; }
         }
         
-        @media (max-width: 768px) {
-            .sidebar { transform: translateX(-100%); }
-            .sidebar.open { transform: translateX(0); }
-            .content { margin-left: 0; }
-            .stat-row { grid-template-columns: repeat(2, 1fr); gap: 15px; }
-            .col-md-6, .col-md-4 { width: 100%; margin-bottom: 15px; }
-            .tabs { flex-direction: column; border-bottom: none; }
-            .tab-btn { border-bottom: 1px solid #e0e0e0; }
-            .menu-toggle { display: flex; align-items: center; justify-content: center; }
-            .ringkasan-item h5 { font-size: 24px; }
+        /* MOBILE STYLES */
+        @media (max-width: 767px) {
+            .stat-row { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+            .stat-card { padding: 12px; }
+            .stat-icon { width: 45px; height: 45px; font-size: 20px; }
+            .stat-info h4 { font-size: 16px; }
+            .stat-info h6 { font-size: 10px; }
+            .ringkasan-item h5 { font-size: 20px; }
+            .btn { padding: 8px 16px; font-size: 13px; }
+            th, td { padding: 10px 8px; font-size: 12px; }
         }
         
         @media (max-width: 480px) {
-            .content { padding: 15px; }
             .stat-row { grid-template-columns: 1fr; }
+            .content { padding: 15px; }
             .header { padding: 15px; }
             .card-body { padding: 15px; }
-            .btn { padding: 8px 15px; font-size: 13px; }
-            th, td { padding: 8px; font-size: 12px; }
         }
     </style>
 </head>
@@ -383,12 +426,11 @@
 
             <!-- DASHBOARD -->
             <div id="dashboardPage">
-                <div class="d-flex justify-content-between mb-4 flex-wrap gap-2">
-                    <h4 style="font-weight: 700; background: linear-gradient(135deg, #667eea, #764ba2); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Ringkasan Keuangan Anda</h4>
-                    <button onclick="showPage('tambah')" class="btn btn-primary"><i class="fas fa-plus me-2"></i>Tambah Data</button>
+                <div class="d-flex justify-content-between mb-3 flex-wrap gap-2">
+                    <h4 style="font-weight: 700;">Ringkasan Keuangan</h4>
+                    <button onclick="showPage('tambah')" class="btn btn-primary"><i class="fas fa-plus me-1"></i>Tambah Data</button>
                 </div>
                 
-                <!-- STAT CARDS KEREN -->
                 <div class="stat-row">
                     <div class="stat-card">
                         <div class="stat-icon primary"><i class="fas fa-wallet"></i></div>
@@ -428,11 +470,10 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <!-- RINGKASAN CARD YANG LEBIH KEREN -->
                         <div class="ringkasan-card">
-                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
                                 <i class="fas fa-chart-pie fa-2x" style="opacity: 0.8;"></i>
-                                <span style="background: rgba(255,255,255,0.2); padding: 5px 12px; border-radius: 20px; font-size: 12px;">Info Terkini</span>
+                                <span style="background: rgba(255,255,255,0.2); padding: 5px 12px; border-radius: 20px; font-size: 11px;">Info Terkini</span>
                             </div>
                             <div class="ringkasan-item">
                                 <p><i class="fas fa-tags me-2"></i> TOTAL KATEGORI</p>
@@ -456,60 +497,131 @@
                 
                 <div class="card">
                     <div class="card-header"><h5 class="mb-0"><i class="fas fa-history me-2"></i>Transaksi Terbaru</h5></div>
-                    <div class="card-body"><div class="table-responsive"><table class="table"><thead><tr><th>Tanggal</th><th>Kategori</th><th>Deskripsi</th><th>Jumlah</th><th>Tipe</th></tr></thead><tbody id="recentTransactions"></tbody></table></div></div></div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead><tr><th>Tanggal</th><th>Kategori</th><th>Deskripsi</th><th>Jumlah</th><th>Tipe</th></tr></thead>
+                                <tbody id="recentTransactions"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- TRANSAKSI -->
             <div id="transaksiPage" style="display: none;">
-                <div class="d-flex justify-content-between mb-4 flex-wrap gap-2"><h4>Semua Transaksi</h4><div><button onclick="showPage('tambah')" class="btn btn-primary me-2"><i class="fas fa-plus me-2"></i>Tambah</button><button onclick="showExportModal()" class="btn btn-success"><i class="fas fa-download me-2"></i>Export</button></div></div>
-                <div class="card"><div class="card-body"><div class="table-responsive"><table class="table table-bordered"><thead><tr><th>Tanggal</th><th>Kategori</th><th>Deskripsi</th><th>Jumlah</th><th>Tipe</th><th>Aksi</th></tr></thead><tbody id="allTransactions"></tbody></table></div></div></div>
+                <div class="d-flex justify-content-between mb-3 flex-wrap gap-2">
+                    <h4>Semua Transaksi</h4>
+                    <div class="d-flex gap-2">
+                        <button onclick="showPage('tambah')" class="btn btn-primary"><i class="fas fa-plus me-1"></i>Tambah</button>
+                        <button onclick="showExportModal()" class="btn btn-success"><i class="fas fa-download me-1"></i>Export</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead><tr><th>Tanggal</th><th>Kategori</th><th>Deskripsi</th><th>Jumlah</th><th>Tipe</th><th>Aksi</th></tr></thead>
+                                <tbody id="allTransactions"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- KATEGORI -->
             <div id="kategoriPage" style="display: none;">
-                <div class="d-flex justify-content-between mb-4"><h4>Manajemen Kategori</h4><button onclick="showPage('tambah')" class="btn btn-primary"><i class="fas fa-plus me-2"></i>Tambah Kategori</button></div>
-                <div class="row"><div class="col-md-6"><div class="card"><div class="card-header bg-success text-white"><h5 class="mb-0"><i class="fas fa-arrow-up me-2"></i>Pemasukan</h5></div><div class="card-body"><div id="incomeCategoriesList"></div></div></div></div>
-                <div class="col-md-6"><div class="card"><div class="card-header bg-danger text-white"><h5 class="mb-0"><i class="fas fa-arrow-down me-2"></i>Pengeluaran</h5></div><div class="card-body"><div id="expenseCategoriesList"></div></div></div></div></div>
+                <div class="d-flex justify-content-between mb-3 flex-wrap gap-2">
+                    <h4>Manajemen Kategori</h4>
+                    <button onclick="showPage('tambah')" class="btn btn-primary"><i class="fas fa-plus me-1"></i>Tambah Kategori</button>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card"><div class="card-header bg-success text-white"><h5 class="mb-0"><i class="fas fa-arrow-up me-2"></i>Pemasukan</h5></div><div class="card-body"><div id="incomeCategoriesList"></div></div></div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card"><div class="card-header bg-danger text-white"><h5 class="mb-0"><i class="fas fa-arrow-down me-2"></i>Pengeluaran</h5></div><div class="card-body"><div id="expenseCategoriesList"></div></div></div>
+                    </div>
+                </div>
             </div>
 
             <!-- TABUNGAN -->
             <div id="tabunganPage" style="display: none;">
-                <div class="d-flex justify-content-between mb-4"><h4>Tabungan Saya</h4><button onclick="showPage('tambah')" class="btn btn-primary"><i class="fas fa-plus me-2"></i>Tambah Tabungan</button></div>
+                <div class="d-flex justify-content-between mb-3 flex-wrap gap-2">
+                    <h4>Tabungan Saya</h4>
+                    <button onclick="showPage('tambah')" class="btn btn-primary"><i class="fas fa-plus me-1"></i>Tambah Tabungan</button>
+                </div>
                 <div class="row" id="savingsList"></div>
             </div>
 
             <!-- HUTANG -->
             <div id="hutangPage" style="display: none;">
-                <div class="d-flex justify-content-between mb-4"><h4>Hutang & Piutang</h4><button onclick="showPage('tambah')" class="btn btn-primary"><i class="fas fa-plus me-2"></i>Tambah Data</button></div>
-                <div class="row"><div class="col-md-6"><div class="card"><div class="card-header bg-danger text-white"><h5 class="mb-0">Hutang</h5></div><div class="card-body" id="debtsList"></div></div></div>
-                <div class="col-md-6"><div class="card"><div class="card-header bg-success text-white"><h5 class="mb-0">Piutang</h5></div><div class="card-body" id="receivablesList"></div></div></div></div>
+                <div class="d-flex justify-content-between mb-3 flex-wrap gap-2">
+                    <h4>Hutang & Piutang</h4>
+                    <button onclick="showPage('tambah')" class="btn btn-primary"><i class="fas fa-plus me-1"></i>Tambah Data</button>
+                </div>
+                <div class="row">
+                    <div class="col-md-6"><div class="card"><div class="card-header bg-danger text-white"><h5 class="mb-0">Hutang</h5></div><div class="card-body" id="debtsList"></div></div></div>
+                    <div class="col-md-6"><div class="card"><div class="card-header bg-success text-white"><h5 class="mb-0">Piutang</h5></div><div class="card-body" id="receivablesList"></div></div></div>
+                </div>
             </div>
 
             <!-- LAPORAN -->
             <div id="laporanPage" style="display: none;">
-                <h4 class="mb-4">Laporan Keuangan</h4>
-                <div class="card mb-4">
+                <h4 class="mb-3">Laporan Keuangan</h4>
+                <div class="card mb-3">
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-3"><label class="form-label">Bulan</label><select id="reportMonth" class="form-select"><option value="1">Januari</option><option value="2">Februari</option><option value="3" selected>Maret</option><option value="4">April</option><option value="5">Mei</option><option value="6">Juni</option><option value="7">Juli</option><option value="8">Agustus</option><option value="9">September</option><option value="10">Oktober</option><option value="11">November</option><option value="12">Desember</option></select></div>
-                            <div class="col-md-3"><label class="form-label">Tahun</label><select id="reportYear" class="form-select"><option value="2025">2025</option><option value="2026" selected>2026</option><option value="2027">2027</option><option value="2028">2028</option></select></div>
-                            <div class="col-md-3"><button onclick="generateReport()" class="btn btn-primary w-100 mt-4"><i class="fas fa-chart-line me-1"></i>Tampilkan</button></div>
-                            <div class="col-md-3"><button onclick="exportMonthlyReport()" class="btn btn-success w-100 mt-4"><i class="fas fa-file-excel me-1"></i>Export</button></div>
+                        <div class="row g-2">
+                            <div class="col-6 col-md-3">
+                                <label class="form-label">Bulan</label>
+                                <select id="reportMonth" class="form-select">
+                                    <option value="1">Januari</option><option value="2">Februari</option><option value="3" selected>Maret</option>
+                                    <option value="4">April</option><option value="5">Mei</option><option value="6">Juni</option>
+                                    <option value="7">Juli</option><option value="8">Agustus</option><option value="9">September</option>
+                                    <option value="10">Oktober</option><option value="11">November</option><option value="12">Desember</option>
+                                </select>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <label class="form-label">Tahun</label>
+                                <select id="reportYear" class="form-select">
+                                    <option value="2025">2025</option><option value="2026" selected>2026</option>
+                                    <option value="2027">2027</option><option value="2028">2028</option>
+                                </select>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <button onclick="generateReport()" class="btn btn-primary w-100 mt-4"><i class="fas fa-chart-line me-1"></i>Tampilkan</button>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <button onclick="exportMonthlyReport()" class="btn btn-success w-100 mt-4"><i class="fas fa-file-excel me-1"></i>Export</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="row mb-4">
-                    <div class="col-md-4"><div class="report-summary-card"><i class="fas fa-arrow-up fa-2x text-success mb-2"></i><h6 class="text-muted">Total Pemasukan</h6><h3 class="amount-income" id="reportIncome">Rp 0</h3></div></div>
-                    <div class="col-md-4"><div class="report-summary-card"><i class="fas fa-arrow-down fa-2x text-danger mb-2"></i><h6 class="text-muted">Total Pengeluaran</h6><h3 class="amount-expense" id="reportExpense">Rp 0</h3></div></div>
-                    <div class="col-md-4"><div class="report-summary-card"><i class="fas fa-wallet fa-2x text-primary mb-2"></i><h6 class="text-muted">Saldo Bulanan</h6><h3 class="amount-balance" id="reportBalance">Rp 0</h3></div></div>
+                <div class="row mb-3">
+                    <div class="col-4"><div class="report-summary-card"><i class="fas fa-arrow-up fa-2x text-success mb-1"></i><h6 class="text-muted">Pemasukan</h6><h3 class="amount-income" id="reportIncome">Rp 0</h3></div></div>
+                    <div class="col-4"><div class="report-summary-card"><i class="fas fa-arrow-down fa-2x text-danger mb-1"></i><h6 class="text-muted">Pengeluaran</h6><h3 class="amount-expense" id="reportExpense">Rp 0</h3></div></div>
+                    <div class="col-4"><div class="report-summary-card"><i class="fas fa-wallet fa-2x text-primary mb-1"></i><h6 class="text-muted">Saldo</h6><h3 class="amount-balance" id="reportBalance">Rp 0</h3></div></div>
                 </div>
-                <div class="card mb-4"><div class="card-header"><h5 class="mb-0"><i class="fas fa-chart-bar me-2"></i>Grafik Perbandingan</h5></div><div class="card-body"><div class="chart-container"><canvas id="monthlyComparisonChart"></canvas></div></div></div>
-                <div class="card"><div class="card-header"><h5 class="mb-0"><i class="fas fa-list me-2"></i>Detail Transaksi</h5></div><div class="card-body"><div class="table-responsive"><table class="table"><thead><tr><th>Tanggal</th><th>Kategori</th><th>Deskripsi</th><th class="text-end">Jumlah</th><th class="text-center">Tipe</th></tr></thead><tbody id="reportTransactions"></tbody></table></div></div></div>
+                <div class="card mb-3">
+                    <div class="card-header"><h5 class="mb-0"><i class="fas fa-chart-bar me-2"></i>Grafik Perbandingan</h5></div>
+                    <div class="card-body"><div class="chart-container"><canvas id="monthlyComparisonChart"></canvas></div></div>
+                </div>
+                <div class="card">
+                    <div class="card-header"><h5 class="mb-0"><i class="fas fa-list me-2"></i>Detail Transaksi</h5></div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead><tr><th>Tanggal</th><th>Kategori</th><th>Deskripsi</th><th class="text-end">Jumlah</th><th class="text-center">Tipe</th></tr></thead>
+                                <tbody id="reportTransactions"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- TAMBAH DATA -->
             <div id="tambahPage" style="display: none;">
-                <h4 class="mb-4">Tambah Data</h4>
+                <h4 class="mb-3">Tambah Data</h4>
                 <div class="tabs">
                     <button class="tab-btn active" onclick="openTab('tabTransaksi')"><i class="fas fa-exchange-alt me-2"></i>Transaksi</button>
                     <button class="tab-btn" onclick="openTab('tabKategori')"><i class="fas fa-tags me-2"></i>Kategori</button>
@@ -663,7 +775,8 @@
             document.getElementById('pageTitle').innerHTML = page.charAt(0).toUpperCase() + page.slice(1);
             
             document.querySelectorAll('.sidebar-menu button').forEach(btn => btn.classList.remove('active'));
-            document.getElementById('menu'+page.charAt(0).toUpperCase()+page.slice(1)).classList.add('active');
+            let menuBtn = document.getElementById('menu' + page.charAt(0).toUpperCase() + page.slice(1));
+            if(menuBtn) menuBtn.classList.add('active');
             
             if(window.innerWidth <= 768) closeSidebar();
             
@@ -755,7 +868,7 @@
                     <td class="${t.tipe==='Pemasukan'?'text-success':'text-danger'} fw-bold">${rupiah(t.jumlah)}</td>
                     <td><span class="badge ${t.tipe==='Pemasukan'?'badge-success':'badge-danger'}">${t.tipe}</span></td>
                     <td><button onclick="deleteTransaction(${i})" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Hapus</button></td>
-                </tr>`; 
+                </table>`; 
             }); 
             document.getElementById('allTransactions').innerHTML = html || '<tr><td colspan="6" class="text-center">Belum ada transaksi</td></tr>'; 
         }
@@ -806,11 +919,11 @@
         // ========== TABUNGAN ==========
         function displaySavings(){
             if(savings.length === 0){
-                document.getElementById('savingsList').innerHTML = '<div class="col-12"><div class="card p-5 text-center"><i class="fas fa-piggy-bank fa-4x text-muted mb-3"></i><h5>Belum ada tabungan</h5><button onclick="showPage(\'tambah\')" class="btn btn-primary mt-3">Tambah Tabungan</button></div></div>';
+                document.getElementById('savingsList').innerHTML = '<div class="col-12"><div class="card p-4 text-center"><i class="fas fa-piggy-bank fa-3x text-muted mb-2"></i><h5>Belum ada tabungan</h5><button onclick="showPage(\'tambah\')" class="btn btn-primary mt-2">Tambah Tabungan</button></div></div>';
                 return;
             }
             let html = '';
-            savings.forEach(s=>{ let persen=s.target?Math.min(100,Math.round((s.current/s.target)*100)):0; html+=`<div class="col-md-6 mb-3"><div class="card"><div class="card-body"><div class="d-flex justify-content-between"><h5>${s.nama}</h5><div><button onclick='openAddSavingModal(${s.id},"${s.nama}")' class="btn btn-success btn-sm me-1"><i class="fas fa-plus"></i></button><button onclick="deleteSaving(${s.id})" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button></div></div><div class="progress mb-2"><div class="progress-bar" style="width:${persen}%">${persen}%</div></div><div class="d-flex justify-content-between"><span>Terkumpul: ${rupiah(s.current)}</span><span>Target: ${rupiah(s.target)}</span></div>${s.deadline?`<p class="text-muted small mt-2"><i class="far fa-calendar-alt"></i> Deadline: ${formatTanggal(s.deadline)}</p>`:''}</div></div></div>`; });
+            savings.forEach(s=>{ let persen=s.target?Math.min(100,Math.round((s.current/s.target)*100)):0; html+=`<div class="col-md-6 mb-3"><div class="card"><div class="card-body"><div class="d-flex justify-content-between flex-wrap"><h5>${s.nama}</h5><div><button onclick='openAddSavingModal(${s.id},"${s.nama}")' class="btn btn-success btn-sm me-1"><i class="fas fa-plus"></i></button><button onclick="deleteSaving(${s.id})" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button></div></div><div class="progress mb-2"><div class="progress-bar" style="width:${persen}%">${persen}%</div></div><div class="d-flex justify-content-between"><span>Terkumpul: ${rupiah(s.current)}</span><span>Target: ${rupiah(s.target)}</span></div>${s.deadline?`<p class="text-muted small mt-2"><i class="far fa-calendar-alt"></i> Deadline: ${formatTanggal(s.deadline)}</p>`:''}</div></div></div>`; });
             document.getElementById('savingsList').innerHTML = html;
         }
         
@@ -822,10 +935,10 @@
         
         // ========== HUTANG ==========
         function displayDebts(){
-            let hutang='', piutang='', totalHutang=0, totalPiutang=0;
-            debts.forEach((d,i)=>{ if(d.status!=='Lunas'){ if(d.tipe==='Hutang'){ totalHutang+=d.jumlah; hutang+=`<div class="border-bottom mb-2 pb-2"><div class="d-flex justify-content-between"><div><strong>${d.nama}</strong><br><small>${d.deskripsi||'-'}</small></div><div class="text-end"><span class="text-danger fw-bold">${rupiah(d.jumlah)}</span><br><button onclick="lunasHutang(${i})" class="btn btn-success btn-sm mt-1">Lunas</button></div></div></div>`; } else { totalPiutang+=d.jumlah; piutang+=`<div class="border-bottom mb-2 pb-2"><div class="d-flex justify-content-between"><div><strong>${d.nama}</strong><br><small>${d.deskripsi||'-'}</small></div><div class="text-end"><span class="text-success fw-bold">${rupiah(d.jumlah)}</span><br><button onclick="lunasHutang(${i})" class="btn btn-success btn-sm mt-1">Diterima</button></div></div></div>`; } } });
-            document.getElementById('debtsList').innerHTML = hutang || '<p class="text-muted">Tidak ada hutang</p>';
-            document.getElementById('receivablesList').innerHTML = piutang || '<p class="text-muted">Tidak ada piutang</p>';
+            let hutang='', piutang='';
+            debts.forEach((d,i)=>{ if(d.status!=='Lunas'){ if(d.tipe==='Hutang'){ hutang+=`<div class="border-bottom mb-2 pb-2"><div class="d-flex justify-content-between flex-wrap"><div><strong>${d.nama}</strong><br><small>${d.deskripsi||'-'}</small></div><div class="text-end"><span class="text-danger fw-bold">${rupiah(d.jumlah)}</span><br><button onclick="lunasHutang(${i})" class="btn btn-success btn-sm mt-1">Lunas</button></div></div></div>`; } else { piutang+=`<div class="border-bottom mb-2 pb-2"><div class="d-flex justify-content-between flex-wrap"><div><strong>${d.nama}</strong><br><small>${d.deskripsi||'-'}</small></div><div class="text-end"><span class="text-success fw-bold">${rupiah(d.jumlah)}</span><br><button onclick="lunasHutang(${i})" class="btn btn-success btn-sm mt-1">Diterima</button></div></div></div>`; } } });
+            document.getElementById('debtsList').innerHTML = hutang || '<p class="text-muted text-center">Tidak ada hutang</p>';
+            document.getElementById('receivablesList').innerHTML = piutang || '<p class="text-muted text-center">Tidak ada piutang</p>';
         }
         
         function lunasHutang(index){ debts[index].status='Lunas'; refreshAllData(); showMessage('Status diperbarui','success'); }
@@ -836,34 +949,24 @@
             let bulan = document.getElementById('reportMonth').value.padStart(2,'0');
             let tahun = document.getElementById('reportYear').value;
             let bulanStr = `${tahun}-${bulan}`;
-            
             let filtered = transactions.filter(t => t.tanggal && t.tanggal.startsWith(bulanStr));
-            
-            let totalMasuk = 0;
-            let totalKeluar = 0;
-            
-            filtered.forEach(t => {
-                if(t.tipe === 'Pemasukan') totalMasuk += t.jumlah || 0;
-                else totalKeluar += t.jumlah || 0;
-            });
-            
+            let totalMasuk = 0, totalKeluar = 0;
+            filtered.forEach(t => { if(t.tipe === 'Pemasukan') totalMasuk += t.jumlah || 0; else totalKeluar += t.jumlah || 0; });
             document.getElementById('reportIncome').innerHTML = rupiah(totalMasuk);
             document.getElementById('reportExpense').innerHTML = rupiah(totalKeluar);
             document.getElementById('reportBalance').innerHTML = rupiah(totalMasuk - totalKeluar);
-            
             if(filtered.length === 0) {
-                document.getElementById('reportTransactions').innerHTML = '<tr><td colspan="5" class="text-center py-4"><i class="fas fa-inbox fa-2x text-muted mb-2 d-block"></i>Tidak ada transaksi pada bulan ini</td></tr>';
+                document.getElementById('reportTransactions').innerHTML = '<tr><td colspan="5" class="text-center py-3">Tidak ada transaksi pada bulan ini</td></tr>';
             } else {
                 let html = '';
                 filtered.forEach(t => {
-                    let cat = categories.find(c => c.nama === t.kategori) || { warna: '#6c757d', icon: 'fas fa-tag' };
                     html += `<tr>
-                        <td><i class="fas fa-calendar-alt me-1 text-muted"></i> ${formatTanggal(t.tanggal)}</td>
-                        <td><span style="display:inline-block;width:12px;height:12px;border-radius:4px;background:${cat.warna};margin-right:8px;"></span><i class="${cat.icon} me-1"></i> ${t.kategori}</td>
-                        <td><i class="fas fa-sticky-note me-1 text-muted"></i> ${t.deskripsi || '-'}</td>
+                        <td>${formatTanggal(t.tanggal)}</td>
+                        <td>${t.kategori}</td>
+                        <td>${t.deskripsi || '-'}</td>
                         <td class="text-end fw-bold ${t.tipe === 'Pemasukan' ? 'text-success' : 'text-danger'}">${rupiah(t.jumlah)}</td>
-                        <td class="text-center"><span class="badge ${t.tipe === 'Pemasukan' ? 'badge-success' : 'badge-danger'}"><i class="${t.tipe === 'Pemasukan' ? 'fas fa-arrow-up' : 'fas fa-arrow-down'} me-1"></i>${t.tipe}</span></td>
-                    </tr>`;
+                        <td class="text-center"><span class="badge ${t.tipe === 'Pemasukan' ? 'badge-success' : 'badge-danger'}">${t.tipe}</span></td>
+                    <tr>`;
                 });
                 document.getElementById('reportTransactions').innerHTML = html;
             }
@@ -874,18 +977,10 @@
             let bulan = document.getElementById('reportMonth').value.padStart(2,'0');
             let tahun = document.getElementById('reportYear').value;
             let data = transactions.filter(t => t.tanggal && t.tanggal.startsWith(`${tahun}-${bulan}`));
-            
             let csv = "Tanggal,Tipe,Kategori,Deskripsi,Jumlah\n";
-            data.forEach(t => {
-                csv += `"${formatTanggalCSV(t.tanggal)}","${t.tipe}","${t.kategori}","${(t.deskripsi || '').replace(/"/g, '""')}","${t.jumlah}"\n`;
-            });
-            
+            data.forEach(t => { csv += `"${formatTanggalCSV(t.tanggal)}","${t.tipe}","${t.kategori}","${(t.deskripsi || '').replace(/"/g, '""')}","${t.jumlah}"\n`; });
             let blob = new Blob(["\uFEFF" + csv], { type: 'text/csv;charset=utf-8;' });
-            let a = document.createElement('a');
-            a.href = URL.createObjectURL(blob);
-            a.download = `laporan_${tahun}_${bulan}.csv`;
-            a.click();
-            URL.revokeObjectURL(a.href);
+            let a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `laporan_${tahun}_${bulan}.csv`; a.click(); URL.revokeObjectURL(a.href);
             showMessage('Laporan berhasil diekspor!', 'success');
         }
         
@@ -897,18 +992,13 @@
             let tbody = document.getElementById('csvPreviewBody');
             if (!tbody) return;
             let previewData = [...transactions].reverse().slice(0, 10);
-            if (previewData.length === 0) { 
-                tbody.innerHTML = '<tr><td colspan="5" style="text-align:center">Belum ada transaksi</td></tr>';
-                return; 
-            }
-            tbody.innerHTML = previewData.map(t => `
-                <tr>
-                    <td>${formatTanggalCSV(t.tanggal)}</td>
-                    <td><span class="badge ${t.tipe === 'Pemasukan' ? 'badge-success' : 'badge-danger'}">${t.tipe}</span></td>
-                    <td>${t.kategori || '-'}</td>
-                    <td>${(t.deskripsi || '-').substring(0, 30)}</td>
-                    <td style="color:${t.tipe === 'Pemasukan' ? '#50fa7b' : '#ff5555'}">${rupiah(t.jumlah)}</td>
-                </tr>
+            if (previewData.length === 0) { tbody.innerHTML = '<tr><td colspan="5" style="text-align:center">Belum ada transaksi</td></tr>'; return; }
+            tbody.innerHTML = previewData.map(t => `<tr>
+                <td>${formatTanggalCSV(t.tanggal)}</td>
+                <td><span class="badge ${t.tipe === 'Pemasukan' ? 'badge-success' : 'badge-danger'}">${t.tipe}</span></td>
+                <td>${t.kategori || '-'}</td>
+                <td>${(t.deskripsi || '-').substring(0, 30)}</td></td>
+                <td style="color:${t.tipe === 'Pemasukan' ? '#50fa7b' : '#ff5555'}">${rupiah(t.jumlah)}</td></td>
             `).join('');
         }
         
@@ -964,25 +1054,16 @@
             let username = document.getElementById('username').value.trim();
             let password = document.getElementById('password').value;
             let remember = document.getElementById('rememberMe').checked;
-            
-            try {
-                users = JSON.parse(localStorage.getItem('users')) || [];
-            } catch(e) { users = []; }
+            try { users = JSON.parse(localStorage.getItem('users')) || []; } catch(e) { users = []; }
             if (!users.find(u => u.username === 'admin')) users.unshift({ username: 'admin', password: 'admin123' });
-            
             let user = users.find(u => u.username === username && u.password === password);
             if (user) {
-                if (remember) { localStorage.setItem('rememberedUser', JSON.stringify({ username, password })); } 
-                else { localStorage.removeItem('rememberedUser'); }
-                
-                currentUser = username; 
-                loadUserData(username);
-                document.getElementById('loginPage').style.display = 'none'; 
-                document.getElementById('appPage').style.display = 'block';
+                if (remember) { localStorage.setItem('rememberedUser', JSON.stringify({ username, password })); } else { localStorage.removeItem('rememberedUser'); }
+                currentUser = username; loadUserData(username);
+                document.getElementById('loginPage').style.display = 'none'; document.getElementById('appPage').style.display = 'block';
                 document.getElementById('userDisplay').innerHTML = username;
                 document.getElementById('currentDate').innerHTML = new Date().toLocaleDateString('id-ID', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
-                refreshAllData(); 
-                showPage('dashboard');
+                refreshAllData(); showPage('dashboard');
             } else { 
                 document.getElementById('loginError').innerHTML = 'Username atau password salah!<br><small>Default: admin / admin123</small>'; 
                 document.getElementById('loginError').style.display = 'block'; 
@@ -1014,23 +1095,16 @@
                 localStorage.setItem(`categories_${newUsername}`, JSON.stringify(categories)); 
                 localStorage.setItem(`savings_${newUsername}`, JSON.stringify(savings)); 
                 localStorage.setItem(`debts_${newUsername}`, JSON.stringify(debts)); 
-                localStorage.removeItem(`transactions_${currentUser}`); 
-                localStorage.removeItem(`categories_${currentUser}`); 
-                localStorage.removeItem(`savings_${currentUser}`); 
-                localStorage.removeItem(`debts_${currentUser}`); 
+                localStorage.removeItem(`transactions_${currentUser}`); localStorage.removeItem(`categories_${currentUser}`); 
+                localStorage.removeItem(`savings_${currentUser}`); localStorage.removeItem(`debts_${currentUser}`); 
             } 
             users[userIndex] = { username: newUsername, password: newPassword || oldPassword }; 
             localStorage.setItem('users', JSON.stringify(users)); 
             if (localStorage.getItem('rememberedUser')) { 
-                try {
-                    let rem = JSON.parse(localStorage.getItem('rememberedUser')); 
-                    if(rem.username === currentUser) localStorage.setItem('rememberedUser', JSON.stringify({username:newUsername, password:newPassword||oldPassword}));
-                } catch(e) {}
+                try { let rem = JSON.parse(localStorage.getItem('rememberedUser')); if(rem.username === currentUser) localStorage.setItem('rememberedUser', JSON.stringify({username:newUsername, password:newPassword||oldPassword})); } catch(e) {}
             }
-            currentUser = newUsername; 
-            document.getElementById('userDisplay').innerHTML = currentUser; 
-            document.getElementById('profileSuccess').innerHTML = 'Profil berhasil diupdate! Silakan login ulang.'; 
-            document.getElementById('profileSuccess').style.display = 'block'; 
+            currentUser = newUsername; document.getElementById('userDisplay').innerHTML = currentUser; 
+            document.getElementById('profileSuccess').innerHTML = 'Profil berhasil diupdate! Silakan login ulang.'; document.getElementById('profileSuccess').style.display = 'block'; 
             setTimeout(()=>{ closeEditProfileModal(); logout(); }, 2000); 
         }
         
@@ -1052,833 +1126,7 @@
         // CEK REMEMBER ME
         checkRememberedUser();
         
-        // RESIZE HANDLER
-        window.addEventListener('resize', function() {
-            if(window.innerWidth > 768) {
-                closeSidebar();
-                document.getElementById('sidebar').classList.remove('open');
-            }
-        });
-        
-        console.log('%c✅ APLIKASI KEUANGAN PRO - SIAP DIGUNAKAN', 'color: #28a745; font-size: 16px; font-weight: bold');
-        console.log('%c🔐 Login: admin | Password: admin123', 'color: #ff9800; font-size: 14px');
-    </script>
-</body>
-</html>        .form-control:focus, .form-select:focus { border-color: #667eea; outline: none; }
-        
-        .tabs { display: flex; gap: 5px; margin-bottom: 25px; border-bottom: 2px solid #e0e0e0; flex-wrap: wrap; }
-        .tab-btn { background: none; border: none; padding: 12px 25px; font-size: 16px; font-weight: 600; color: #7f8c8d; cursor: pointer; border-bottom: 3px solid transparent; }
-        .tab-btn:hover { color: #667eea; }
-        .tab-btn.active { color: #667eea; border-bottom-color: #667eea; }
-        .tab-pane { display: none; }
-        .tab-pane.active { display: block; }
-        
-        .row { display: flex; flex-wrap: wrap; margin: 0 -10px; }
-        .col-md-6 { width: 50%; padding: 0 10px; }
-        .col-md-4 { width: 33.33%; padding: 0 10px; }
-        .col-12 { width: 100%; padding: 0 10px; }
-        .d-flex { display: flex; }
-        .justify-content-between { justify-content: space-between; }
-        .flex-wrap { flex-wrap: wrap; }
-        .gap-2 { gap: 10px; }
-        .text-success { color: #28a745 !important; }
-        .text-danger { color: #dc3545 !important; }
-        .text-center { text-align: center; }
-        .text-end { text-align: right; }
-        .fw-bold { font-weight: 700; }
-        .mb-0 { margin-bottom: 0; }
-        .mb-2 { margin-bottom: 10px; }
-        .mb-3 { margin-bottom: 15px; }
-        .mb-4 { margin-bottom: 20px; }
-        .mt-2 { margin-top: 10px; }
-        .mt-3 { margin-top: 15px; }
-        .w-100 { width: 100%; }
-        .chart-container { position: relative; height: 300px; width: 100%; }
-        
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; align-items: center; justify-content: center; }
-        .modal-content { background: white; border-radius: 15px; width: 500px; max-width: 90%; max-height: 80vh; overflow-y: auto; }
-        .modal-header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 15px 15px 0 0; display: flex; justify-content: space-between; align-items: center; }
-        .modal-body { padding: 20px; }
-        .modal-footer { padding: 20px; border-top: 1px solid #e0e0e0; display: flex; justify-content: flex-end; gap: 10px; }
-        .close-btn { background: none; border: none; color: white; font-size: 28px; cursor: pointer; }
-        
-        .category-item { display: flex; justify-content: space-between; align-items: center; padding: 12px; border-bottom: 1px solid #e0e0e0; }
-        .category-badge { width: 20px; height: 20px; border-radius: 6px; margin-right: 10px; display: inline-block; }
-        
-        .report-summary-card { background: linear-gradient(135deg, #f8f9fa, #e9ecef); border-radius: 12px; padding: 20px; margin-bottom: 20px; text-align: center; }
-        .amount-income { font-size: 28px; font-weight: 700; color: #28a745; }
-        .amount-expense { font-size: 28px; font-weight: 700; color: #dc3545; }
-        .amount-balance { font-size: 28px; font-weight: 700; color: #667eea; }
-        
-        .info-box { background: #e8f4fd; border-left: 4px solid #2196F3; padding: 12px 15px; border-radius: 8px; margin-bottom: 20px; font-size: 13px; }
-        .export-preview { background: #1e1e2f; border-radius: 12px; padding: 15px; margin-top: 15px; overflow-x: auto; }
-        .csv-preview-table { width: 100%; font-size: 12px; border-collapse: collapse; }
-        .csv-preview-table th { background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 8px; text-align: center; }
-        .csv-preview-table td { padding: 6px 8px; border-bottom: 1px solid #334; color: #ddd; text-align: center; }
-        
-        .menu-toggle { 
-            position: fixed; 
-            bottom: 20px; 
-            right: 20px; 
-            z-index: 1001; 
-            background: linear-gradient(135deg, #667eea, #764ba2); 
-            color: white; 
-            border: none; 
-            border-radius: 50%; 
-            width: 55px; 
-            height: 55px; 
-            font-size: 24px; 
-            cursor: pointer; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            transition: 0.3s;
-        }
-        .menu-toggle:hover { transform: scale(1.05); }
-        
-        /* Skeleton loading untuk laporan */
-        .skeleton-text { background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%); background-size: 200% 100%; animation: loading 1.5s infinite; height: 20px; border-radius: 4px; margin: 8px 0; }
-        @keyframes loading { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
-        
-        @media (min-width: 769px) {
-            .menu-toggle { display: none; }
-            .sidebar-overlay { display: none !important; }
-        }
-        
-        @media (max-width: 768px) {
-            .sidebar { transform: translateX(-100%); }
-            .sidebar.open { transform: translateX(0); }
-            .content { margin-left: 0; }
-            .stat-row { grid-template-columns: 1fr; }
-            .col-md-6, .col-md-4 { width: 100%; margin-bottom: 15px; }
-            .tabs { flex-direction: column; border-bottom: none; }
-            .tab-btn { border-bottom: 1px solid #e0e0e0; }
-            .menu-toggle { display: flex; align-items: center; justify-content: center; }
-        }
-        
-        @media (max-width: 480px) {
-            .content { padding: 15px; }
-            .header { padding: 15px; }
-            .card-body { padding: 15px; }
-            .btn { padding: 8px 15px; font-size: 13px; }
-            th, td { padding: 8px; font-size: 12px; }
-        }
-    </style>
-</head>
-<body>
-    <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
-    <div class="sidebar-overlay" id="sidebarOverlay"></div>
-    
-    <!-- LOGIN PAGE -->
-    <div class="login-page" id="loginPage">
-        <div class="login-card">
-            <div class="login-header">
-                <i class="fas fa-wallet"></i>
-                <h4>APLIKASI KEUANGAN PRO</h4>
-                <p>Kelola Keuangan Pribadi</p>
-            </div>
-            <div class="login-body">
-                <div class="info-box">
-                    <i class="fas fa-info-circle me-2"></i>
-                    <strong>User Default:</strong> admin / admin123
-                </div>
-                <div id="loginFormDiv">
-                    <div id="loginError" class="alert alert-danger" style="display: none;"></div>
-                    <form id="loginForm">
-                        <div class="form-group">
-                            <label class="form-label">Username</label>
-                            <input type="text" id="username" class="form-control" placeholder="Masukkan username">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Password</label>
-                            <input type="password" id="password" class="form-control" placeholder="Masukkan password">
-                        </div>
-                        <div class="remember-check">
-                            <input type="checkbox" id="rememberMe">
-                            <label for="rememberMe">Ingat Saya</label>
-                        </div>
-                        <button type="submit" class="btn btn-primary w-100">MASUK</button>
-                    </form>
-                    <div class="register-link">
-                        <a onclick="showRegisterForm()">Belum punya akun? Daftar di sini</a>
-                    </div>
-                </div>
-                <div id="registerFormDiv" style="display: none;">
-                    <div id="registerError" class="alert alert-danger" style="display: none;"></div>
-                    <div id="registerSuccess" class="alert alert-success" style="display: none;"></div>
-                    <form>
-                        <div class="form-group"><label class="form-label">Username</label><input type="text" id="regUsername" class="form-control" placeholder="Buat username"></div>
-                        <div class="form-group"><label class="form-label">Password</label><input type="password" id="regPassword" class="form-control" placeholder="Buat password"></div>
-                        <div class="form-group"><label class="form-label">Konfirmasi Password</label><input type="password" id="regConfirmPassword" class="form-control" placeholder="Konfirmasi password"></div>
-                        <button type="button" onclick="registerUser()" class="btn btn-primary w-100">DAFTAR</button>
-                    </form>
-                    <div class="register-link"><a onclick="showLoginForm()">Sudah punya akun? Login di sini</a></div>
-                </div>
-                <hr>
-                <div class="text-center text-muted"><small>KeuanganKu Pro | Versi 2.0</small></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- MAIN APP -->
-    <div id="appPage" style="display: none;">
-        <div class="sidebar" id="sidebar">
-            <div class="sidebar-header">
-                <i class="fas fa-wallet"></i>
-                <h5>KeuanganKu Pro</h5>
-                <p id="userDisplay">User</p>
-            </div>
-            <div class="sidebar-menu">
-                <button onclick="showPage('dashboard')" id="menuDashboard" class="active"><i class="fas fa-home"></i> Dashboard</button>
-                <button onclick="showPage('transaksi')" id="menuTransaksi"><i class="fas fa-exchange-alt"></i> Transaksi</button>
-                <button onclick="showPage('kategori')" id="menuKategori"><i class="fas fa-tags"></i> Kategori</button>
-                <button onclick="showPage('tabungan')" id="menuTabungan"><i class="fas fa-piggy-bank"></i> Tabungan</button>
-                <button onclick="showPage('hutang')" id="menuHutang"><i class="fas fa-hand-holding-usd"></i> Hutang/Piutang</button>
-                <button onclick="showPage('laporan')" id="menuLaporan"><i class="fas fa-file-alt"></i> Laporan</button>
-                <button onclick="showPage('tambah')" id="menuTambah"><i class="fas fa-plus-circle"></i> Tambah Data</button>
-                <button onclick="showEditProfileModal()" id="menuProfil"><i class="fas fa-user-cog"></i> Ubah Profil</button>
-                <hr>
-                <button onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
-            </div>
-        </div>
-
-        <div class="content" id="mainContent">
-            <div class="header">
-                <h3 id="pageTitle">Dashboard</h3>
-                <div class="date" id="currentDate"></div>
-            </div>
-            <div id="messageArea" class="alert" style="display: none;"></div>
-
-            <!-- DASHBOARD -->
-            <div id="dashboardPage">
-                <div class="d-flex justify-content-between mb-4 flex-wrap gap-2">
-                    <h4>Dashboard Keuangan</h4>
-                    <button onclick="showPage('tambah')" class="btn btn-primary"><i class="fas fa-plus me-2"></i>Tambah Data</button>
-                </div>
-                <div class="stat-row">
-                    <div class="stat-card"><div class="stat-icon primary"><i class="fas fa-wallet"></i></div><div class="stat-info"><h6>Saldo Total</h6><h4 id="totalBalance">Rp 0</h4></div></div>
-                    <div class="stat-card"><div class="stat-icon success"><i class="fas fa-arrow-up"></i></div><div class="stat-info"><h6>Pemasukan Bulan Ini</h6><h4 id="monthlyIncome">Rp 0</h4></div></div>
-                    <div class="stat-card"><div class="stat-icon danger"><i class="fas fa-arrow-down"></i></div><div class="stat-info"><h6>Pengeluaran Bulan Ini</h6><h4 id="monthlyExpense">Rp 0</h4></div></div>
-                    <div class="stat-card"><div class="stat-icon info"><i class="fas fa-chart-line"></i></div><div class="stat-info"><h6>Total Transaksi</h6><h4 id="totalTransactions">0</h4></div></div>
-                </div>
-                <div class="row">
-                    <div class="col-md-8">
-                        <div class="card"><div class="card-header"><h5 class="mb-0"><i class="fas fa-chart-line me-2"></i>Grafik 7 Hari Terakhir</h5></div><div class="card-body"><div class="chart-container"><canvas id="chartDashboard"></canvas></div></div></div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card"><div class="card-header"><h5 class="mb-0"><i class="fas fa-info-circle me-2"></i>Ringkasan</h5></div><div class="card-body">
-                            <div class="mb-3"><p class="mb-1">Total Kategori</p><h5 id="totalCategories">0</h5></div>
-                            <div class="mb-3"><p class="mb-1">Total Tabungan</p><h5 id="totalSavings">0</h5></div>
-                            <div class="mb-3"><p class="mb-1">Hutang Aktif</p><h5 id="activeDebts">0</h5></div>
-                            <div class="mb-3"><p class="mb-1">Total Aset Tabungan</p><h5 id="totalSavingsAmount">Rp 0</h5></div>
-                        </div></div>
-                    </div>
-                </div>
-                <div class="card"><div class="card-header"><h5 class="mb-0"><i class="fas fa-history me-2"></i>Transaksi Terbaru</h5></div><div class="card-body"><div class="table-responsive"><table class="table"><thead><tr><th>Tanggal</th><th>Kategori</th><th>Deskripsi</th><th>Jumlah</th><th>Tipe</th></tr></thead><tbody id="recentTransactions"></tbody></table></div></div></div>
-            </div>
-
-            <!-- TRANSAKSI -->
-            <div id="transaksiPage" style="display: none;">
-                <div class="d-flex justify-content-between mb-4 flex-wrap gap-2"><h4>Semua Transaksi</h4><div><button onclick="showPage('tambah')" class="btn btn-primary me-2"><i class="fas fa-plus me-2"></i>Tambah</button><button onclick="showExportModal()" class="btn btn-success"><i class="fas fa-download me-2"></i>Export</button></div></div>
-                <div class="card"><div class="card-body"><div class="table-responsive"><table class="table table-bordered"><thead><tr><th>Tanggal</th><th>Kategori</th><th>Deskripsi</th><th>Jumlah</th><th>Tipe</th><th>Aksi</th></tr></thead><tbody id="allTransactions"></tbody></table></div></div></div>
-            </div>
-
-            <!-- KATEGORI -->
-            <div id="kategoriPage" style="display: none;">
-                <div class="d-flex justify-content-between mb-4"><h4>Manajemen Kategori</h4><button onclick="showPage('tambah')" class="btn btn-primary"><i class="fas fa-plus me-2"></i>Tambah Kategori</button></div>
-                <div class="row"><div class="col-md-6"><div class="card"><div class="card-header bg-success text-white"><h5 class="mb-0"><i class="fas fa-arrow-up me-2"></i>Pemasukan</h5></div><div class="card-body"><div id="incomeCategoriesList"></div></div></div></div>
-                <div class="col-md-6"><div class="card"><div class="card-header bg-danger text-white"><h5 class="mb-0"><i class="fas fa-arrow-down me-2"></i>Pengeluaran</h5></div><div class="card-body"><div id="expenseCategoriesList"></div></div></div></div></div>
-            </div>
-
-            <!-- TABUNGAN -->
-            <div id="tabunganPage" style="display: none;">
-                <div class="d-flex justify-content-between mb-4"><h4>Tabungan Saya</h4><button onclick="showPage('tambah')" class="btn btn-primary"><i class="fas fa-plus me-2"></i>Tambah Tabungan</button></div>
-                <div class="row" id="savingsList"></div>
-            </div>
-
-            <!-- HUTANG -->
-            <div id="hutangPage" style="display: none;">
-                <div class="d-flex justify-content-between mb-4"><h4>Hutang & Piutang</h4><button onclick="showPage('tambah')" class="btn btn-primary"><i class="fas fa-plus me-2"></i>Tambah Data</button></div>
-                <div class="row"><div class="col-md-6"><div class="card"><div class="card-header bg-danger text-white"><h5 class="mb-0">Hutang</h5></div><div class="card-body" id="debtsList"></div></div></div>
-                <div class="col-md-6"><div class="card"><div class="card-header bg-success text-white"><h5 class="mb-0">Piutang</h5></div><div class="card-body" id="receivablesList"></div></div></div></div>
-            </div>
-
-            <!-- LAPORAN - DIPERBAIKI LOADING CEPAT -->
-            <div id="laporanPage" style="display: none;">
-                <h4 class="mb-4">Laporan Keuangan</h4>
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-3"><label class="form-label">Bulan</label><select id="reportMonth" class="form-select"><option value="1">Januari</option><option value="2">Februari</option><option value="3" selected>Maret</option><option value="4">April</option><option value="5">Mei</option><option value="6">Juni</option><option value="7">Juli</option><option value="8">Agustus</option><option value="9">September</option><option value="10">Oktober</option><option value="11">November</option><option value="12">Desember</option></select></div>
-                            <div class="col-md-3"><label class="form-label">Tahun</label><select id="reportYear" class="form-select"><option value="2025">2025</option><option value="2026" selected>2026</option><option value="2027">2027</option><option value="2028">2028</option></select></div>
-                            <div class="col-md-3"><button onclick="generateReport()" class="btn btn-primary w-100 mt-4"><i class="fas fa-chart-line me-1"></i>Tampilkan</button></div>
-                            <div class="col-md-3"><button onclick="exportMonthlyReport()" class="btn btn-success w-100 mt-4"><i class="fas fa-file-excel me-1"></i>Export</button></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mb-4">
-                    <div class="col-md-4"><div class="report-summary-card"><i class="fas fa-arrow-up fa-2x text-success mb-2"></i><h6 class="text-muted">Total Pemasukan</h6><h3 class="amount-income" id="reportIncome">Rp 0</h3></div></div>
-                    <div class="col-md-4"><div class="report-summary-card"><i class="fas fa-arrow-down fa-2x text-danger mb-2"></i><h6 class="text-muted">Total Pengeluaran</h6><h3 class="amount-expense" id="reportExpense">Rp 0</h3></div></div>
-                    <div class="col-md-4"><div class="report-summary-card"><i class="fas fa-wallet fa-2x text-primary mb-2"></i><h6 class="text-muted">Saldo Bulanan</h6><h3 class="amount-balance" id="reportBalance">Rp 0</h3></div></div>
-                </div>
-                <div class="card mb-4"><div class="card-header"><h5 class="mb-0"><i class="fas fa-chart-bar me-2"></i>Grafik Perbandingan</h5></div><div class="card-body"><div class="chart-container"><canvas id="monthlyComparisonChart"></canvas></div></div></div>
-                <div class="card"><div class="card-header"><h5 class="mb-0"><i class="fas fa-list me-2"></i>Detail Transaksi</h5></div><div class="card-body"><div class="table-responsive"><table class="table"><thead><tr><th>Tanggal</th><th>Kategori</th><th>Deskripsi</th><th class="text-end">Jumlah</th><th class="text-center">Tipe</th></tr></thead><tbody id="reportTransactions"></tbody></table></div></div></div>
-            </div>
-
-            <!-- TAMBAH DATA -->
-            <div id="tambahPage" style="display: none;">
-                <h4 class="mb-4">Tambah Data</h4>
-                <div class="tabs">
-                    <button class="tab-btn active" onclick="openTab('tabTransaksi')"><i class="fas fa-exchange-alt me-2"></i>Transaksi</button>
-                    <button class="tab-btn" onclick="openTab('tabKategori')"><i class="fas fa-tags me-2"></i>Kategori</button>
-                    <button class="tab-btn" onclick="openTab('tabTabungan')"><i class="fas fa-piggy-bank me-2"></i>Tabungan</button>
-                    <button class="tab-btn" onclick="openTab('tabHutang')"><i class="fas fa-hand-holding-usd me-2"></i>Hutang/Piutang</button>
-                </div>
-                
-                <div id="tabTransaksi" class="tab-pane active">
-                    <div class="card"><div class="card-header"><h5 class="mb-0"><i class="fas fa-exchange-alt me-2"></i>Tambah Transaksi</h5></div><div class="card-body">
-                        <div class="form-group"><label class="form-label">Tipe</label><select id="transactionTipe" class="form-select" onchange="updateTransactionKategori()"><option value="Pemasukan">Pemasukan</option><option value="Pengeluaran">Pengeluaran</option></select></div>
-                        <div class="form-group"><label class="form-label">Kategori</label><select id="transactionKategori" class="form-select"></select></div>
-                        <div class="form-group"><label class="form-label">Jumlah (Rp)</label><input type="number" id="transactionJumlah" class="form-control" placeholder="Masukkan jumlah"></div>
-                        <div class="form-group"><label class="form-label">Deskripsi</label><input type="text" id="transactionDeskripsi" class="form-control" placeholder="Deskripsi"></div>
-                        <div class="form-group"><label class="form-label">Tanggal</label><input type="date" id="transactionTanggal" class="form-control"></div>
-                        <button onclick="saveTransaction()" class="btn btn-primary w-100"><i class="fas fa-save me-2"></i>Simpan</button>
-                    </div></div>
-                </div>
-                
-                <div id="tabKategori" class="tab-pane">
-                    <div class="card"><div class="card-header"><h5 class="mb-0"><i class="fas fa-tags me-2"></i>Tambah Kategori</h5></div><div class="card-body">
-                        <div class="form-group"><label class="form-label">Nama Kategori</label><input type="text" id="categoryName" class="form-control" placeholder="Contoh: Makanan"></div>
-                        <div class="form-group"><label class="form-label">Tipe</label><select id="categoryType" class="form-select"><option value="Pemasukan">Pemasukan</option><option value="Pengeluaran">Pengeluaran</option></select></div>
-                        <div class="form-group"><label class="form-label">Warna</label><input type="color" id="categoryColor" class="form-control" value="#3498db"></div>
-                        <div class="form-group"><label class="form-label">Icon</label><select id="categoryIcon" class="form-select"><option value="fas fa-money-bill-wave">💰 Uang</option><option value="fas fa-utensils">🍽️ Makanan</option><option value="fas fa-bus">🚗 Transport</option><option value="fas fa-shopping-cart">🛒 Belanja</option><option value="fas fa-film">🎬 Hiburan</option><option value="fas fa-file-invoice">📄 Tagihan</option></select></div>
-                        <button onclick="saveCategory()" class="btn btn-primary w-100"><i class="fas fa-save me-2"></i>Simpan</button>
-                    </div></div>
-                </div>
-                
-                <div id="tabTabungan" class="tab-pane">
-                    <div class="card"><div class="card-header"><h5 class="mb-0"><i class="fas fa-piggy-bank me-2"></i>Tambah Tabungan</h5></div><div class="card-body">
-                        <div class="form-group"><label class="form-label">Nama Tabungan</label><input type="text" id="savingName" class="form-control" placeholder="Contoh: Liburan"></div>
-                        <div class="form-group"><label class="form-label">Target (Rp)</label><input type="number" id="savingTarget" class="form-control" placeholder="Target"></div>
-                        <div class="form-group"><label class="form-label">Saldo Awal (Rp)</label><input type="number" id="savingCurrent" class="form-control" value="0"></div>
-                        <div class="form-group"><label class="form-label">Deadline</label><input type="date" id="savingDeadline" class="form-control"></div>
-                        <button onclick="saveSaving()" class="btn btn-primary w-100"><i class="fas fa-save me-2"></i>Simpan</button>
-                    </div></div>
-                </div>
-                
-                <div id="tabHutang" class="tab-pane">
-                    <div class="card"><div class="card-header"><h5 class="mb-0"><i class="fas fa-hand-holding-usd me-2"></i>Tambah Hutang/Piutang</h5></div><div class="card-body">
-                        <div class="form-group"><label class="form-label">Tipe</label><select id="debtTipe" class="form-select"><option value="Hutang">Hutang (Saya berhutang)</option><option value="Piutang">Piutang (Orang berhutang)</option></select></div>
-                        <div class="form-group"><label class="form-label">Nama Pihak</label><input type="text" id="debtNama" class="form-control" placeholder="Nama orang/lembaga"></div>
-                        <div class="form-group"><label class="form-label">Jumlah (Rp)</label><input type="number" id="debtJumlah" class="form-control" placeholder="Jumlah"></div>
-                        <div class="form-group"><label class="form-label">Deskripsi</label><input type="text" id="debtDeskripsi" class="form-control" placeholder="Keterangan"></div>
-                        <div class="form-group"><label class="form-label">Tanggal</label><input type="date" id="debtTanggal" class="form-control"></div>
-                        <div class="form-group"><label class="form-label">Jatuh Tempo</label><input type="date" id="debtJatuhTempo" class="form-control"></div>
-                        <button onclick="saveDebt()" class="btn btn-primary w-100"><i class="fas fa-save me-2"></i>Simpan</button>
-                    </div></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- MODALS -->
-    <div class="modal" id="editProfileModal"><div class="modal-content"><div class="modal-header"><h5>Ubah Profil</h5><button class="close-btn" onclick="closeEditProfileModal()">&times;</button></div><div class="modal-body"><div id="profileError" class="alert alert-danger" style="display: none;"></div><div id="profileSuccess" class="alert alert-success" style="display: none;"></div><div class="form-group"><label>Username Baru</label><input type="text" id="newUsername" class="form-control"></div><div class="form-group"><label>Password Lama</label><input type="password" id="oldPassword" class="form-control"></div><div class="form-group"><label>Password Baru</label><input type="password" id="newPassword" class="form-control"></div><div class="form-group"><label>Konfirmasi Password Baru</label><input type="password" id="confirmNewPassword" class="form-control"></div></div><div class="modal-footer"><button onclick="closeEditProfileModal()" class="btn btn-secondary">Batal</button><button onclick="updateProfile()" class="btn btn-primary">Simpan</button></div></div></div>
-    
-    <div class="modal" id="exportModal"><div class="modal-content"><div class="modal-header"><h5>Export Data</h5><button class="close-btn" onclick="closeExportModal()">&times;</button></div><div class="modal-body"><p>Pilih format export:</p><div class="d-flex gap-2 mb-3"><button onclick="exportData('json')" class="btn btn-primary">JSON</button><button onclick="exportData('csv')" class="btn btn-success">CSV</button></div><hr><h6>Preview Data</h6><div class="export-preview"><table class="csv-preview-table"><thead><tr><th>Tanggal</th><th>Tipe</th><th>Kategori</th><th>Deskripsi</th><th>Jumlah</th></tr></thead><tbody id="csvPreviewBody"><tr><td colspan="5" style="text-align:center">Loading...</td></tr></tbody></table></div></div><div class="modal-footer"><button onclick="closeExportModal()" class="btn btn-secondary">Tutup</button></div></div></div>
-    
-    <div class="modal" id="editCategoryModal"><div class="modal-content"><div class="modal-header"><h5>Edit Kategori</h5><button class="close-btn" onclick="closeEditCategoryModal()">&times;</button></div><div class="modal-body"><input type="hidden" id="editCategoryId"><div class="form-group"><label>Nama</label><input type="text" id="editCategoryName" class="form-control"></div><div class="form-group"><label>Tipe</label><select id="editCategoryType" class="form-select"><option value="Pemasukan">Pemasukan</option><option value="Pengeluaran">Pengeluaran</option></select></div><div class="form-group"><label>Warna</label><input type="color" id="editCategoryColor" class="form-control"></div><div class="form-group"><label>Icon</label><select id="editCategoryIcon" class="form-select"><option value="fas fa-money-bill-wave">💰 Uang</option><option value="fas fa-utensils">🍽️ Makanan</option><option value="fas fa-bus">🚗 Transport</option><option value="fas fa-shopping-cart">🛒 Belanja</option><option value="fas fa-film">🎬 Hiburan</option><option value="fas fa-file-invoice">📄 Tagihan</option></select></div></div><div class="modal-footer"><button onclick="closeEditCategoryModal()" class="btn btn-secondary">Batal</button><button onclick="updateCategory()" class="btn btn-primary">Update</button></div></div></div>
-    
-    <div class="modal" id="addSavingModal"><div class="modal-content"><div class="modal-header"><h5>Tambah Saldo</h5><button class="close-btn" onclick="closeAddSavingModal()">&times;</button></div><div class="modal-body"><input type="hidden" id="addSavingId"><p><strong id="addSavingName"></strong></p><div class="form-group"><label>Jumlah</label><input type="number" id="addSavingAmount" class="form-control"></div></div><div class="modal-footer"><button onclick="closeAddSavingModal()" class="btn btn-secondary">Batal</button><button onclick="processAddSaving()" class="btn btn-success">Tambah</button></div></div></div>
-
-    <script>
-        // ========== DATA ==========
-        let users = [];
-        try {
-            let storedUsers = localStorage.getItem('users');
-            if (storedUsers) users = JSON.parse(storedUsers);
-            if (!users.length || !users.find(u => u.username === 'admin')) {
-                users = [{ username: 'admin', password: 'admin123' }];
-                localStorage.setItem('users', JSON.stringify(users));
-            }
-        } catch(e) { users = [{ username: 'admin', password: 'admin123' }]; localStorage.setItem('users', JSON.stringify(users)); }
-        
-        let currentUser = null;
-        let transactions = [];
-        let categories = [
-            { id: 1, nama: 'Gaji', tipe: 'Pemasukan', warna: '#28a745', icon: 'fas fa-money-bill-wave' },
-            { id: 2, nama: 'Bonus', tipe: 'Pemasukan', warna: '#17a2b8', icon: 'fas fa-gift' },
-            { id: 3, nama: 'Makanan', tipe: 'Pengeluaran', warna: '#dc3545', icon: 'fas fa-utensils' },
-            { id: 4, nama: 'Transport', tipe: 'Pengeluaran', warna: '#fd7e14', icon: 'fas fa-bus' },
-            { id: 5, nama: 'Belanja', tipe: 'Pengeluaran', warna: '#6f42c1', icon: 'fas fa-shopping-cart' },
-            { id: 6, nama: 'Tagihan', tipe: 'Pengeluaran', warna: '#20c997', icon: 'fas fa-file-invoice' },
-            { id: 7, nama: 'Hiburan', tipe: 'Pengeluaran', warna: '#e83e8c', icon: 'fas fa-film' }
-        ];
-        let savings = [];
-        let debts = [];
-        let chart, monthlyChart;
-        
-        // ========== HELPER ==========
-        function rupiah(angka) { return 'Rp ' + (angka || 0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.'); }
-        function formatTanggal(tanggal) { if(!tanggal) return '-'; let d=new Date(tanggal); return d.getDate()+' '+['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'][d.getMonth()]+' '+d.getFullYear(); }
-        function formatTanggalCSV(tanggal) { if(!tanggal) return '-'; let d=new Date(tanggal); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
-        
-        function toggleSidebar() {
-            let sidebar = document.getElementById('sidebar');
-            let overlay = document.getElementById('sidebarOverlay');
-            if (sidebar.classList.contains('open')) {
-                sidebar.classList.remove('open');
-                overlay.classList.remove('active');
-                document.body.style.overflow = '';
-            } else {
-                sidebar.classList.add('open');
-                overlay.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            }
-        }
-        
-        function closeSidebar() {
-            let sidebar = document.getElementById('sidebar');
-            let overlay = document.getElementById('sidebarOverlay');
-            sidebar.classList.remove('open');
-            overlay.classList.remove('active');
-            document.body.style.overflow = '';
-        }
-        
-        function showMessage(text, type) { 
-            let msg = document.getElementById('messageArea'); 
-            msg.className = 'alert alert-' + type; 
-            msg.innerHTML = '<i class="fas fa-'+(type==='success'?'check-circle':'exclamation-circle')+' me-2"></i>'+text; 
-            msg.style.display = 'block'; 
-            setTimeout(() => msg.style.display = 'none', 3000); 
-        }
-        
-        function loadUserData(username) {
-            try {
-                transactions = JSON.parse(localStorage.getItem(`transactions_${username}`)) || [];
-                let savedCats = localStorage.getItem(`categories_${username}`);
-                if (savedCats) categories = JSON.parse(savedCats);
-                savings = JSON.parse(localStorage.getItem(`savings_${username}`)) || [];
-                debts = JSON.parse(localStorage.getItem(`debts_${username}`)) || [];
-            } catch(e) { console.log('Load error:', e); }
-        }
-        
-        function saveUserData(username) {
-            localStorage.setItem(`transactions_${username}`, JSON.stringify(transactions));
-            localStorage.setItem(`categories_${username}`, JSON.stringify(categories));
-            localStorage.setItem(`savings_${username}`, JSON.stringify(savings));
-            localStorage.setItem(`debts_${username}`, JSON.stringify(debts));
-        }
-        
-        function showPage(page) {
-            document.getElementById('dashboardPage').style.display = 'none';
-            document.getElementById('transaksiPage').style.display = 'none';
-            document.getElementById('kategoriPage').style.display = 'none';
-            document.getElementById('tabunganPage').style.display = 'none';
-            document.getElementById('hutangPage').style.display = 'none';
-            document.getElementById('laporanPage').style.display = 'none';
-            document.getElementById('tambahPage').style.display = 'none';
-            document.getElementById(page+'Page').style.display = 'block';
-            document.getElementById('pageTitle').innerHTML = page.charAt(0).toUpperCase() + page.slice(1);
-            
-            document.querySelectorAll('.sidebar-menu button').forEach(btn => btn.classList.remove('active'));
-            document.getElementById('menu'+page.charAt(0).toUpperCase()+page.slice(1)).classList.add('active');
-            
-            if(window.innerWidth <= 768) closeSidebar();
-            
-            if(page === 'dashboard') { updateDashboard(); setTimeout(() => updateChart(), 100); }
-            if(page === 'transaksi') { displayAllTransactions(); updateCSVPreview(); }
-            if(page === 'kategori') displayCategories();
-            if(page === 'tabungan') displaySavings();
-            if(page === 'hutang') displayDebts();
-            if(page === 'laporan') { generateReport(); updateMonthlyComparisonChart(); }
-            if(page === 'tambah') { 
-                let firstTab = document.querySelector('#tambahPage .tab-btn');
-                if(firstTab && !firstTab.classList.contains('active')) openTab('tabTransaksi');
-                updateTransactionKategori();
-            }
-        }
-        
-        function refreshAllData() { 
-            updateDashboard(); 
-            displayAllTransactions(); 
-            displayCategories(); 
-            displaySavings(); 
-            displayDebts(); 
-            setTimeout(() => updateChart(), 100); 
-            if(currentUser) saveUserData(currentUser); 
-        }
-        
-        // ========== DASHBOARD ==========
-        function updateDashboard() {
-            let totalMasuk = transactions.filter(t=>t.tipe==='Pemasukan').reduce((s,t)=>s+(t.jumlah||0),0);
-            let totalKeluar = transactions.filter(t=>t.tipe==='Pengeluaran').reduce((s,t)=>s+(t.jumlah||0),0);
-            let now = new Date(), bulanIni = now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');
-            let masukBulan = transactions.filter(t=>t.tanggal?.startsWith(bulanIni) && t.tipe==='Pemasukan').reduce((s,t)=>s+(t.jumlah||0),0);
-            let keluarBulan = transactions.filter(t=>t.tanggal?.startsWith(bulanIni) && t.tipe==='Pengeluaran').reduce((s,t)=>s+(t.jumlah||0),0);
-            document.getElementById('totalBalance').innerHTML = rupiah(totalMasuk - totalKeluar);
-            document.getElementById('monthlyIncome').innerHTML = rupiah(masukBulan);
-            document.getElementById('monthlyExpense').innerHTML = rupiah(keluarBulan);
-            document.getElementById('totalTransactions').innerHTML = transactions.length;
-            document.getElementById('totalCategories').innerHTML = categories.length;
-            document.getElementById('totalSavings').innerHTML = savings.length;
-            document.getElementById('activeDebts').innerHTML = debts.filter(d=>d.status !== 'Lunas').length;
-            document.getElementById('totalSavingsAmount').innerHTML = rupiah(savings.reduce((s,sv)=>s+(sv.current||0),0));
-            
-            let recent = [...transactions].reverse().slice(0,5);
-            document.getElementById('recentTransactions').innerHTML = recent.map(t => `
-                <tr>
-                    <td>${formatTanggal(t.tanggal)}</td>
-                    <td>${t.kategori||'-'}</td>
-                    <td>${t.deskripsi||'-'}</td>
-                    <td class="${t.tipe==='Pemasukan'?'text-success':'text-danger'} fw-bold">${rupiah(t.jumlah)}</td>
-                    <td><span class="badge ${t.tipe==='Pemasukan'?'badge-success':'badge-danger'}">${t.tipe}</span></td>
-                </tr>
-            `).join('') || '<tr><td colspan="5" class="text-center">Belum ada transaksi</td></tr>';
-        }
-        
-        function updateChart() {
-            let ctx = document.getElementById('chartDashboard')?.getContext('2d'); if(!ctx) return;
-            if(chart) chart.destroy();
-            let labels=[], pMasuk=[], pKeluar=[];
-            for(let i=6;i>=0;i--){ let d=new Date(); d.setDate(d.getDate()-i); let ds=d.toISOString().split('T')[0]; labels.push(d.getDate()+'/'+(d.getMonth()+1));
-                let dayTrans=transactions.filter(t=>t.tanggal===ds);
-                pMasuk.push(dayTrans.filter(t=>t.tipe==='Pemasukan').reduce((s,t)=>s+(t.jumlah||0),0));
-                pKeluar.push(dayTrans.filter(t=>t.tipe==='Pengeluaran').reduce((s,t)=>s+(t.jumlah||0),0));
-            }
-            chart = new Chart(ctx,{type:'line',data:{labels,datasets:[{label:'Pemasukan',data:pMasuk,borderColor:'#28a745',backgroundColor:'rgba(40,167,69,0.1)',fill:true,tension:0.3},{label:'Pengeluaran',data:pKeluar,borderColor:'#dc3545',backgroundColor:'rgba(220,53,69,0.1)',fill:true,tension:0.3}]},options:{responsive:true,maintainAspectRatio:false,scales:{y:{ticks:{callback:v=>'Rp '+v.toLocaleString('id-ID')}}}}});
-        }
-        
-        function updateMonthlyComparisonChart() { 
-            let ctx = document.getElementById('monthlyComparisonChart')?.getContext('2d'); if(!ctx) return; 
-            if(monthlyChart) monthlyChart.destroy(); 
-            let months = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des']; 
-            let tahun = document.getElementById('reportYear').value; 
-            let pMasuk=[], pKeluar=[]; 
-            for(let m=1;m<=12;m++){ let bulanStr=`${tahun}-${String(m).padStart(2,'0')}`; 
-                pMasuk.push(transactions.filter(t=>t.tanggal?.startsWith(bulanStr) && t.tipe==='Pemasukan').reduce((s,t)=>s+(t.jumlah||0),0)); 
-                pKeluar.push(transactions.filter(t=>t.tanggal?.startsWith(bulanStr) && t.tipe==='Pengeluaran').reduce((s,t)=>s+(t.jumlah||0),0)); 
-            } 
-            monthlyChart = new Chart(ctx,{type:'bar',data:{labels:months,datasets:[{label:'Pemasukan',data:pMasuk,backgroundColor:'#28a745'},{label:'Pengeluaran',data:pKeluar,backgroundColor:'#dc3545'}]},options:{responsive:true,maintainAspectRatio:false,scales:{y:{ticks:{callback:v=>'Rp '+v.toLocaleString('id-ID')}}}}});
-        }
-        
-        // ========== TRANSAKSI ==========
-        function displayAllTransactions() { 
-            let html = ''; 
-            [...transactions].reverse().forEach((t,i)=>{ 
-                let cat = categories.find(c=>c.nama===t.kategori)||{warna:'#6c757d',icon:'fas fa-tag'}; 
-                html += `<tr>
-                    <td>${formatTanggal(t.tanggal)}</td>
-                    <td><span style="display:inline-block;width:12px;height:12px;border-radius:4px;background:${cat.warna};margin-right:5px;"></span>${t.kategori}</td>
-                    <td>${t.deskripsi||'-'}</td>
-                    <td class="${t.tipe==='Pemasukan'?'text-success':'text-danger'} fw-bold">${rupiah(t.jumlah)}</td>
-                    <td><span class="badge ${t.tipe==='Pemasukan'?'badge-success':'badge-danger'}">${t.tipe}</span></td>
-                    <td><button onclick="deleteTransaction(${i})" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Hapus</button></td>
-                </tr>`; 
-            }); 
-            document.getElementById('allTransactions').innerHTML = html || '<tr><td colspan="6" class="text-center">Belum ada transaksi</td></tr>'; 
-        }
-        
-        function deleteTransaction(index) { if(confirm('Hapus transaksi ini?')){ transactions.splice(index,1); refreshAllData(); showMessage('Transaksi dihapus','success'); } }
-        
-        function saveTransaction(){ 
-            let tipe=document.getElementById('transactionTipe').value, kategori=document.getElementById('transactionKategori').value, jumlah=parseInt(document.getElementById('transactionJumlah').value), deskripsi=document.getElementById('transactionDeskripsi').value, tanggal=document.getElementById('transactionTanggal').value || new Date().toISOString().split('T')[0]; 
-            if(!jumlah || jumlah<=0) return showMessage('Jumlah harus positif','danger'); 
-            if(!kategori) return showMessage('Pilih kategori','danger');
-            transactions.push({id:Date.now(), tanggal, tipe, kategori, jumlah, deskripsi}); 
-            refreshAllData(); 
-            showMessage('Transaksi ditambahkan','success'); 
-            document.getElementById('transactionJumlah').value=''; 
-            document.getElementById('transactionDeskripsi').value=''; 
-        }
-        
-        function updateTransactionKategori(){ 
-            let tipe=document.getElementById('transactionTipe').value; 
-            let filtered = categories.filter(c=>c.tipe===tipe);
-            document.getElementById('transactionKategori').innerHTML = filtered.map(c=>`<option value="${c.nama}">${c.nama}</option>`).join(''); 
-        }
-        
-        // ========== KATEGORI ==========
-        function displayCategories(){
-            document.getElementById('incomeCategoriesList').innerHTML = categories.filter(c=>c.tipe==='Pemasukan').map(c=>`
-                <div class="category-item"><div><span class="category-badge" style="background:${c.warna}"></span><i class="${c.icon} me-1"></i><strong>${c.nama}</strong></div><div><button onclick="editCategory(${c.id})" class="btn btn-warning btn-sm me-1"><i class="fas fa-edit"></i></button><button onclick="deleteCategory(${c.id})" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button></div></div>
-            `).join('') || '<p class="text-muted text-center">Belum ada kategori</p>';
-            document.getElementById('expenseCategoriesList').innerHTML = categories.filter(c=>c.tipe==='Pengeluaran').map(c=>`
-                <div class="category-item"><div><span class="category-badge" style="background:${c.warna}"></span><i class="${c.icon} me-1"></i><strong>${c.nama}</strong></div><div><button onclick="editCategory(${c.id})" class="btn btn-warning btn-sm me-1"><i class="fas fa-edit"></i></button><button onclick="deleteCategory(${c.id})" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button></div></div>
-            `).join('') || '<p class="text-muted text-center">Belum ada kategori</p>';
-        }
-        
-        function saveCategory(){ 
-            let nama=document.getElementById('categoryName').value.trim(), tipe=document.getElementById('categoryType').value, warna=document.getElementById('categoryColor').value, icon=document.getElementById('categoryIcon').value; 
-            if(!nama) return showMessage('Nama kategori harus diisi','danger'); 
-            categories.push({id:Date.now(), nama, tipe, warna, icon}); 
-            refreshAllData(); 
-            showMessage('Kategori ditambahkan','success'); 
-            document.getElementById('categoryName').value=''; 
-        }
-        
-        function editCategory(id){ let c=categories.find(c=>c.id===id); if(c){ document.getElementById('editCategoryId').value=c.id; document.getElementById('editCategoryName').value=c.nama; document.getElementById('editCategoryType').value=c.tipe; document.getElementById('editCategoryColor').value=c.warna; document.getElementById('editCategoryIcon').value=c.icon; document.getElementById('editCategoryModal').style.display='flex'; } }
-        function closeEditCategoryModal(){ document.getElementById('editCategoryModal').style.display='none'; }
-        function updateCategory(){ let id=parseInt(document.getElementById('editCategoryId').value), idx=categories.findIndex(c=>c.id===id); if(idx!==-1){ categories[idx]={id, nama:document.getElementById('editCategoryName').value, tipe:document.getElementById('editCategoryType').value, warna:document.getElementById('editCategoryColor').value, icon:document.getElementById('editCategoryIcon').value}; refreshAllData(); closeEditCategoryModal(); showMessage('Kategori diupdate','success'); } }
-        function deleteCategory(id){ if(confirm('Hapus kategori?')){ categories=categories.filter(c=>c.id!==id); refreshAllData(); showMessage('Kategori dihapus','success'); } }
-        
-        // ========== TABUNGAN ==========
-        function displaySavings(){
-            if(savings.length === 0){
-                document.getElementById('savingsList').innerHTML = '<div class="col-12"><div class="card p-5 text-center"><i class="fas fa-piggy-bank fa-4x text-muted mb-3"></i><h5>Belum ada tabungan</h5><button onclick="showPage(\'tambah\')" class="btn btn-primary mt-3">Tambah Tabungan</button></div></div>';
-                return;
-            }
-            let html = '';
-            savings.forEach(s=>{ let persen=s.target?Math.min(100,Math.round((s.current/s.target)*100)):0; html+=`<div class="col-md-6 mb-3"><div class="card"><div class="card-body"><div class="d-flex justify-content-between"><h5>${s.nama}</h5><div><button onclick='openAddSavingModal(${s.id},"${s.nama}")' class="btn btn-success btn-sm me-1"><i class="fas fa-plus"></i></button><button onclick="deleteSaving(${s.id})" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button></div></div><div class="progress mb-2"><div class="progress-bar" style="width:${persen}%">${persen}%</div></div><div class="d-flex justify-content-between"><span>Terkumpul: ${rupiah(s.current)}</span><span>Target: ${rupiah(s.target)}</span></div>${s.deadline?`<p class="text-muted small mt-2"><i class="far fa-calendar-alt"></i> Deadline: ${formatTanggal(s.deadline)}</p>`:''}</div></div></div>`; });
-            document.getElementById('savingsList').innerHTML = html;
-        }
-        
-        function saveSaving(){ let nama=document.getElementById('savingName').value.trim(), target=parseInt(document.getElementById('savingTarget').value), current=parseInt(document.getElementById('savingCurrent').value)||0, deadline=document.getElementById('savingDeadline').value; if(!nama||!target) return showMessage('Nama dan target harus diisi','danger'); savings.push({id:Date.now(), nama, target, current, deadline:deadline||null}); refreshAllData(); showMessage('Tabungan ditambahkan','success'); document.getElementById('savingName').value=''; document.getElementById('savingTarget').value=''; document.getElementById('savingCurrent').value='0'; document.getElementById('savingDeadline').value=''; }
-        function openAddSavingModal(id,nama){ document.getElementById('addSavingId').value=id; document.getElementById('addSavingName').innerHTML=nama; document.getElementById('addSavingAmount').value=''; document.getElementById('addSavingModal').style.display='flex'; }
-        function closeAddSavingModal(){ document.getElementById('addSavingModal').style.display='none'; }
-        function processAddSaving(){ let id=parseInt(document.getElementById('addSavingId').value), amount=parseInt(document.getElementById('addSavingAmount').value); if(!amount||amount<=0) return showMessage('Jumlah valid diperlukan','danger'); let idx=savings.findIndex(s=>s.id===id); if(idx!==-1){ savings[idx].current=(savings[idx].current||0)+amount; refreshAllData(); closeAddSavingModal(); showMessage('Saldo ditambahkan','success'); } }
-        function deleteSaving(id){ if(confirm('Hapus tabungan?')){ savings=savings.filter(s=>s.id!==id); refreshAllData(); showMessage('Tabungan dihapus','success'); } }
-        
-        // ========== HUTANG ==========
-        function displayDebts(){
-            let hutang='', piutang='', totalHutang=0, totalPiutang=0;
-            debts.forEach((d,i)=>{ if(d.status!=='Lunas'){ if(d.tipe==='Hutang'){ totalHutang+=d.jumlah; hutang+=`<div class="border-bottom mb-2 pb-2"><div class="d-flex justify-content-between"><div><strong>${d.nama}</strong><br><small>${d.deskripsi||'-'}</small></div><div class="text-end"><span class="text-danger fw-bold">${rupiah(d.jumlah)}</span><br><button onclick="lunasHutang(${i})" class="btn btn-success btn-sm mt-1">Lunas</button></div></div></div>`; } else { totalPiutang+=d.jumlah; piutang+=`<div class="border-bottom mb-2 pb-2"><div class="d-flex justify-content-between"><div><strong>${d.nama}</strong><br><small>${d.deskripsi||'-'}</small></div><div class="text-end"><span class="text-success fw-bold">${rupiah(d.jumlah)}</span><br><button onclick="lunasHutang(${i})" class="btn btn-success btn-sm mt-1">Diterima</button></div></div></div>`; } } });
-            document.getElementById('debtsList').innerHTML = hutang || '<p class="text-muted">Tidak ada hutang</p>';
-            document.getElementById('receivablesList').innerHTML = piutang || '<p class="text-muted">Tidak ada piutang</p>';
-        }
-        
-        function lunasHutang(index){ debts[index].status='Lunas'; refreshAllData(); showMessage('Status diperbarui','success'); }
-        function saveDebt(){ let tipe=document.getElementById('debtTipe').value, nama=document.getElementById('debtNama').value.trim(), jumlah=parseInt(document.getElementById('debtJumlah').value), deskripsi=document.getElementById('debtDeskripsi').value, tanggal=document.getElementById('debtTanggal').value||new Date().toISOString().split('T')[0], jatuhTempo=document.getElementById('debtJatuhTempo').value; if(!nama||!jumlah) return showMessage('Nama dan jumlah harus diisi','danger'); debts.push({id:Date.now(), tipe, nama, jumlah, deskripsi, tanggal, jatuhTempo, status:'Belum Lunas'}); refreshAllData(); showMessage('Data ditambahkan','success'); document.getElementById('debtNama').value=''; document.getElementById('debtJumlah').value=''; document.getElementById('debtDeskripsi').value=''; document.getElementById('debtJatuhTempo').value=''; }
-        
-        // ========== LAPORAN - DIPERCEPAT LOADINGNYA ==========
-        function generateReport(){ 
-            let bulan = document.getElementById('reportMonth').value.padStart(2,'0');
-            let tahun = document.getElementById('reportYear').value;
-            let bulanStr = `${tahun}-${bulan}`;
-            
-            // Filter data langsung tanpa loading delay
-            let filtered = transactions.filter(t => t.tanggal && t.tanggal.startsWith(bulanStr));
-            
-            let totalMasuk = 0;
-            let totalKeluar = 0;
-            
-            filtered.forEach(t => {
-                if(t.tipe === 'Pemasukan') totalMasuk += t.jumlah || 0;
-                else totalKeluar += t.jumlah || 0;
-            });
-            
-            document.getElementById('reportIncome').innerHTML = rupiah(totalMasuk);
-            document.getElementById('reportExpense').innerHTML = rupiah(totalKeluar);
-            document.getElementById('reportBalance').innerHTML = rupiah(totalMasuk - totalKeluar);
-            
-            // Tampilkan data transaksi langsung
-            if(filtered.length === 0) {
-                document.getElementById('reportTransactions').innerHTML = '<tr><td colspan="5" class="text-center py-4"><i class="fas fa-inbox fa-2x text-muted mb-2 d-block"></i>Tidak ada transaksi pada bulan ini</td></tr>';
-            } else {
-                let html = '';
-                filtered.forEach(t => {
-                    let cat = categories.find(c => c.nama === t.kategori) || { warna: '#6c757d', icon: 'fas fa-tag' };
-                    html += `<tr>
-                        <td><i class="fas fa-calendar-alt me-1 text-muted"></i> ${formatTanggal(t.tanggal)}</td>
-                        <td><span style="display:inline-block;width:12px;height:12px;border-radius:4px;background:${cat.warna};margin-right:8px;"></span><i class="${cat.icon} me-1"></i> ${t.kategori}</td>
-                        <td><i class="fas fa-sticky-note me-1 text-muted"></i> ${t.deskripsi || '-'}</td>
-                        <td class="text-end fw-bold ${t.tipe === 'Pemasukan' ? 'text-success' : 'text-danger'}">${rupiah(t.jumlah)}</td>
-                        <td class="text-center"><span class="badge ${t.tipe === 'Pemasukan' ? 'badge-success' : 'badge-danger'}"><i class="${t.tipe === 'Pemasukan' ? 'fas fa-arrow-up' : 'fas fa-arrow-down'} me-1"></i>${t.tipe}</span></td>
-                    </tr>`;
-                });
-                document.getElementById('reportTransactions').innerHTML = html;
-            }
-            
-            // Update grafik
-            updateMonthlyComparisonChart();
-        }
-        
-        function exportMonthlyReport(){ 
-            let bulan = document.getElementById('reportMonth').value.padStart(2,'0');
-            let tahun = document.getElementById('reportYear').value;
-            let data = transactions.filter(t => t.tanggal && t.tanggal.startsWith(`${tahun}-${bulan}`));
-            
-            let csv = "Tanggal,Tipe,Kategori,Deskripsi,Jumlah\n";
-            data.forEach(t => {
-                csv += `"${formatTanggalCSV(t.tanggal)}","${t.tipe}","${t.kategori}","${(t.deskripsi || '').replace(/"/g, '""')}","${t.jumlah}"\n`;
-            });
-            
-            let blob = new Blob(["\uFEFF" + csv], { type: 'text/csv;charset=utf-8;' });
-            let a = document.createElement('a');
-            a.href = URL.createObjectURL(blob);
-            a.download = `laporan_${tahun}_${bulan}.csv`;
-            a.click();
-            URL.revokeObjectURL(a.href);
-            showMessage('Laporan berhasil diekspor!', 'success');
-        }
-        
-        // ========== EXPORT ==========
-        function showExportModal() { updateCSVPreview(); document.getElementById('exportModal').style.display='flex'; }
-        function closeExportModal() { document.getElementById('exportModal').style.display='none'; }
-        
-        function updateCSVPreview() {
-            let tbody = document.getElementById('csvPreviewBody');
-            if (!tbody) return;
-            let previewData = [...transactions].reverse().slice(0, 10);
-            if (previewData.length === 0) { 
-                tbody.innerHTML = '<tr><td colspan="5" style="text-align:center">Belum ada transaksi</td></tr>';
-                return; 
-            }
-            tbody.innerHTML = previewData.map(t => `
-                <tr>
-                    <td>${formatTanggalCSV(t.tanggal)}</td>
-                    <td><span class="badge ${t.tipe === 'Pemasukan' ? 'badge-success' : 'badge-danger'}">${t.tipe}</span></td>
-                    <td>${t.kategori || '-'}</td>
-                    <td>${(t.deskripsi || '-').substring(0, 30)}</td>
-                    <td style="color:${t.tipe === 'Pemasukan' ? '#50fa7b' : '#ff5555'}">${rupiah(t.jumlah)}</td>
-                </tr>
-            `).join('');
-        }
-        
-        function exportData(format) {
-            let data = transactions;
-            let filename = `transaksi_${new Date().toISOString().slice(0,19).replace(/:/g, '-')}`;
-            if (format === 'json') {
-                let blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-                let a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `${filename}.json`; a.click(); URL.revokeObjectURL(a.href);
-                showMessage('Data JSON diekspor!', 'success');
-            } else if (format === 'csv') {
-                let headers = "Tanggal,Tipe,Kategori,Deskripsi,Jumlah";
-                let rows = data.map(t => `"${formatTanggalCSV(t.tanggal)}","${t.tipe}","${t.kategori}","${(t.deskripsi||'').replace(/"/g,'""')}","${t.jumlah}"`).join("\n");
-                let blob = new Blob(["\uFEFF" + headers + "\n" + rows], { type: 'text/csv;charset=utf-8;' });
-                let a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `${filename}.csv`; a.click(); URL.revokeObjectURL(a.href);
-                showMessage('Data CSV diekspor!', 'success');
-            }
-            closeExportModal();
-        }
-        
-        // ========== AUTH ==========
-        function registerUser() {
-            let username = document.getElementById('regUsername').value.trim();
-            let password = document.getElementById('regPassword').value;
-            let confirm = document.getElementById('regConfirmPassword').value;
-            if (!username || !password) { showRegisterError('Username dan password harus diisi!'); return; }
-            if (password !== confirm) { showRegisterError('Password tidak cocok!'); return; }
-            if (users.find(u => u.username === username)) { showRegisterError('Username sudah terdaftar!'); return; }
-            users.push({ username, password }); localStorage.setItem('users', JSON.stringify(users));
-            document.getElementById('registerError').style.display = 'none';
-            document.getElementById('registerSuccess').innerHTML = 'Registrasi berhasil! Silakan login.'; document.getElementById('registerSuccess').style.display = 'block';
-            setTimeout(() => showLoginForm(), 1500);
-        }
-        function showRegisterError(msg) { document.getElementById('registerError').innerHTML = msg; document.getElementById('registerError').style.display = 'block'; }
-        function showRegisterForm() { document.getElementById('loginFormDiv').style.display = 'none'; document.getElementById('registerFormDiv').style.display = 'block'; document.getElementById('registerError').style.display = 'none'; document.getElementById('registerSuccess').style.display = 'none'; }
-        function showLoginForm() { document.getElementById('loginFormDiv').style.display = 'block'; document.getElementById('registerFormDiv').style.display = 'none'; document.getElementById('loginError').style.display = 'none'; document.getElementById('username').value = ''; document.getElementById('password').value = ''; }
-        
-        function checkRememberedUser() {
-            let remembered = localStorage.getItem('rememberedUser');
-            if (remembered) {
-                try {
-                    let user = JSON.parse(remembered);
-                    document.getElementById('username').value = user.username;
-                    document.getElementById('password').value = user.password;
-                    document.getElementById('rememberMe').checked = true;
-                    setTimeout(() => { document.getElementById('loginForm').dispatchEvent(new Event('submit')); }, 100);
-                } catch(e) {}
-            }
-        }
-        
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            let username = document.getElementById('username').value.trim();
-            let password = document.getElementById('password').value;
-            let remember = document.getElementById('rememberMe').checked;
-            
-            try {
-                users = JSON.parse(localStorage.getItem('users')) || [];
-            } catch(e) { users = []; }
-            if (!users.find(u => u.username === 'admin')) users.unshift({ username: 'admin', password: 'admin123' });
-            
-            let user = users.find(u => u.username === username && u.password === password);
-            if (user) {
-                if (remember) { localStorage.setItem('rememberedUser', JSON.stringify({ username, password })); } 
-                else { localStorage.removeItem('rememberedUser'); }
-                
-                currentUser = username; 
-                loadUserData(username);
-                document.getElementById('loginPage').style.display = 'none'; 
-                document.getElementById('appPage').style.display = 'block';
-                document.getElementById('userDisplay').innerHTML = username;
-                document.getElementById('currentDate').innerHTML = new Date().toLocaleDateString('id-ID', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
-                refreshAllData(); 
-                showPage('dashboard');
-            } else { 
-                document.getElementById('loginError').innerHTML = 'Username atau password salah!<br><small>Default: admin / admin123</small>'; 
-                document.getElementById('loginError').style.display = 'block'; 
-            }
-        });
-        
-        function logout() { 
-            if (currentUser) saveUserData(currentUser); 
-            currentUser = null; 
-            document.getElementById('loginPage').style.display = 'flex'; 
-            document.getElementById('appPage').style.display = 'none'; 
-            showLoginForm(); 
-            if(window.innerWidth <= 768) closeSidebar();
-        }
-        
-        // ========== EDIT PROFIL ==========
-        function showEditProfileModal(){ document.getElementById('newUsername').value = currentUser; document.getElementById('oldPassword').value = ''; document.getElementById('newPassword').value = ''; document.getElementById('confirmNewPassword').value = ''; document.getElementById('profileError').style.display = 'none'; document.getElementById('profileSuccess').style.display = 'none'; document.getElementById('editProfileModal').style.display = 'flex'; }
-        function closeEditProfileModal(){ document.getElementById('editProfileModal').style.display = 'none'; }
-        function updateProfile(){ 
-            let newUsername = document.getElementById('newUsername').value.trim(), oldPassword = document.getElementById('oldPassword').value, newPassword = document.getElementById('newPassword').value, confirmNewPassword = document.getElementById('confirmNewPassword').value; 
-            let userIndex = users.findIndex(u => u.username === currentUser); 
-            if(userIndex === -1){ showMessage('User tidak ditemukan!','danger'); return; } 
-            if(users[userIndex].password !== oldPassword){ document.getElementById('profileError').innerHTML = 'Password lama salah!'; document.getElementById('profileError').style.display = 'block'; return; } 
-            if(newUsername !== currentUser && users.find(u => u.username === newUsername)){ document.getElementById('profileError').innerHTML = 'Username sudah digunakan!'; document.getElementById('profileError').style.display = 'block'; return; } 
-            if(newPassword && newPassword !== confirmNewPassword){ document.getElementById('profileError').innerHTML = 'Password baru tidak cocok!'; document.getElementById('profileError').style.display = 'block'; return; } 
-            saveUserData(currentUser); 
-            if(newUsername !== currentUser){ 
-                localStorage.setItem(`transactions_${newUsername}`, JSON.stringify(transactions)); 
-                localStorage.setItem(`categories_${newUsername}`, JSON.stringify(categories)); 
-                localStorage.setItem(`savings_${newUsername}`, JSON.stringify(savings)); 
-                localStorage.setItem(`debts_${newUsername}`, JSON.stringify(debts)); 
-                localStorage.removeItem(`transactions_${currentUser}`); 
-                localStorage.removeItem(`categories_${currentUser}`); 
-                localStorage.removeItem(`savings_${currentUser}`); 
-                localStorage.removeItem(`debts_${currentUser}`); 
-            } 
-            users[userIndex] = { username: newUsername, password: newPassword || oldPassword }; 
-            localStorage.setItem('users', JSON.stringify(users)); 
-            if (localStorage.getItem('rememberedUser')) { 
-                try {
-                    let rem = JSON.parse(localStorage.getItem('rememberedUser')); 
-                    if(rem.username === currentUser) localStorage.setItem('rememberedUser', JSON.stringify({username:newUsername, password:newPassword||oldPassword}));
-                } catch(e) {}
-            }
-            currentUser = newUsername; 
-            document.getElementById('userDisplay').innerHTML = currentUser; 
-            document.getElementById('profileSuccess').innerHTML = 'Profil berhasil diupdate! Silakan login ulang.'; 
-            document.getElementById('profileSuccess').style.display = 'block'; 
-            setTimeout(()=>{ closeEditProfileModal(); logout(); }, 2000); 
-        }
-        
-        function openTab(tabId){ 
-            document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active')); 
-            document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active')); 
-            document.getElementById(tabId).classList.add('active'); 
-            event.target.closest('.tab-btn').classList.add('active'); 
-        }
-        
-        // SET DEFAULTS
-        document.getElementById('transactionTanggal').value = new Date().toISOString().split('T')[0];
-        document.getElementById('debtTanggal').value = new Date().toISOString().split('T')[0];
-        
-        // SIDEBAR EVENT LISTENERS
-        document.getElementById('menuToggle').addEventListener('click', toggleSidebar);
-        document.getElementById('sidebarOverlay').addEventListener('click', closeSidebar);
-        
-        // CEK REMEMBER ME
-        checkRememberedUser();
-        
-        // RESIZE HANDLER
-        window.addEventListener('resize', function() {
-            if(window.innerWidth > 768) {
-                closeSidebar();
-                document.getElementById('sidebar').classList.remove('open');
-            }
-        });
+        window.addEventListener('resize', function() { if(window.innerWidth > 768) { closeSidebar(); } });
         
         console.log('%c✅ APLIKASI KEUANGAN PRO - SIAP DIGUNAKAN', 'color: #28a745; font-size: 16px; font-weight: bold');
         console.log('%c🔐 Login: admin | Password: admin123', 'color: #ff9800; font-size: 14px');
