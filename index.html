@@ -60,10 +60,10 @@
 
 /* Light theme */
 [data-theme="light"] {
-  --bg: rgb(8, 19, 51))))
-  --bg-2: #141f43;
-  --surface: rgba(26, 15, 90, 0.85))5)5)))
-  --surface-solid: #20074f;
+  --bg: #eef1f9;
+  --bg-2: #e5e9f5;
+  --surface: rgba(255, 255, 255, 0.85);
+  --surface-solid: #ffffff;
   --surface-2: #f1f4fb;
   --card: rgba(255, 255, 255, 0.9);
   --border: rgba(15, 23, 42, 0.08);
@@ -156,7 +156,7 @@ body {
 .nav-item:hover { background: var(--glass); color: var(--text); transform: translateX(2px); }
 .nav-item.active {
   background: var(--brand-grad);
-  color: #120334;
+  color: #fff;
   box-shadow: 0 10px 24px -10px rgba(99, 102, 241, 0.8);
 }
 
@@ -251,11 +251,11 @@ body {
 .btn:active { transform: translateY(0); }
 .btn-primary {
   background: var(--brand-grad);
-  color: #1a053e; border: none;
+  color: #fff; border: none;
   box-shadow: 0 10px 24px -10px rgba(99, 102, 241, 0.75);
 }
-.btn-success { background: var(--income); color: rgb(27, 6, 79)255, 255, 255)85e; border: none; }
-.btn-danger { background: var(--expense); color: #14084a; border: none; }
+.btn-success { background: var(--income); color: #fff; border: none; }
+.btn-danger { background: var(--expense); color: #fff; border: none; }
 .btn-ghost { background: transparent; }
 .btn-sm { padding: 7px 12px; font-size: 12.5px; border-radius: 9px; }
 .btn-block { width: 100%; }
@@ -485,9 +485,9 @@ textarea.form-control { resize: vertical; min-height: 74px; }
   background: var(--surface-2); color: var(--text-muted); font-family: inherit;
   font-weight: 700; cursor: pointer; transition: var(--tr);
 }
-.type-toggle button.active[data-type="income"] { background: var(--income); color: #071b51; border-color: transparent; }
-.type-toggle button.active[data-type="expense"] { background: var(--expense); color: #100a63ffffff; border-color: transparent; }
-.type-toggle button.active[data-type="transfer"] { background: var(--info); color: #12155f; border-color: transparent; }
+.type-toggle button.active[data-type="income"] { background: var(--income); color: #fff; border-color: transparent; }
+.type-toggle button.active[data-type="expense"] { background: var(--expense); color: #fff; border-color: transparent; }
+.type-toggle button.active[data-type="transfer"] { background: var(--info); color: #fff; border-color: transparent; }
 
 /* Icon & color pickers */
 .icon-picker, .color-picker { display: flex; flex-wrap: wrap; gap: 8px; }
@@ -616,7 +616,7 @@ textarea.form-control { resize: vertical; min-height: 74px; }
   [data-theme="light"] .bnav-item.active { color: var(--brand); }
   .bnav-fab {
     width: 56px; height: 56px; border-radius: 50%; flex-shrink: 0;
-    background: var(--brand-grad); color: #120652; border: none; font-size: 28px;
+    background: var(--brand-grad); color: #fff; border: none; font-size: 28px;
     cursor: pointer; box-shadow: 0 12px 26px -8px rgba(99,102,241,0.8);
     margin-top: -26px; transition: var(--tr);
   }
@@ -653,8 +653,8 @@ textarea.form-control { resize: vertical; min-height: 74px; }
       <div class="sidebar-brand">
         <span class="brand-logo">💰</span>
         <div class="brand-text">
-          <span class="brand-name">CANDRA_PUTRI</span>
-          <span class="brand-sub"> PUTRI  CANDRA</span>
+          <span class="brand-name">CANDRAt</span>
+          <span class="brand-sub">CANDRA PUTRI</span>
         </div>
       </div>
 
@@ -1204,7 +1204,7 @@ var XLSX={};function make_xlsx_lib(a){a.version="0.18.5",a.style_version="1.2.0"
   <!-- calculations.js -->
   <script>
 /* ============================================================================
- * calculations.js — pure computation helpers for can
+ * calculations.js — pure computation helpers for FinanSmart
  * No DOM, no storage writes. Takes data in, returns numbers/objects out.
  * ==========================================================================*/
 
@@ -2436,7 +2436,7 @@ var XLSX={};function make_xlsx_lib(a){a.version="0.18.5",a.style_version="1.2.0"
     var ws = {};
     var txns = data.transactions || [];
     var headers = ['Bulan', 'Pemasukan', 'Pengeluaran', 'Selisih'];
-    buildSheetHeader(ws, '📅 REKAP BULANAN CANDRA PUT', periodText, headers.length);
+    buildSheetHeader(ws, '📅 REKAP BULANAN', periodText, headers.length);
     var headerRow = 3;
     writeTableHeader(ws, headerRow, headers);
 
@@ -2734,7 +2734,7 @@ var XLSX={};function make_xlsx_lib(a){a.version="0.18.5",a.style_version="1.2.0"
       'h2{color:#334155;border-left:4px solid #2563eb;padding-left:8px;}' +
       '@media print{body{margin:12px;}}' +
       '</style></head><body>' +
-      '<h1>📊 Laporan Keuangan CANDRA PUTRI</h1>' +
+      '<h1>📊 Laporan Keuangan FinanSmart</h1>' +
       '<div class="period">' + esc(periodText) + '</div>' +
       '<div class="cards">' +
       '<div class="card bal"><div class="label">Total Saldo</div><div class="value">' + C.formatRupiah(balance) + '</div></div>' +
@@ -2782,7 +2782,7 @@ var XLSX={};function make_xlsx_lib(a){a.version="0.18.5",a.style_version="1.2.0"
   <!-- app.js -->
   <script>
 /* ============================================================================
- * app.js — C main controller
+ * app.js — FinanSmart main controller
  * Routing, rendering all views, CRUD, filters, search, pagination, theme,
  * modals, toasts. Depends on Storage, Calc, Charts, Exporter globals.
  * ==========================================================================*/
